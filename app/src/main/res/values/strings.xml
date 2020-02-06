@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WorkoutTimer</string>
+    <string name="play_workout">play workout</string>
+    <string name="manage_workout">manage workout</string>
+    <string name="manage_exercises">manage exercises</string>
+    <string name="help">help</string>
+    <string name="about">about</string>
+</resources>
