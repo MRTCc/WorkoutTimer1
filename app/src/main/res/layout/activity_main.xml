@@ -17,14 +17,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            android:text="@string/play_workout" />
+            android:text="@string/play_workout"
+            android:onClick="playWorkout"
+            />
 
         <Button
             android:id="@+id/btnManagerWorkout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            android:text="@string/manage_workout" />
+            android:text="@string/manage_workout"
+            android:onClick="managerWorkout"
+            />
 
         <Button
             android:id="@+id/btnManagerExercises"
@@ -38,12 +42,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            android:text="@string/help" />
+            android:text="@string/help"
+            android:onClick="helpDialog"
+            />
 
         <Button
             android:id="@+id/btnAbout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            android:text="@string/about" />
+            android:text="@string/about"
+            android:onClick="aboutActivity"
+            />
 </LinearLayout>
