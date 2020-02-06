@@ -19,37 +19,35 @@
 
             <Button
                 android:id="@+id/btnPlay"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="30"
                 android:text="Play"
+                android:textSize="20sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:autoSizeMaxTextSize="30sp"
-                android:autoSizeMinTextSize="10sp"
-                android:autoSizeTextType="uniform"
                 />
 
             <TextView
                 android:id="@+id/txtCountDown"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="40"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="30sp"
-                android:autoSizeMaxTextSize="70sp"
                 android:text="900"
+                android:autoSizeMaxTextSize="30sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeTextType="uniform"
+                app:autoSizeStepGranularity="1sp"
                 />
 
             <Button
                 android:id="@+id/btnLock"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:layout_weight="30"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:text="Lock"
+                android:textSize="20sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:autoSizeMaxTextSize="30sp"
-                android:autoSizeMinTextSize="10sp"
-                android:autoSizeTextType="uniform"
+                android:onClick="lockButtons"
                 />
         </TableRow>
 
@@ -62,13 +60,15 @@
 
             <TextView
                 android:id="@+id/txtExName"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="100"
-                android:autoSizeMaxTextSize="40sp"
-                android:autoSizeMinTextSize="30sp"
+                android:text="Renatore con manubrio"
+                android:autoSizeMaxTextSize="30sp"
+                android:autoSizeMinTextSize="10sp"
                 android:autoSizeTextType="uniform"
-                android:text="Renatore con manubrio" />
+                app:autoSizeStepGranularity="1sp"
+                />
         </TableRow>
 
         <TableRow
@@ -80,13 +80,14 @@
 
             <TextView
                 android:id="@+id/txtPhaseCountDown"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="100"
-                android:autoSizeMaxTextSize="500sp"
-                android:autoSizeMinTextSize="30sp"
+                android:autoSizeMaxTextSize="200sp"
+                android:autoSizeMinTextSize="10sp"
                 android:autoSizeTextType="uniform"
                 android:text="100"
+                app:autoSizeStepGranularity="1sp"
                 />
         </TableRow>
 
@@ -99,22 +100,24 @@
 
             <TextView
                 android:id="@+id/txtSetsToDo"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="50"
-                android:autoSizeMaxTextSize="70sp"
-                android:autoSizeMinTextSize="30sp"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMinTextSize="10sp"
                 android:autoSizeTextType="uniform"
+                app:autoSizeStepGranularity="1sp"
                 android:text="20/20" />
 
             <TextView
                 android:id="@+id/txtRepsToDo"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="50"
-                android:autoSizeMaxTextSize="70sp"
-                android:autoSizeMinTextSize="30sp"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeMinTextSize="10sp"
                 android:autoSizeTextType="uniform"
+                app:autoSizeStepGranularity="1sp"
                 android:text="100" />
         </TableRow>
 
@@ -126,24 +129,21 @@
 
             <Button
                 android:id="@+id/btnPrev"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="50"
-                android:autoSizeMaxTextSize="30sp"
-                android:autoSizeMinTextSize="10sp"
-                android:autoSizeTextType="uniform"
                 android:text="Prev"
+                android:textSize="20sp"
+
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <Button
                 android:id="@+id/btnNext"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="50"
-                android:autoSizeMaxTextSize="30sp"
-                android:autoSizeMinTextSize="10sp"
-                android:autoSizeTextType="uniform"
                 android:text="Next"
+                android:textSize="20sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </TableRow>
 
