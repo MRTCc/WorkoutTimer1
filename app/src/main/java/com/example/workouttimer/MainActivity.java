@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     private DbManager dbManager;
@@ -24,8 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
         dbManager = new DbManager(this);
         dbManager.open();
-        Toast.makeText(this, "DB partito", Toast.LENGTH_SHORT).show();
+        //TODO: remember to close the connection to database
 
+        //dbManager.insertExercise("squat", 4, 8, 60, 65, 80, 20);
+        //dbManager.insertFavoriteRoutine("R di prova");
+        //dbManager.insertConcreteRoutine("Routine di prova" , "sq");
+        //dbManager.deleteRoutine("Routine di prova");
+        //dbManager.deleteExercise("squat");
+        //dbManager.deleteConcreteRoutine(null, "sq");
+        dbManager.deleteFavoriteRoutine();
     }
 
     public void playWorkout(View view) {
