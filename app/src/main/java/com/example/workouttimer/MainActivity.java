@@ -24,10 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dbManager = new DbManager(this);
-        dbManager.open();
-        //TODO: remember to close the connection to database
-
 
     }
 

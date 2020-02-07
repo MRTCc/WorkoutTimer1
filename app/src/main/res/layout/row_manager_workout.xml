@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    >
 
     <TextView
         android:id="@+id/txtRoutineName"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" android:padding="10dip"
-        android:textSize="22dip"/>
+        android:padding="10dip"
+        android:text=""
+        android:textSize="22sp"
+        android:autoSizeMaxTextSize="30sp"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeTextType="uniform"
+        android:layout_weight="75"
+        android:layout_width="wrap_content"
+        />
 
     <Button
         android:id="@+id/btnPlayRoutine"
+        android:text="Play"
+        android:layout_weight="25"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Play" />
+        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btnSubMenuRoutine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Sottomenu" />
+
 
 
 </LinearLayout>
