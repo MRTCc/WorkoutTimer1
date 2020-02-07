@@ -7,16 +7,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    public final static String EXTRA_MESSAGE_PLAY = "com.example.workouttimer.MESSAGE";
-    public final static String EXTRA_MESSAGE_WORKOUT = "com.example.workouttimer.MESSAGE";
-    public final static String EXTRA_MESSAGE_ABOUT = "com.example.workouttimer.MESSAGE";
+
+    private DbManager dbManager;
+
+    private final static String EXTRA_MESSAGE_PLAY = "com.example.workouttimer.MESSAGE";
+    private final static String EXTRA_MESSAGE_WORKOUT = "com.example.workouttimer.MESSAGE";
+    private final static String EXTRA_MESSAGE_ABOUT = "com.example.workouttimer.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dbManager = new DbManager(this);
+        dbManager.open();
+        Toast.makeText(this, "DB partito", Toast.LENGTH_SHORT).show();
+
     }
 
     public void playWorkout(View view) {
