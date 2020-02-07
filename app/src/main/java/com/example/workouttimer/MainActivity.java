@@ -34,7 +34,11 @@ public class MainActivity extends AppCompatActivity {
         //dbManager.deleteRoutine("Routine di prova");
         //dbManager.deleteExercise("squat");
         //dbManager.deleteConcreteRoutine(null, "sq");
-        dbManager.deleteFavoriteRoutine();
+        //dbManager.deleteFavoriteRoutine();
+        //dbManager.insertRoutine("r di prova", "3-4-1567", 0);
+        //dbManager.updateRoutine("r di prova", "nuova di prova");
+        //dbManager.updateExercise("squat", "bicipiti", 4, 8, 60, 65, 80, 20);
+
     }
 
     public void playWorkout(View view) {

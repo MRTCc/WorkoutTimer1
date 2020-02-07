@@ -93,5 +93,29 @@ public class DbManager {
     }
 
 
+    /*----------- funciont of update --------------*/
+    public void updateRoutine(String oldRoutineName, String newRoutineName){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(dbHelper.ROUTINE_NAME, newRoutineName);
+        //TODO: verify if it is needed a control on the return value of update function
+        database.update(dbHelper.ROUTINES_TABLE, contentValues, dbHelper.ROUTINE_NAME
+                + " = " + " '" + oldRoutineName + "' ", null);
+    }
+
+    public void updateExercise(String oldExerciseName, String newExerciseName, int setsToDo,
+                               int repsToDo, int preparationTime, int workTime, int restTime,
+                               int coolDownTime){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(dbHelper.EXERCISE_NAME, newExerciseName);
+        contentValues.put(dbHelper.SETS_TO_DO, setsToDo);
+        contentValues.put(dbHelper.REPS_TO_DO, repsToDo);
+        contentValues.put(dbHelper.PREPARATION_TIME, preparationTime);
+        contentValues.put(dbHelper.WORK_TIME, workTime);
+        contentValues.put(dbHelper.REST_TIME, restTime);
+        contentValues.put(dbHelper.COOL_DOWN_TIME, coolDownTime);
+        database.update(dbHelper.EXERCISE_TABLE, contentValues, dbHelper.EXERCISE_NAME +
+                " = " + " '" + oldExerciseName + "' ", null);
+    }
+
     
 }

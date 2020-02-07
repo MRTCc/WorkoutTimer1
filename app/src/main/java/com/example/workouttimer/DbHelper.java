@@ -39,18 +39,24 @@ public class DbHelper extends SQLiteOpenHelper {
     private final static String CONSTRAINT_1_CONCRETE_ROUTINES = "primary key(RoutineName, ExerciseName)";
     private final static String CONSTRAINT_2_CONCRETE_ROUTINES = "foreign key(RoutineName) references Routines on delete cascade";
     private final static String CONSTRAINT_3_CONCRETE_ROUTINES = "foreign key(ExerciseName) references Exercises on delete cascade";
+    private final static String CONSTRAINT_4_CONCRETE_ROUTINES = "foreign key(RoutineName) references Routines on update cascade";
+    private final static String CONSTRAINT_5_CONCRETE_ROUTINES = "foreign key(ExerciseName) references Exercises on update cascade";
 
     private final static String CREATE_TABLE_CONCRETE_ROUTINES = "create table " + CONCRETE_ROUTINES_TABLE + "(" +
             ROUTINE_NAME + " text, " + EXERCISE_NAME + " text, " + CONSTRAINT_1_CONCRETE_ROUTINES + " , " +
-            CONSTRAINT_2_CONCRETE_ROUTINES + " , " + CONSTRAINT_3_CONCRETE_ROUTINES + " ); ";
+            CONSTRAINT_2_CONCRETE_ROUTINES + " , " + CONSTRAINT_3_CONCRETE_ROUTINES + " , " +
+            CONSTRAINT_4_CONCRETE_ROUTINES + " , " + CONSTRAINT_5_CONCRETE_ROUTINES + " ); ";
 
 
     //table FavoriteRoutine
     protected final static String FAVORITE_ROUTINE_TABLE = "FavoriteRoutine";
     private final static String CONSTRAINT_1_FAVORITE_ROUTINE = "foreign key(RoutineName) references Routines on delete cascade";
+    private final static String CONSTRAINT_2_FAVORITE_ROUTINE = "foreign key(RoutineName) references Routines on update cascade";
+
 
     private final static String CREATE_TABLE_FAVORITE_ROUTINE = "create table " + FAVORITE_ROUTINE_TABLE + " ( " +
-            ROUTINE_NAME + " text primary key, " + CONSTRAINT_1_FAVORITE_ROUTINE + " ); ";
+            ROUTINE_NAME + " text primary key, " + CONSTRAINT_1_FAVORITE_ROUTINE + " , " +
+            CONSTRAINT_2_FAVORITE_ROUTINE + " ); ";
 
     public DbHelper(Context context) {
             super(context, DB_NAME,null, DB_VERSION);
