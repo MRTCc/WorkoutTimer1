@@ -28,16 +28,6 @@ public class MainActivity extends AppCompatActivity {
         dbManager.open();
         //TODO: remember to close the connection to database
 
-        //dbManager.insertExercise("squat", 4, 8, 60, 65, 80, 20);
-        //dbManager.insertFavoriteRoutine("R di prova");
-        //dbManager.insertConcreteRoutine("Routine di prova" , "sq");
-        //dbManager.deleteRoutine("Routine di prova");
-        //dbManager.deleteExercise("squat");
-        //dbManager.deleteConcreteRoutine(null, "sq");
-        //dbManager.deleteFavoriteRoutine();
-        //dbManager.insertRoutine("r di prova", "3-4-1567", 0);
-        //dbManager.updateRoutine("r di prova", "nuova di prova");
-        //dbManager.updateExercise("squat", "bicipiti", 4, 8, 60, 65, 80, 20);
 
     }
 

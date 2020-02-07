@@ -8,13 +8,11 @@
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp" >
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="503dp"
-        android:layout_weight="1"
-        android:text="IN costruzione"
-        android:textSize="100sp" />
+    <ListView
+        android:id="@+id/listViewWorkout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
 
 </LinearLayout>
 

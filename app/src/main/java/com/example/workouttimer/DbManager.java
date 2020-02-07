@@ -16,10 +16,16 @@ public class DbManager {
         context = c;
     }
 
-    public DbManager open() throws SQLException {
+    public DbManager open(String accessMode) throws SQLException {
         dbHelper = new DbHelper(context);
-        database = dbHelper.getWritableDatabase();
-        database.execSQL("PRAGMA foreign_keys=ON");
+        if("read".equals(accessMode)){
+            database = dbHelper.getReadableDatabase();
+            database.execSQL("PRAGMA foreign_keys=ON");
+        }
+        if("write".equals(accessMode)) {
+            database = dbHelper.getWritableDatabase();
+            database.execSQL("PRAGMA foreign_keys=ON");
+        }
         return this;
     }
 
@@ -117,5 +123,19 @@ public class DbManager {
                 " = " + " '" + oldExerciseName + "' ", null);
     }
 
-    
+
+
+    /*---------- functions of SELECT -------------*/
+    public Cursor fetchAllRoutines(){
+        String[] columns = new String[] {dbHelper.ROUTINE_NAME, dbHelper.DATE_OF_CREATION,
+                dbHelper.N_DONE};
+        Cursor cursor = database.query(dbHelper.ROUTINES_TABLE, columns, null,
+                null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+
 }
