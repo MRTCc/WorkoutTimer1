@@ -5,9 +5,9 @@
     android:weightSum="100"
     >
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="75"
+        android:layout_weight="70"
         android:background="@color/orangelight"
         >
 
@@ -27,14 +27,23 @@
             />
     </LinearLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/btnPlayRoutineF"
         android:text="Play"
-        android:layout_weight="25"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_weight="15"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@android:drawable/ic_media_play"
+        />
 
-
+    <ImageButton
+        android:id="@+id/btnModifyRoutineF"
+        android:text="Modify"
+        android:layout_weight="15"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@android:drawable/ic_menu_agenda"
+        />
 
 
 </LinearLayout>

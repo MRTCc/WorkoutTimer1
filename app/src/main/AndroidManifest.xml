@@ -10,9 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AboutActivity"></activity>
-        <activity android:name=".ManageRoutineActivity" />
-        <activity android:name=".ManagerWorkoutActivity" />
-        <activity android:name=".PlayWorkoutActivity" />
+        <activity android:name=".ManageRoutineActivity"
+            android:label="Manage Routine"
+            />
+        <activity android:name=".ManagerWorkoutActivity"
+            android:label="Routines Manager"
+            />
+        <activity android:name=".PlayWorkoutActivity"
+            android:label="Playing workout"
+            />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

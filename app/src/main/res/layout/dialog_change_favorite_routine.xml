@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="100"
+    >
+
+    <TextView
+        android:id="@+id/txtChangeFavoriteConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="80"
+        android:text="You are trying to change your favorite routine. Are you sure?"
+        android:autoSizeMaxTextSize="30sp"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeTextType="uniform"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="20"
+        >
+
+        <Button
+            android:id="@+id/btnConfirmChangeFavorite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:text="confirm" />
+
+        <Button
+            android:id="@+id/btnUndoChangeFavorite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:text="go back" />
+
+    </LinearLayout>
+
+</LinearLayout>
