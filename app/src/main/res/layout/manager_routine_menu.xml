@@ -4,19 +4,19 @@
 
     <item
         android:id="@+id/menuNewRoutine"
-        android:title="newRoutine"
+        android:title="@string/newRoutineTitle"
         android:icon="@android:drawable/ic_menu_add"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menuDeletepManagerRoutine"
-        android:title="help"
+        android:title="@string/deleteRoutineTitle"
         android:icon="@android:drawable/ic_menu_delete"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menuHelpManagerRoutine"
-        android:title="help"
+        android:title="@string/helpMenuTitle"
         android:icon="@android:drawable/ic_menu_help"
         app:showAsAction="ifRoom" />
 

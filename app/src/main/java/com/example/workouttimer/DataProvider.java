@@ -45,4 +45,26 @@ public class DataProvider {
         dbManager.close();
         return favoriteRoutineName;
     }
+
+    public Routine getCompleteRoutine(String routineName){
+        Routine routine = new Routine();
+
+        Cursor cursor = dbManager.fetchExercisesNameFromConcrRoutine(routineName);
+
+        if(cursor != null) {
+            routine.setRoutineName(routineName);
+            ArrayList<Exercise> listExercise = new ArrayList<Exercise>();
+            while(cursor.moveToNext()){
+                Exercise exercise = new Exercise();
+                exercise.setExerciseName(cursor.getString(cursor.getColumnIndex(dbUtils.EXERCISE_NAME)));
+                exercise.setSetsToDo(cursor.getInt(cursor.getColumnIndex(dbUtils.SETS_TO_DO)));
+
+                listExercise.add(exercise);
+            }
+
+        }
+
+        dbManager.close();
+        return routine;
+    }
 }

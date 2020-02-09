@@ -84,7 +84,7 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.menuNewRoutine:
                 Intent intent = new Intent(this, ManageRoutineActivity.class);
-                String message = "";
+                String message = "newRoutine";
                 intent.putExtra("newRoutine", message);
                 startActivity(intent);
                 return(true);
@@ -92,6 +92,7 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
                 helpDialog.show();
                 return(true);
             case R.id.menuDeletepManagerRoutine:
+                //TODO: implementing delete of routines functionality
                 return(true);
         }
         return(super.onOptionsItemSelected(item));

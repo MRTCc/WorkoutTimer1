@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="80"
-        android:text="You are trying to change your favorite routine. Are you sure?"
+        android:text="@string/dialog_boby_change_favorite_routine"
         android:autoSizeMaxTextSize="30sp"
         android:autoSizeMinTextSize="10sp"
         android:autoSizeTextType="uniform"
@@ -28,14 +28,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="50"
-            android:text="confirm" />
+            android:text="@string/confirm" />
 
         <Button
             android:id="@+id/btnUndoChangeFavorite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="50"
-            android:text="go back" />
+            android:text="@string/go_back" />
 
     </LinearLayout>
 

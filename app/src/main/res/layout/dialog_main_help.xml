@@ -11,12 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="80"
-        android:text="many help information"
+        android:text="@string/dialog_help_main"
 
         />
 
     <Button
-        android:id="@+id/btnExitDIalog"
+        android:id="@+id/btnExitDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="20"

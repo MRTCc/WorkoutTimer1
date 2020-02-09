@@ -34,8 +34,9 @@ public class DbHelper extends SQLiteOpenHelper {
             ROUTINE_NAME + " text primary key, " + DATE_OF_CREATION + " date, " + N_DONE + " int );";
 
 
-    //table COncreteRoutines
+    //table ConcreteRoutines
     protected final static String CONCRETE_ROUTINES_TABLE = "ConcreteRoutines";
+    protected final static String POSITION = "position";
     private final static String CONSTRAINT_1_CONCRETE_ROUTINES = "primary key(RoutineName, ExerciseName)";
     private final static String CONSTRAINT_2_CONCRETE_ROUTINES = "foreign key(RoutineName) references Routines on delete cascade";
     private final static String CONSTRAINT_3_CONCRETE_ROUTINES = "foreign key(ExerciseName) references Exercises on delete cascade";
@@ -43,7 +44,8 @@ public class DbHelper extends SQLiteOpenHelper {
     private final static String CONSTRAINT_5_CONCRETE_ROUTINES = "foreign key(ExerciseName) references Exercises on update cascade";
 
     private final static String CREATE_TABLE_CONCRETE_ROUTINES = "create table " + CONCRETE_ROUTINES_TABLE + "(" +
-            ROUTINE_NAME + " text, " + EXERCISE_NAME + " text, " + CONSTRAINT_1_CONCRETE_ROUTINES + " , " +
+            ROUTINE_NAME + " text, " + EXERCISE_NAME + " text, " + POSITION + " int unique, " +
+            CONSTRAINT_1_CONCRETE_ROUTINES + " , " +
             CONSTRAINT_2_CONCRETE_ROUTINES + " , " + CONSTRAINT_3_CONCRETE_ROUTINES + " , " +
             CONSTRAINT_4_CONCRETE_ROUTINES + " , " + CONSTRAINT_5_CONCRETE_ROUTINES + " ); ";
 

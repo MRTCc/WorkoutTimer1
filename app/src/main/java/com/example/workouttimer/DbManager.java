@@ -147,5 +147,20 @@ public class DbManager {
         return cursor;
     }
 
+    public Cursor fetchExercisesNameFromConcrRoutine(String routineName){
+        String[] columns = new String[] {dbHelper.EXERCISE_NAME, dbHelper.SETS_TO_DO, dbHelper.REPS_TO_DO,
+                dbHelper.PREPARATION_TIME, dbHelper.WORK_TIME, dbHelper.REST_TIME, dbHelper.COOL_DOWN_TIME,
+                dbHelper.POSITION};
+        Cursor cursor = database.query(dbHelper.CONCRETE_ROUTINES_TABLE, columns,
+                routineName + " = " + dbHelper.ROUTINE_NAME + " and " +
+                 dbHelper.CONCRETE_ROUTINES_TABLE + "."+ dbHelper.EXERCISE_NAME + " = " +
+                dbHelper.EXERCISE_TABLE + "." + dbHelper.EXERCISE_NAME, null,
+                null, dbHelper.POSITION, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
 
 }

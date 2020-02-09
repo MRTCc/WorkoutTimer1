@@ -22,7 +22,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="30"
-                android:text="Play"
+                android:text="@string/play"
                 android:textSize="20sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 />
@@ -44,7 +44,7 @@
                 android:layout_weight="30"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Lock"
+                android:text="@string/lockBtnText"
                 android:textSize="20sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:onClick="lockButtons"
@@ -132,7 +132,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="50"
-                android:text="Prev"
+                android:text="@string/prevBtnText"
                 android:textSize="20sp"
 
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
@@ -142,7 +142,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="50"
-                android:text="Next"
+                android:text="@string/nextBtnText"
                 android:textSize="20sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </TableRow>

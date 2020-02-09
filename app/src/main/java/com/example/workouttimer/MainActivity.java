@@ -7,9 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +21,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+        DbManager dbManager = new DbManager(this);
+        dbManager.open("write");
+        dbManager.insertRoutine("r1", "3-4-1567", 0);
+        dbManager.insertRoutine("r2", "3-4-1567", 0);
+        dbManager.insertRoutine("r3", "3-4-1567", 0);
+        dbManager.insertRoutine("r4", "3-4-1567", 0);
+        dbManager.insertRoutine("r5", "3-4-1567", 0);
+        dbManager.insertRoutine("r6", "3-4-1567", 0);
+        dbManager.close();
     }
 
     public void playWorkout(View view) {
@@ -44,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         helpDialog.setContentView(R.layout.dialog_main_help);
         helpDialog.setTitle("Help");
 
-        Button dialogButton = (Button) helpDialog.findViewById(R.id.btnExitDIalog);
+        Button dialogButton = (Button) helpDialog.findViewById(R.id.btnExitDialog);
 
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override

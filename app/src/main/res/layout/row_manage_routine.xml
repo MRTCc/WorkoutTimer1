@@ -8,42 +8,42 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="70"
-        android:background="@color/orangelight"
         >
 
         <TextView
-            android:id="@+id/txtRoutineNameF"
+            android:id="@+id/txtRoutineName"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_margin="7dp"
+            android:padding="10dip"
+            android:text=""
+            android:textSize="22sp"
+            android:layout_margin ="0.5dp"
             android:autoSizeMaxTextSize="30sp"
             android:autoSizeMinTextSize="10sp"
             android:autoSizeTextType="uniform"
             android:background="@color/white"
-            android:padding="10dip"
-            android:text=""
-            android:textSize="22sp"
 
             />
+
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/btnPlayRoutineF"
+        android:id="@+id/btnPlayRoutine"
         android:layout_weight="15"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:src="@android:drawable/ic_media_play"
-        android:contentDescription="@string/todo"
-        />
+        android:contentDescription="@string/todo" />
 
     <ImageButton
-        android:id="@+id/btnModifyRoutineF"
+        android:id="@+id/btnModifyRoutine"
         android:layout_weight="15"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:src="@android:drawable/ic_menu_agenda"
-        android:contentDescription="@string/todo"
-        />
+        android:contentDescription="@string/todo" />
+
+
 
 
 </LinearLayout>

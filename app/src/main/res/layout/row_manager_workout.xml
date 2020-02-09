@@ -29,19 +29,19 @@
 
     <ImageButton
         android:id="@+id/btnPlayRoutine"
-        android:text="Play"
         android:layout_weight="15"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:src="@android:drawable/ic_media_play"/>
+        android:src="@android:drawable/ic_media_play"
+        android:contentDescription="@string/todo" />
 
     <ImageButton
         android:id="@+id/btnModifyRoutine"
-        android:text="Modify"
         android:layout_weight="15"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:src="@android:drawable/ic_menu_agenda"/>
+        android:src="@android:drawable/ic_menu_agenda"
+        android:contentDescription="@string/todo" />
 
 
 
