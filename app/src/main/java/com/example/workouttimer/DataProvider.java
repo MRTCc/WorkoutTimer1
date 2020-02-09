@@ -32,4 +32,16 @@ public class DataProvider {
         dbManager.close();
         return listRoutine;
     }
+
+    public String getFavoriteRoutineName(){
+        String favoriteRoutineName = "";
+        dbManager.open("read");
+        Cursor cursor = dbManager.fetchFavoriteRoutine();
+
+        if(cursor.moveToNext()){
+            favoriteRoutineName = cursor.getString(cursor.getColumnIndex(dbUtils.FAVORITE_ROUTINE_TABLE));
+        }
+
+        return favoriteRoutineName;
+    }
 }

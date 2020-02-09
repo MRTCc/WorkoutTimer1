@@ -1,5 +1,6 @@
 package com.example.workouttimer;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -130,6 +131,16 @@ public class DbManager {
         String[] columns = new String[] {dbHelper.ROUTINE_NAME, dbHelper.DATE_OF_CREATION,
                 dbHelper.N_DONE};
         Cursor cursor = database.query(dbHelper.ROUTINES_TABLE, columns, null,
+                null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    public Cursor fetchFavoriteRoutine(){
+        String[] columns = new String[] {dbHelper.ROUTINE_NAME};
+        Cursor cursor = database.query(dbHelper.FAVORITE_ROUTINE_TABLE, columns, null,
                 null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();

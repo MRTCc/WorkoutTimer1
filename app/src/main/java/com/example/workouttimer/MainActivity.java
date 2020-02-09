@@ -13,7 +13,6 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DbManager dbManager;
 
     private final static String EXTRA_MESSAGE_PLAY = "com.example.workouttimer.MESSAGE";
     private final static String EXTRA_MESSAGE_WORKOUT = "com.example.workouttimer.MESSAGE";
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
     }
 

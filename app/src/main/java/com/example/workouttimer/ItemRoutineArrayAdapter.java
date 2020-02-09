@@ -1,6 +1,7 @@
 package com.example.workouttimer;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,14 @@ public class ItemRoutineArrayAdapter extends ArrayAdapter<ItemRoutine> {
 
     Context context;
     private int listItemLayout;
+    private String favoriteRoutineName;
 
     public ItemRoutineArrayAdapter(Context context, int layoutId, ArrayList<ItemRoutine> itemList) {
         super(context, layoutId, itemList);
         listItemLayout = layoutId;
         this.context = context;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -35,21 +38,26 @@ public class ItemRoutineArrayAdapter extends ArrayAdapter<ItemRoutine> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(listItemLayout, parent, false);
+
             viewHolder.item = (TextView) convertView.findViewById(R.id.txtRoutineName);
             convertView.setTag(viewHolder); // view lookup cache stored in tag
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        final TextView txtItem = viewHolder.item;
+
         // Populate the data into the template view using the data object
-        viewHolder.item.setText(item.getName());
+        txtItem.setText(item.getName());
+
+
 
         //selection of favorite routine
-        viewHolder.item.setOnLongClickListener(new View.OnLongClickListener() {
+        txtItem.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public  boolean onLongClick(View v) {
                 //Toast.makeText(context, "funziona", Toast.LENGTH_SHORT).show();
-
+                txtItem.setBackgroundColor(Color.BLUE);
                 return false;
             }
         });

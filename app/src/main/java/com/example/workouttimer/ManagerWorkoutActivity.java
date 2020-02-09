@@ -19,11 +19,15 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
     private ListView listView;
     private DataProvider dataProvider;
     private ArrayList<Routine> listRoutine;
+    private String favoriteRoutineName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_workout);
+
+        dataProvider = new DataProvider(this);
+        listRoutine = dataProvider.getAllRoutines();
 
         // Initializing list view with the custom adapter
         ArrayList<ItemRoutine> itemList = new ArrayList<ItemRoutine>();
@@ -31,10 +35,10 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
                 R.layout.row_manager_workout, itemList);
         listView = (ListView) findViewById(R.id.listViewWorkout);
         listView.setAdapter(itemArrayAdapter);
-        dataProvider = new DataProvider(this);
-        listRoutine = dataProvider.getAllRoutines();
 
-        // Populating list items
+        favoriteRoutineName = dataProvider.getFavoriteRoutineName();
+
+        // Populating list items, in other words loading of all routines
         Iterator<Routine> iterator = listRoutine.iterator();
        while(iterator.hasNext()){
             ItemRoutine itemRoutine = new ItemRoutine(iterator.next().routineName);
