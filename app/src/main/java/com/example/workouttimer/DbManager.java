@@ -57,8 +57,7 @@ public class DbManager {
     }
 
     public void insertFavoriteRoutine(String routineName){
-        //TODO: delete all data in the table and then insert the new favorite routine
-
+        deleteFavoriteRoutine();
         ContentValues contentValue = new ContentValues();
         contentValue.put(dbHelper.ROUTINE_NAME, routineName);
         database.insert(dbHelper.FAVORITE_ROUTINE_TABLE, null, contentValue);

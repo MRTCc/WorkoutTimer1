@@ -47,4 +47,8 @@ public class Routine {
     public void setListExercise(ArrayList<Exercise> listExercise) {
         this.listExercise = listExercise;
     }
+
+    public String getRoutineName() {
+        return routineName;
+    }
 }

@@ -28,22 +28,31 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
 
         dataProvider = new DataProvider(this);
         listRoutine = dataProvider.getAllRoutines();
+        favoriteRoutineName = dataProvider.getFavoriteRoutineName();
 
         // Initializing list view with the custom adapter
         ArrayList<ItemRoutine> itemList = new ArrayList<ItemRoutine>();
         ItemRoutineArrayAdapter itemArrayAdapter = new ItemRoutineArrayAdapter(this,
-                R.layout.row_manager_workout, itemList);
+                0, itemList);
         listView = (ListView) findViewById(R.id.listViewWorkout);
         listView.setAdapter(itemArrayAdapter);
-
-        favoriteRoutineName = dataProvider.getFavoriteRoutineName();
 
         // Populating list items, in other words loading of all routines
         Iterator<Routine> iterator = listRoutine.iterator();
        while(iterator.hasNext()){
-            ItemRoutine itemRoutine = new ItemRoutine(iterator.next().routineName);
+            String name = iterator.next().getRoutineName();
+            int type = 0;
+
+            if(name.equals(favoriteRoutineName)){
+                type = 1;
+            }
+
+            ItemRoutine itemRoutine = new ItemRoutine(name, type);
             itemList.add(itemRoutine);
         }
+
+
+
 
 
     }
