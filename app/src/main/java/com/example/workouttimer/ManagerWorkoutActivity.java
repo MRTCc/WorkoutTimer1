@@ -91,6 +91,8 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
             case R.id.menuHelpManagerRoutine:
                 helpDialog.show();
                 return(true);
+            case R.id.menuDeletepManagerRoutine:
+                return(true);
         }
         return(super.onOptionsItemSelected(item));
     }

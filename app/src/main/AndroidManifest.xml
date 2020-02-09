@@ -9,16 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AboutActivity"></activity>
-        <activity android:name=".ManageRoutineActivity"
-            android:label="Manage Routine"
-            />
-        <activity android:name=".ManagerWorkoutActivity"
-            android:label="Routines Manager"
-            />
-        <activity android:name=".PlayWorkoutActivity"
-            android:label="Playing workout"
-            />
+        <activity android:name=".ShowExercises"></activity>
+        <activity android:name=".AboutActivity" />
+        <activity
+            android:name=".ManageRoutineActivity"
+            android:label="Manage Routine" />
+        <activity
+            android:name=".ManagerWorkoutActivity"
+            android:label="Routines Manager" />
+        <activity
+            android:name=".PlayWorkoutActivity"
+            android:label="Playing workout" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

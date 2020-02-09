@@ -35,7 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            android:text="@string/manage_exercises" />
+            android:text="show exercises"
+            android:onClick="showExercises"
+            />
 
         <Button
             android:id="@+id/btnHelp"

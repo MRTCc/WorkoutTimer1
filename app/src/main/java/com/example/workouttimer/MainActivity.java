@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String EXTRA_MESSAGE_PLAY = "com.example.workouttimer.MESSAGE";
     private final static String EXTRA_MESSAGE_WORKOUT = "com.example.workouttimer.MESSAGE";
     private final static String EXTRA_MESSAGE_ABOUT = "com.example.workouttimer.MESSAGE";
+    private final static String EXTRA_MESSAGE_EXERCISES = "com.example.workouttimer.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
     public void aboutActivity(View view) {
         Intent aboutIntent = new Intent(this, AboutActivity.class);
         aboutIntent.putExtra(EXTRA_MESSAGE_ABOUT, "PROVA");
+        startActivity(aboutIntent);
+    }
+
+    public void showExercises(View view) {
+        Intent aboutIntent = new Intent(this, ShowExercises.class);
+        aboutIntent.putExtra(EXTRA_MESSAGE_EXERCISES, "PROVA");
         startActivity(aboutIntent);
     }
 }
