@@ -17,6 +17,9 @@ public class DbUtils {
     protected final static String DATE_OF_CREATION = "dataOfCreation";
     protected final static String N_DONE = "nDone";
 
+    //COncrete Routine
+    protected final static String POSITION = "position";
+
     //table Favorite Routine
     protected final static String FAVORITE_ROUTINE_TABLE = "FavoriteRoutine";
 

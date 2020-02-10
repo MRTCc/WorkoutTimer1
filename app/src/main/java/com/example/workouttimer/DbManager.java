@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DbManager {
 
@@ -148,6 +149,23 @@ public class DbManager {
     }
 
     public Cursor fetchExercisesNameFromConcrRoutine(String routineName){
+        //TODO: AGGIUNGERE ORDER BY POSITION
+        //TODO: DA TESTARE
+        String query = "select " + dbHelper.EXERCISE_NAME + " , " + dbHelper.SETS_TO_DO + "," +
+                dbHelper.REPS_TO_DO + " , " + dbHelper.PREPARATION_TIME + "," + dbHelper.WORK_TIME +
+                " , " + dbHelper.REST_TIME + " , " + dbHelper.COOL_DOWN_TIME + " , " +
+                dbHelper.POSITION + " from " + dbHelper.CONCRETE_ROUTINES_TABLE + " , " +
+                dbHelper.EXERCISE_TABLE + "where" +  dbHelper.EXERCISE_TABLE + "." +
+                dbHelper.EXERCISE_NAME + " = " + dbHelper.CONCRETE_ROUTINES_TABLE + "." +
+                dbHelper.EXERCISE_NAME + " and " + dbHelper.CONCRETE_ROUTINES_TABLE + "." +
+                dbHelper.ROUTINE_NAME + " = " + "'" + routineName + "'";
+        Log.d("query", query);
+        Cursor cursor = database.rawQuery(query, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+/*
         String[] columns = new String[] {dbHelper.EXERCISE_NAME, dbHelper.SETS_TO_DO, dbHelper.REPS_TO_DO,
                 dbHelper.PREPARATION_TIME, dbHelper.WORK_TIME, dbHelper.REST_TIME, dbHelper.COOL_DOWN_TIME,
                 dbHelper.POSITION};
@@ -160,7 +178,18 @@ public class DbManager {
             cursor.moveToFirst();
         }
         return cursor;
+        */
     }
 
-
+    public Cursor fetchAllExercises(){
+        String[] columns = new String[] {dbHelper.EXERCISE_NAME, dbHelper.SETS_TO_DO,
+                dbHelper.REPS_TO_DO, dbHelper.PREPARATION_TIME, dbHelper.WORK_TIME,
+                dbHelper.REST_TIME, dbHelper.COOL_DOWN_TIME,};
+        Cursor cursor = database.query(dbHelper.EXERCISE_TABLE, columns, null,
+                null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
 }

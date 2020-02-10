@@ -19,4 +19,6 @@
     <string name="deleteRoutineTitle">deleteRoutine</string>
     <string name="helpMenuTitle">helpMenuTitle</string>
     <string name="todo">TODO</string>
+    <string name="disableBtn">disable</string>
+    <string name="newExercise">New Exercise</string>
 </resources>

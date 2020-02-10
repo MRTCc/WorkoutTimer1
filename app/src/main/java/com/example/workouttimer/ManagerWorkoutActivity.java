@@ -62,7 +62,7 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.manager_routine_menu, menu);
+        inflater.inflate(R.menu.manager_routine_menu, menu);
         return true;
     }
 
@@ -91,7 +91,7 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
             case R.id.menuHelpManagerRoutine:
                 helpDialog.show();
                 return(true);
-            case R.id.menuDeletepManagerRoutine:
+            case R.id.menuDeleteManagerRoutine:
                 //TODO: implementing delete of routines functionality
                 return(true);
         }

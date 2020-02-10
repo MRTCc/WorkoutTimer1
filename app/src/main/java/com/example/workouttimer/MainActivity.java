@@ -22,16 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-        DbManager dbManager = new DbManager(this);
-        dbManager.open("write");
-        dbManager.insertRoutine("r1", "3-4-1567", 0);
-        dbManager.insertRoutine("r2", "3-4-1567", 0);
-        dbManager.insertRoutine("r3", "3-4-1567", 0);
-        dbManager.insertRoutine("r4", "3-4-1567", 0);
-        dbManager.insertRoutine("r5", "3-4-1567", 0);
-        dbManager.insertRoutine("r6", "3-4-1567", 0);
-        dbManager.close();
     }
 
     public void playWorkout(View view) {
@@ -72,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showExercises(View view) {
-        Intent aboutIntent = new Intent(this, ShowExercises.class);
-        aboutIntent.putExtra(EXTRA_MESSAGE_EXERCISES, "PROVA");
-        startActivity(aboutIntent);
+        Intent intent = new Intent(this, ShowExercisesActivity.class);
+        intent.putExtra(EXTRA_MESSAGE_EXERCISES, "PROVA");
+        startActivity(intent);
     }
 }
