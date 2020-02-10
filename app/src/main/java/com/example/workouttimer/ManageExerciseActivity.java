@@ -3,12 +3,17 @@ package com.example.workouttimer;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import static java.lang.String.valueOf;
 
 public class ManageExerciseActivity extends AppCompatActivity {
     private EditText eTxtExerciseName;
@@ -69,7 +74,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
         eTxtCoolDownTime = findViewById(R.id.eTxtSetCoolDownTime);
         eTxtSetsToDo = findViewById(R.id.eTxtSetSetsToDo);
         eTxtRepsToDo = findViewById(R.id.eTxtSetRepsToDo);
-        btnCheckExName = findViewById(R.id.btnSaveNewExerciseName);
+        btnCheckExName = findViewById(R.id.btnCheckExerciseName);
         btnActPrepTime = findViewById(R.id.btnActPrepTime);
         btnActWorkTime = findViewById(R.id.btnActWorkTime);
         btnActRestTime = findViewById(R.id.btnActRestTime);
@@ -91,12 +96,25 @@ public class ManageExerciseActivity extends AppCompatActivity {
     }
 
     public void addRepsToDo(View view) {
+        String txt = eTxtRepsToDo.getText().toString();
+        Integer repsToDo = new Integer(valueOf(txt));
+        repsToDo++;
+        eTxtRepsToDo.setText(repsToDo.toString());
     }
 
     public void subRepsToDo(View view) {
     }
 
     public void actRepsToDo(View view) {
+        String txtState = btnActRepsToDo.getText().toString();
+        if(getString(R.string.disableBtn).equals(txtState)){
+            btnActRepsToDo.setText(R.string.enableBtn);
+            eTxtRepsToDo.setFocusableInTouchMode(false);
+        }
+        if(getString(R.string.enableBtn).equals(txtState)){
+            btnActRepsToDo.setText(R.string.disableBtn);
+            eTxtRepsToDo.setFocusableInTouchMode(true);
+        }
     }
 
     public void subSetsToDo(View view) {
@@ -133,5 +151,17 @@ public class ManageExerciseActivity extends AppCompatActivity {
     }
 
     public void actWorkTime(View view) {
+    }
+
+    public void checkExerciseName(View view) {
+    }
+
+    public void actPrepTime(View view) {
+    }
+
+    public void subPrepTime(View view) {
+    }
+
+    public void addPrepTime(View view) {
     }
 }

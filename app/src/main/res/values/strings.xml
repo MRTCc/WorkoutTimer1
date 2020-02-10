@@ -21,4 +21,5 @@
     <string name="todo">TODO</string>
     <string name="disableBtn">disable</string>
     <string name="newExercise">New Exercise</string>
+    <string name="enableBtn">enable</string>
 </resources>
