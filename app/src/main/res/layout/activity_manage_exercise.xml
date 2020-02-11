@@ -59,34 +59,18 @@
             android:layout_height="wrap_content"
             android:text="@string/disableBtn"
             android:onClick="actPrepTime"
-            android:layout_weight="25"
+            android:layout_weight="30"
             />
-        <ImageButton
-            android:id="@+id/btnSubPrepTime"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_input_delete"
-            android:contentDescription="@string/todo"
-            android:onClick="subPrepTime"
-            />
+
         <EditText
             android:id="@+id/eTxtSetPrepTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="0"
             android:inputType="number"
-            android:layout_weight="35"
+            android:layout_weight="70"
             />
-        <ImageButton
-            android:id="@+id/btnAddPrepTime"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_add"
-            android:contentDescription="@string/todo"
-            android:onClick="addPrepTime"
-            />
+
     </TableRow>
 
     <TableRow
@@ -115,34 +99,18 @@
             android:layout_height="wrap_content"
             android:text="@string/disableBtn"
             android:onClick="actWorkTime"
-            android:layout_weight="25"
+            android:layout_weight="30"
             />
-        <ImageButton
-            android:id="@+id/btnSubWorkTime"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_input_delete"
-            android:contentDescription="@string/todo"
-            android:onClick="subWorkTime"
-            />
+
         <EditText
             android:id="@+id/eTxtSetWorkTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="0"
             android:inputType="number"
-            android:layout_weight="35"
+            android:layout_weight="70"
             />
-        <ImageButton
-            android:id="@+id/btnAddWorkTime"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_add"
-            android:contentDescription="@string/todo"
-            android:onClick="addWorkTime"
-            />
+
     </TableRow>
 
     <TableRow
@@ -172,34 +140,18 @@
             android:layout_height="wrap_content"
             android:text="@string/disableBtn"
             android:onClick="actRestTime"
-            android:layout_weight="25"
+            android:layout_weight="30"
         />
-        <ImageButton
-            android:id="@+id/btnSubRestTime"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_input_delete"
-            android:contentDescription="@string/todo"
-            android:onClick="subRestTime"
-            />
+
         <EditText
             android:id="@+id/eTxtSetRestTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="0"
             android:inputType="number"
-            android:layout_weight="35"
+            android:layout_weight="70"
             />
-        <ImageButton
-            android:id="@+id/btnAddRestTime"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_add"
-            android:contentDescription="@string/todo"
-            android:onClick="addRestTime"
-            />
+
     </TableRow>
 
     <TableRow
@@ -230,34 +182,18 @@
             android:layout_height="wrap_content"
             android:text="@string/disableBtn"
             android:onClick="actCoolDownTime"
-            android:layout_weight="25"
+            android:layout_weight="30"
         />
-        <ImageButton
-            android:id="@+id/btnSubCoolDownTime"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_input_delete"
-            android:contentDescription="@string/todo"
-            android:onClick="subCoolDownTime"
-            />
+
         <EditText
             android:id="@+id/eTxtSetCoolDownTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="0"
             android:inputType="number"
-            android:layout_weight="35"
+            android:layout_weight="70"
             />
-        <ImageButton
-            android:id="@+id/btnAddCoolDownTime"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_add"
-            android:contentDescription="@string/todo"
-            android:onClick="addCoolDownTime"
-            />
+
     </TableRow>
 
     <TableRow
@@ -287,34 +223,18 @@
             android:layout_height="wrap_content"
             android:text="@string/disableBtn"
             android:onClick="actSetsToDo"
-            android:layout_weight="25"
+            android:layout_weight="30"
             />
-        <ImageButton
-            android:id="@+id/btnSubSetsToDo"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_input_delete"
-            android:contentDescription="@string/todo"
-            android:onClick="subSetsToDo"
-            />
+
         <EditText
             android:id="@+id/eTxtSetSetsToDo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="0"
             android:inputType="number"
-            android:layout_weight="35"
+            android:layout_weight="70"
             />
-        <ImageButton
-            android:id="@+id/btnAddSetsToDo"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_add"
-            android:contentDescription="@string/todo"
-            android:onClick="addSetsToDo"
-            />
+
     </TableRow>
 
     <TableRow
@@ -344,34 +264,18 @@
             android:layout_height="wrap_content"
             android:text="@string/disableBtn"
             android:onClick="actRepsToDo"
-            android:layout_weight="25"
+            android:layout_weight="30"
             />
-        <ImageButton
-            android:id="@+id/btnSubRepsToDo"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_input_delete"
-            android:contentDescription="@string/todo"
-            android:onClick="subRepsToDo"
-            />
+
         <EditText
             android:id="@+id/eTxtSetRepsToDo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="0"
             android:inputType="number"
-            android:layout_weight="35"
+            android:layout_weight="70"
             />
-        <ImageButton
-            android:id="@+id/btnAddRepsToDo"
-            android:layout_weight="20"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_add"
-            android:contentDescription="@string/todo"
-            android:onClick="addRepsToDo"
-            />
+
     </TableRow>
 
 </TableLayout>

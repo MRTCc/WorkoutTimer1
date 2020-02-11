@@ -97,4 +97,15 @@ public class DataProvider {
         dbManager.close();
         return listExercises;
     }
+
+    public boolean isThereExercise(Exercise exercise){
+        boolean isThere = false;
+        dbManager.open("read");
+        Cursor cursor = dbManager.fetchExercise(exercise.getExerciseName());
+        if(cursor.moveToFirst()){
+            isThere = true;
+        }
+        dbManager.close();
+        return isThere;
+    }
 }

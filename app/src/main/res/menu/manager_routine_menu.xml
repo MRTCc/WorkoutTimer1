@@ -15,7 +15,7 @@
         <item
             android:id="@+id/menuHelpManagerRoutine"
             android:title="help"
-            android:icon="@android:drawable/ic_menu_agenda"
+            android:icon="@android:drawable/ic_dialog_info"
             app:showAsAction="ifRoom" />
 
     </menu>

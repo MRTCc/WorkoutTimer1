@@ -22,4 +22,7 @@
     <string name="disableBtn">disable</string>
     <string name="newExercise">New Exercise</string>
     <string name="enableBtn">enable</string>
+    <string name="jokeSet">Don\'t joke me! You have to do at least on set!</string>
+    <string name="disableStateBtn">---</string>
+    <string name="joke">Joke</string>
 </resources>

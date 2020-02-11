@@ -2,10 +2,15 @@ package com.example.workouttimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -30,18 +35,6 @@ public class ManageExerciseActivity extends AppCompatActivity {
     private Button btnActCoolDownTime;
     private Button btnActSetsToDo;
     private Button btnActRepsToDo;
-    private ImageButton btnSubPrepTime;
-    private ImageButton btnSubWorkTime;
-    private ImageButton btnSubRestTime;
-    private ImageButton btnSubCoolDownTime;
-    private ImageButton btnSubSetsToDo;
-    private ImageButton btnSubRepsToDo;
-    private ImageButton btnAddPrepTime;
-    private ImageButton btnAddWorkTime;
-    private ImageButton btnAddRestTime;
-    private ImageButton btnAddCoolDownTime;
-    private ImageButton btnAddSetsToDo;
-    private ImageButton btnAddRepsToDo;
     private Exercise exercise;
     private DataProvider dataProvider;
 
@@ -49,21 +42,170 @@ public class ManageExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_exercise);
-
         initGui();
-        dataProvider = new DataProvider(this);
 
         Intent intent = getIntent();
-        if(intent.getStringExtra("newExercise") != null){
+        if(intent.hasExtra("newExercise")){
             Toast.makeText(this,"newExercise", Toast.LENGTH_SHORT).show();
             eTxtExerciseName.setText(R.string.newExercise);
             exercise = new Exercise();
         }
-        if(intent.getStringExtra("modifyThisExercise") != null){
+        else if(intent.hasExtra("modifyThisExercise")){
             Toast.makeText(this,intent.getStringExtra("modifyThisExercise"), Toast.LENGTH_SHORT).show();
-
+            exercise = (Exercise) intent.getExtras().getSerializable("modifyThisExercise");
+            if(exercise != null){
+                eTxtExerciseName.setText(exercise.getExerciseName());
+                eTxtPrepTime.setText(Integer.toString(exercise.getPreparationTime()));
+                eTxtWorkTime.setText(Integer.toString(exercise.getWorkTime()));
+                eTxtRestTime.setText(Integer.toString(exercise.getRestTime()));
+                eTxtCoolDownTime.setText(Integer.toString(exercise.getCoolDownTime()));
+                eTxtSetsToDo.setText(Integer.toString(exercise.getSetsToDo()));
+                eTxtRepsToDo.setText(Integer.toString(exercise.getRepsToDo()));
+            }
+        }
+        else{
+            Toast.makeText(this,"something did'nt work", Toast.LENGTH_SHORT).show();
         }
 
+        eTxtPrepTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    String txt = eTxtPrepTime.getText().toString();
+                    if(!("---".equals(txt))) {
+                        Integer prepTime = Integer.valueOf(eTxtPrepTime.getText().toString());
+                        exercise.setPreparationTime(prepTime);
+                    }
+                }
+
+            }
+        });
+        eTxtWorkTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    String txt = eTxtWorkTime.getText().toString();
+                    if(!("---".equals(txt))) {
+                        Integer time = Integer.valueOf(eTxtWorkTime.getText().toString());
+                        exercise.setWorkTime(time);
+                    }
+                }
+            }
+        });
+        eTxtRestTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    String txt = eTxtRestTime.getText().toString();
+                    if(!("---".equals(txt))) {
+                        Integer time = Integer.valueOf(eTxtRestTime.getText().toString());
+                        exercise.setRestTime(time);
+                    }
+                }
+            }
+        });
+        eTxtCoolDownTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    String txt = eTxtCoolDownTime.getText().toString();
+                    if(!("---".equals(txt))) {
+                        Integer time = Integer.valueOf(eTxtCoolDownTime.getText().toString());
+                        exercise.setCoolDownTime(time);
+                    }
+                }
+            }
+        });
+        eTxtSetsToDo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    String txt = eTxtSetsToDo.getText().toString();
+                    if(!("---".equals(txt))) {
+                        //TODO : when you save control that setsToDo are >= 1
+                        Integer n = Integer.valueOf(eTxtSetsToDo.getText().toString());
+                        exercise.setSetsToDo(n);
+                    }
+                }
+            }
+        });
+        eTxtRepsToDo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    String txt = eTxtRepsToDo.getText().toString();
+                    if(!("---".equals(txt))) {
+                        Integer n = Integer.valueOf(eTxtRepsToDo.getText().toString());
+                        exercise.setRepsToDo(n);
+                    }
+                }
+            }
+        });
+        eTxtExerciseName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    String txt = eTxtExerciseName.getText().toString();
+                    exercise.setExerciseName(txt);
+                }
+            }
+        });
     }
 
     private void initGui(){
@@ -81,87 +223,122 @@ public class ManageExerciseActivity extends AppCompatActivity {
         btnActCoolDownTime = findViewById(R.id.btnActCoolDownTime);
         btnActSetsToDo =  findViewById(R.id.btnActSetsToDo);
         btnActRepsToDo = findViewById(R.id.btnActRepsToDo);
-        btnSubPrepTime = findViewById(R.id.btnSubPrepTime);
-        btnSubWorkTime = findViewById(R.id.btnSubWorkTime);
-        btnSubRestTime = findViewById(R.id.btnSubRestTime);
-        btnSubCoolDownTime = findViewById(R.id.btnSubCoolDownTime);
-        btnSubSetsToDo = findViewById(R.id.btnSubSetsToDo);
-        btnSubRepsToDo = findViewById(R.id.btnSubRepsToDo);
-        btnAddPrepTime = findViewById(R.id.btnAddPrepTime);
-        btnAddWorkTime = findViewById(R.id.btnAddWorkTime);
-        btnAddRestTime = findViewById(R.id.btnAddRestTime);
-        btnAddCoolDownTime = findViewById(R.id.btnAddCoolDownTime);
-        btnAddSetsToDo = findViewById(R.id.btnAddSetsToDo);
-        btnAddRepsToDo = findViewById(R.id.btnAddRepsToDo);
     }
 
-    public void addRepsToDo(View view) {
-        String txt = eTxtRepsToDo.getText().toString();
-        Integer repsToDo = new Integer(valueOf(txt));
-        repsToDo++;
-        eTxtRepsToDo.setText(repsToDo.toString());
+    public void setTextEditText(@org.jetbrains.annotations.NotNull EditText editText){
+        if(editText.equals(eTxtPrepTime)){
+            eTxtPrepTime.setText(Integer.toString(exercise.getPreparationTime()));
+        }
+        else if(editText.equals(eTxtWorkTime)){
+            eTxtWorkTime.setText(Integer.toString(exercise.getWorkTime()));
+
+        }
+        else if(editText.equals(eTxtRestTime)){
+            eTxtRestTime.setText(Integer.toString(exercise.getRestTime()));
+        }
+        else if(editText.equals(eTxtCoolDownTime)){
+            eTxtCoolDownTime.setText(Integer.toString(exercise.getCoolDownTime()));
+        }
+        else if(editText.equals(eTxtSetsToDo)){
+            eTxtSetsToDo.setText(Integer.toString(exercise.getSetsToDo()));
+        }
+        else if(editText.equals(eTxtRepsToDo)){
+            eTxtRepsToDo.setText(Integer.toString(exercise.getRepsToDo()));
+        }
     }
 
-    public void subRepsToDo(View view) {
+    public void changeBtnActState(Button button, EditText editText){
+        String txtState = button.getText().toString();
+        if(getString(R.string.disableBtn).equals(txtState)){
+            button.setText(R.string.enableBtn);
+            editText.setText(getString(R.string.disableStateBtn));
+            editText.setEnabled(false);
+            editText.setFocusable(false);
+            editText.setFocusableInTouchMode(false);
+        }
+        if(getString(R.string.enableBtn).equals(txtState)){
+            button.setText(R.string.disableBtn);
+            editText.setEnabled(true);
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            setTextEditText(editText);
+        }
     }
 
     public void actRepsToDo(View view) {
-        String txtState = btnActRepsToDo.getText().toString();
-        if(getString(R.string.disableBtn).equals(txtState)){
-            btnActRepsToDo.setText(R.string.enableBtn);
-            eTxtRepsToDo.setFocusableInTouchMode(false);
-        }
-        if(getString(R.string.enableBtn).equals(txtState)){
-            btnActRepsToDo.setText(R.string.disableBtn);
-            eTxtRepsToDo.setFocusableInTouchMode(true);
-        }
-    }
-
-    public void subSetsToDo(View view) {
-    }
-
-    public void addSetsToDo(View view) {
+        changeBtnActState(btnActRepsToDo, eTxtRepsToDo);
     }
 
     public void actSetsToDo(View view) {
-    }
+        final Dialog jokeDialog = new Dialog(this);
+        jokeDialog.setContentView(R.layout.dialog_disable_sets);
+        jokeDialog.setTitle(getString(R.string.joke));
+        jokeDialog.show();
+        Button dialogButton = (Button) jokeDialog.findViewById(R.id.btnExitDialogJokeSet);
 
-    public void addCoolDownTime(View view) {
-    }
-
-    public void subCoolDownTime(View view) {
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jokeDialog.dismiss();
+            }
+        });
     }
 
     public void actCoolDownTime(View view) {
-    }
-
-    public void addRestTime(View view) {
-    }
-
-    public void subRestTime(View view) {
+        changeBtnActState(btnActCoolDownTime, eTxtCoolDownTime);
     }
 
     public void actRestTime(View view) {
-    }
-
-    public void addWorkTime(View view) {
-    }
-
-    public void subWorkTime(View view) {
+        changeBtnActState(btnActRestTime, eTxtRestTime);
     }
 
     public void actWorkTime(View view) {
-    }
-
-    public void checkExerciseName(View view) {
+        changeBtnActState(btnActWorkTime, eTxtWorkTime);
     }
 
     public void actPrepTime(View view) {
+        changeBtnActState(btnActPrepTime, eTxtPrepTime);
     }
 
-    public void subPrepTime(View view) {
+    public void checkExerciseName(View view) {
+        String message = exercise.getExerciseName();
+        //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        dataProvider = new DataProvider(this);
+        if(dataProvider.isThereExercise(exercise)){
+            Toast.makeText(this, "there is another exercise", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "name available", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void addPrepTime(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_manage_exercise, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final Dialog helpDialog = new Dialog(this);
+        helpDialog.setContentView(R.layout.dialog_help_manage_exercise);
+        helpDialog.setTitle("Help");
+        Button dialogButton = (Button) helpDialog.findViewById(R.id.btnExitDialogManageExercise);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpDialog.dismiss();
+            }
+        });
+        switch(item.getItemId()) {
+            case R.id.menuSaveExercise:
+                Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
+                return(true);
+            case R.id.menuHelpManageExercise:
+                helpDialog.show();
+                return(true);
+        }
+        return(super.onOptionsItemSelected(item));
     }
 }

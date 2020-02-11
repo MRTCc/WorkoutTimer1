@@ -39,12 +39,7 @@ public class ShowExercisesActivity extends AppCompatActivity {
         Iterator<Exercise> iterator = listExercises.iterator();
         while(iterator.hasNext()){
             Exercise exercise = iterator.next();
-            String name = exercise.getExerciseName();
-            int setsToDo = exercise.getSetsToDo();
-            int repsToDo = exercise.getRepsToDo();
-            int workTime = exercise.getWorkTime();
-            int restTime = exercise.getRestTime();
-            ItemExercise itemExercise = new ItemExercise(name, setsToDo, repsToDo, workTime, restTime);
+            ItemExercise itemExercise = new ItemExercise(exercise);
             itemList.add(itemExercise);
         }
     }

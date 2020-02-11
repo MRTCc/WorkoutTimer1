@@ -1,6 +1,8 @@
 package com.example.workouttimer;
 
-public class Exercise {
+import java.io.Serializable;
+
+public class Exercise implements Serializable {
     String exerciseName;
     int setsToDo;
     int repsToDo;
@@ -22,6 +24,13 @@ public class Exercise {
     }
 
     public Exercise(){
+        this.exerciseName = "";
+        this.setsToDo = 1;
+        this.repsToDo = 0;
+        this.preparationTime = 0;
+        this.workTime = 0;
+        this.restTime = 0;
+        this.coolDownTime = 0;
     }
 
     public String getExerciseName() {

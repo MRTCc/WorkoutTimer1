@@ -192,4 +192,18 @@ public class DbManager {
         }
         return cursor;
     }
+
+    public Cursor fetchExercise(String exerciseName){
+        String[] columns = new String[] {dbHelper.EXERCISE_NAME, dbHelper.SETS_TO_DO,
+                dbHelper.REPS_TO_DO, dbHelper.PREPARATION_TIME, dbHelper.WORK_TIME,
+                dbHelper.REST_TIME, dbHelper.COOL_DOWN_TIME,};
+        String whereClause = dbHelper.EXERCISE_NAME + " = ? ";
+        String[] argsWhereClause = new String[]{exerciseName};
+        Cursor cursor = database.query(dbHelper.EXERCISE_TABLE, columns, whereClause,
+                argsWhereClause, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
 }

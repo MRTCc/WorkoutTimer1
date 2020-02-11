@@ -49,11 +49,12 @@ public class ItemExerciseArrayAdapter extends ArrayAdapter {
                 item.getWorkTime() + "    RT: " + item.getRestTime();
         txtDataItem.setText(showData);
 
+        final ItemExercise itemToSend = item;
         btnModifyExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ManageExerciseActivity.class);
-                String message = viewHolder.item.getText().toString();
+                Exercise message = itemToSend.getExercise();
                 intent.putExtra("modifyThisExercise", message);
                 context.startActivity(intent);
             }
