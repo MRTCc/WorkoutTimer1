@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //TODO: how to inizialize the database the first time the app run on a device?
     }
 
     public void playWorkout(View view) {

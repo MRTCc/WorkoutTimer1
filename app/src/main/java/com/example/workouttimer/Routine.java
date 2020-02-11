@@ -57,4 +57,24 @@ public class Routine implements Serializable{
     public String getRoutineName() {
         return routineName;
     }
+
+    public String getDateOfCreation() {
+        return dateOfCreation;
+    }
+
+    public int getnDone() {
+        return nDone;
+    }
+
+    public int getTotTime() {
+        return totTime;
+    }
+
+    public int getNumberOfExercises() {
+        return numberOfExercises;
+    }
+
+    public ArrayList<Exercise> getListExercise() {
+        return listExercise;
+    }
 }

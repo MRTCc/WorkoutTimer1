@@ -21,16 +21,14 @@ public class DataProvider {
         ArrayList<Routine> listRoutine = new ArrayList<Routine>();
         dbManager.open("read");
         Cursor cursor = dbManager.fetchAllRoutines();
-        if(cursor == null){
-            return null;
-        }
-        do {
+        assert cursor != null;
+        do{
             Routine routine = new Routine();
             routine.setRoutineName(cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME)));
             routine.setDateOfCreation(cursor.getString(cursor.getColumnIndex(dbUtils.DATE_OF_CREATION)));
             routine.setnDone(cursor.getInt(cursor.getColumnIndex(dbUtils.N_DONE)));
             listRoutine.add(routine);
-        } while(cursor.moveToNext());
+        }while(cursor.moveToNext());
 
         dbManager.close();
         return listRoutine;
@@ -41,7 +39,6 @@ public class DataProvider {
         dbManager.open("read");
         Cursor cursor = dbManager.fetchFavoriteRoutine();
         if(cursor != null) {
-            //TODO: something wrong when the table favorite routine is empty
             favoriteRoutineName = cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME));
         }
         dbManager.close();
@@ -49,13 +46,9 @@ public class DataProvider {
     }
 
     //TODO: QUESTA FUNZIONE È DA RIFARE
-    public Routine getCompleteRoutine(String routineName){
-        Routine routine = new Routine();
-
-        Cursor cursor = dbManager.fetchExercisesNameFromConcrRoutine(routineName);
-
+    public Routine getCompleteRoutine(Routine routine){
+        Cursor cursor = dbManager.fetchExercisesNameFromConcreteRoutine(routine.getRoutineName());
         if(cursor != null) {
-            routine.setRoutineName(routineName);
             ArrayList<Exercise> listExercise = new ArrayList<Exercise>();
             while(cursor.moveToNext()){
                 Exercise exercise = new Exercise();
@@ -69,9 +62,8 @@ public class DataProvider {
                 exercise.setPosition(cursor.getInt(cursor.getColumnIndex(dbUtils.POSITION)));
                 listExercise.add(exercise);
             }
-
+            routine.setListExercise(listExercise);
         }
-
         dbManager.close();
         return routine;
     }

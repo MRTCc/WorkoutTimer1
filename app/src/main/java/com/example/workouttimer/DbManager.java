@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.FontsContract;
 import android.util.Log;
 
 public class DbManager {
@@ -149,37 +150,22 @@ public class DbManager {
         return cursor;
     }
 
-    public Cursor fetchExercisesNameFromConcrRoutine(String routineName){
-        //TODO: AGGIUNGERE ORDER BY POSITION
+    public Cursor fetchExercisesNameFromConcreteRoutine(String routineName){
         //TODO: DA TESTARE
-        String query = "select " + dbHelper.EXERCISE_NAME + " , " + dbHelper.SETS_TO_DO + "," +
+        String query = "select " + dbHelper.EXERCISE_NAME + " , " + dbHelper.SETS_TO_DO + " , " +
                 dbHelper.REPS_TO_DO + " , " + dbHelper.PREPARATION_TIME + "," + dbHelper.WORK_TIME +
                 " , " + dbHelper.REST_TIME + " , " + dbHelper.COOL_DOWN_TIME + " , " +
                 dbHelper.POSITION + " from " + dbHelper.CONCRETE_ROUTINES_TABLE + " , " +
-                dbHelper.EXERCISE_TABLE + "where" +  dbHelper.EXERCISE_TABLE + "." +
+                dbHelper.EXERCISE_TABLE + " where " +  dbHelper.EXERCISE_TABLE + "." +
                 dbHelper.EXERCISE_NAME + " = " + dbHelper.CONCRETE_ROUTINES_TABLE + "." +
                 dbHelper.EXERCISE_NAME + " and " + dbHelper.CONCRETE_ROUTINES_TABLE + "." +
-                dbHelper.ROUTINE_NAME + " = " + "'" + routineName + "'";
-        Log.d("query", query);
+                dbHelper.ROUTINE_NAME + " = " + " '" + routineName + "' " + " order by " +
+                dbHelper.POSITION;
         Cursor cursor = database.rawQuery(query, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
         return cursor;
-/*
-        String[] columns = new String[] {dbHelper.EXERCISE_NAME, dbHelper.SETS_TO_DO, dbHelper.REPS_TO_DO,
-                dbHelper.PREPARATION_TIME, dbHelper.WORK_TIME, dbHelper.REST_TIME, dbHelper.COOL_DOWN_TIME,
-                dbHelper.POSITION};
-        Cursor cursor = database.query(dbHelper.CONCRETE_ROUTINES_TABLE, columns,
-                routineName + " = " + dbHelper.ROUTINE_NAME + " and " +
-                 dbHelper.CONCRETE_ROUTINES_TABLE + "."+ dbHelper.EXERCISE_NAME + " = " +
-                dbHelper.EXERCISE_TABLE + "." + dbHelper.EXERCISE_NAME, null,
-                null, dbHelper.POSITION, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
-        return cursor;
-        */
     }
 
     public Cursor fetchAllExercises(){
