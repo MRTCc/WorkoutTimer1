@@ -3,14 +3,7 @@ package com.example.workouttimer;
 import java.io.Serializable;
 
 public class ItemExercise{
-    private String name;
-    private int setsToDo;
-    private int repsToDo;
-    private int workTime;
-    private int restTime;
-
     private Exercise exercise;
-
 
     public ItemExercise(Exercise exercise) {
         this.exercise = exercise;

@@ -47,13 +47,13 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
         // Populating list items, in other words loading of all routines
         Iterator<Routine> iterator = listRoutine.iterator();
        while(iterator.hasNext()){
-            String name = iterator.next().getRoutineName();
+            Routine routine = iterator.next();
+            String name = routine.getRoutineName();
             int type = 0;
-
             if(name.equals(favoriteRoutineName)){
                 type = 1;
             }
-            ItemRoutine itemRoutine = new ItemRoutine(name, type);
+            ItemRoutine itemRoutine = new ItemRoutine(routine, type);
             itemList.add(itemRoutine);
         }
     }

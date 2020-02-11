@@ -10,7 +10,7 @@
     tools:layout_editor_absoluteY="1dp" >
 
     <ListView
-        android:id="@+id/listViewWorkout"
+        android:id="@+id/listViewManageRoutine"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:background="@color/white"

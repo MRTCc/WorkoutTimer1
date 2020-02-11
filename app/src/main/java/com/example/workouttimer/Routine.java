@@ -1,8 +1,9 @@
 package com.example.workouttimer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Routine {
+public class Routine implements Serializable{
     String routineName;
     String dateOfCreation;
     int nDone;
@@ -21,7 +22,12 @@ public class Routine {
     }
 
     public Routine(){
-
+        routineName = "New Routine";
+        dateOfCreation = "";
+        nDone = 0;
+        totTime = 0;
+        numberOfExercises = 0;
+        listExercise = null;
     }
 
     public void setRoutineName(String routineName) {

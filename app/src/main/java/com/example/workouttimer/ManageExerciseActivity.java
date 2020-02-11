@@ -21,6 +21,9 @@ import android.widget.Toast;
 import static java.lang.String.valueOf;
 
 public class ManageExerciseActivity extends AppCompatActivity {
+    private final static int NEW_EXERCISE_FUNCTION = 0;
+    private final static int MODIFY_EXERCISE_FUNCTION = 1;
+    private int activityState;
     private EditText eTxtExerciseName;
     private EditText eTxtPrepTime;
     private EditText eTxtWorkTime;
@@ -36,6 +39,8 @@ public class ManageExerciseActivity extends AppCompatActivity {
     private Button btnActSetsToDo;
     private Button btnActRepsToDo;
     private Exercise exercise;
+    private Exercise entryExercise;
+    private DataInserter dataInserter;
     private DataProvider dataProvider;
 
     @Override
@@ -43,25 +48,25 @@ public class ManageExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_exercise);
         initGui();
-
+        dataInserter = new DataInserter(this);
         Intent intent = getIntent();
         if(intent.hasExtra("newExercise")){
             Toast.makeText(this,"newExercise", Toast.LENGTH_SHORT).show();
             eTxtExerciseName.setText(R.string.newExercise);
             exercise = new Exercise();
+            entryExercise = new Exercise();
+            activityState = NEW_EXERCISE_FUNCTION;
+            showExercise(exercise);
         }
         else if(intent.hasExtra("modifyThisExercise")){
             Toast.makeText(this,intent.getStringExtra("modifyThisExercise"), Toast.LENGTH_SHORT).show();
             exercise = (Exercise) intent.getExtras().getSerializable("modifyThisExercise");
+            entryExercise = new Exercise();
             if(exercise != null){
-                eTxtExerciseName.setText(exercise.getExerciseName());
-                eTxtPrepTime.setText(Integer.toString(exercise.getPreparationTime()));
-                eTxtWorkTime.setText(Integer.toString(exercise.getWorkTime()));
-                eTxtRestTime.setText(Integer.toString(exercise.getRestTime()));
-                eTxtCoolDownTime.setText(Integer.toString(exercise.getCoolDownTime()));
-                eTxtSetsToDo.setText(Integer.toString(exercise.getSetsToDo()));
-                eTxtRepsToDo.setText(Integer.toString(exercise.getRepsToDo()));
+                clone(entryExercise, exercise);
+                showExercise(exercise);
             }
+            activityState = MODIFY_EXERCISE_FUNCTION;
         }
         else{
             Toast.makeText(this,"something did'nt work", Toast.LENGTH_SHORT).show();
@@ -122,7 +127,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 if(s.length() != 0){
                     String txt = eTxtRestTime.getText().toString();
                     if(!("---".equals(txt))) {
-                        Integer time = Integer.valueOf(eTxtRestTime.getText().toString());
+                        int time = Integer.valueOf(eTxtRestTime.getText().toString());
                         exercise.setRestTime(time);
                     }
                 }
@@ -206,6 +211,26 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void showExercise(Exercise exercise){
+        eTxtExerciseName.setText(exercise.getExerciseName());
+        eTxtPrepTime.setText(Integer.toString(exercise.getPreparationTime()));
+        eTxtWorkTime.setText(Integer.toString(exercise.getWorkTime()));
+        eTxtRestTime.setText(Integer.toString(exercise.getRestTime()));
+        eTxtCoolDownTime.setText(Integer.toString(exercise.getCoolDownTime()));
+        eTxtSetsToDo.setText(Integer.toString(exercise.getSetsToDo()));
+        eTxtRepsToDo.setText(Integer.toString(exercise.getRepsToDo()));
+    }
+
+    private void clone(Exercise exerciseDestionation, Exercise exerciseToCopy) {
+        exerciseDestionation.setExerciseName(exerciseToCopy.getExerciseName());
+        exerciseDestionation.setSetsToDo(exerciseToCopy.getSetsToDo());
+        exerciseDestionation.setRepsToDo(exerciseToCopy.getRepsToDo());
+        exerciseDestionation.setPreparationTime(exerciseToCopy.getPreparationTime());
+        exerciseDestionation.setWorkTime(exerciseToCopy.getWorkTime());
+        exerciseDestionation.setRestTime(exerciseToCopy.getRestTime());
+        exerciseDestionation.setCoolDownTime(exerciseToCopy.getCoolDownTime());
     }
 
     private void initGui(){
@@ -334,6 +359,13 @@ public class ManageExerciseActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.menuSaveExercise:
                 Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
+                if(activityState == NEW_EXERCISE_FUNCTION){
+                    dataInserter.saveNewExercise(exercise);
+                }
+                if(activityState == MODIFY_EXERCISE_FUNCTION){
+                    dataInserter.updateExercise(exercise, entryExercise);
+                }
+                finish();
                 return(true);
             case R.id.menuHelpManageExercise:
                 helpDialog.show();

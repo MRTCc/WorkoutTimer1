@@ -72,7 +72,7 @@ public class DbManager {
     }
 
 
-    /*----------- funcionts of deleting-------------------------*/
+    /*----------- functions of deleting-------------------------*/
     public void deleteRoutine(String routineName){
         database.delete(dbHelper.ROUTINES_TABLE, dbHelper.ROUTINE_NAME + " = " +
                 " '" + routineName + "' ", null);
@@ -112,6 +112,8 @@ public class DbManager {
     public void updateExercise(String oldExerciseName, String newExerciseName, int setsToDo,
                                int repsToDo, int preparationTime, int workTime, int restTime,
                                int coolDownTime){
+        String whereClause = dbHelper.EXERCISE_NAME + " = ? ";
+        String[] whereArgs = new String[]{oldExerciseName};
         ContentValues contentValues = new ContentValues();
         contentValues.put(dbHelper.EXERCISE_NAME, newExerciseName);
         contentValues.put(dbHelper.SETS_TO_DO, setsToDo);
@@ -120,8 +122,7 @@ public class DbManager {
         contentValues.put(dbHelper.WORK_TIME, workTime);
         contentValues.put(dbHelper.REST_TIME, restTime);
         contentValues.put(dbHelper.COOL_DOWN_TIME, coolDownTime);
-        database.update(dbHelper.EXERCISE_TABLE, contentValues, dbHelper.EXERCISE_NAME +
-                " = " + " '" + oldExerciseName + "' ", null);
+        database.update(dbHelper.EXERCISE_TABLE, contentValues, whereClause, whereArgs);
     }
 
 

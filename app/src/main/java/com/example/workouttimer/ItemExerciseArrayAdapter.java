@@ -28,43 +28,46 @@ public class ItemExerciseArrayAdapter extends ArrayAdapter {
         ItemExercise item = (ItemExercise) getItem(position);
 
         final ViewHolder viewHolder;
-        if (convertView == null) {
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.row_show_exercises, parent,
-                    false);
-            viewHolder.item = (TextView) convertView.findViewById(R.id.txtExerciseName);
-            viewHolder.dataItem = (TextView) convertView.findViewById(R.id.txtExerciseData);
-            viewHolder.btnModifyExercise = (ImageButton) convertView.findViewById(R.id.btnModifyExercise);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        final TextView txtItem = viewHolder.item;
-        final TextView txtDataItem = viewHolder.dataItem;
-        final ImageButton btnModifyExercise = viewHolder.btnModifyExercise;
-
-        txtItem.setText(item.getName());
-        String showData = "S: " + item.getSetsToDo() + "    R: " + item.getRepsToDo() + "    W: " +
-                item.getWorkTime() + "    RT: " + item.getRestTime();
-        txtDataItem.setText(showData);
-
-        final ItemExercise itemToSend = item;
-        btnModifyExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ManageExerciseActivity.class);
-                Exercise message = itemToSend.getExercise();
-                intent.putExtra("modifyThisExercise", message);
-                context.startActivity(intent);
+        try {
+            if (convertView == null) {
+                viewHolder = new ViewHolder();
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(R.layout.row_show_exercises, parent,
+                        false);
+                viewHolder.item = (TextView) convertView.findViewById(R.id.txtExerciseName);
+                viewHolder.dataItem = (TextView) convertView.findViewById(R.id.txtExerciseData);
+                viewHolder.btnModifyExercise = (ImageButton) convertView.findViewById(R.id.btnModifyExercise);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
             }
-        });
+
+
+            final TextView txtItem = viewHolder.item;
+            final TextView txtDataItem = viewHolder.dataItem;
+            final ImageButton btnModifyExercise = viewHolder.btnModifyExercise;
+
+            txtItem.setText(item.getName());
+            String showData = "S: " + item.getSetsToDo() + "    R: " + item.getRepsToDo() + "    W: " +
+                    item.getWorkTime() + "    RT: " + item.getRestTime();
+            txtDataItem.setText(showData);
+
+            final ItemExercise itemToSend = item;
+            btnModifyExercise.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ManageExerciseActivity.class);
+                    Exercise message = itemToSend.getExercise();
+                    intent.putExtra("modifyThisExercise", message);
+                    context.startActivity(intent);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Return the completed view to render on screen
         return convertView;
     }
-
-
 
     // The ViewHolder, only one item for simplicity and demonstration purposes, you can put all the views inside a row of the list into this ViewHolder
     private static class ViewHolder {

@@ -24,7 +24,7 @@ public class Exercise implements Serializable {
     }
 
     public Exercise(){
-        this.exerciseName = "";
+        this.exerciseName = "New Exercise";
         this.setsToDo = 1;
         this.repsToDo = 0;
         this.preparationTime = 0;

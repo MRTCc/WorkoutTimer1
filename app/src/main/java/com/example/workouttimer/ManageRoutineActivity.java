@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 public class ManageRoutineActivity extends AppCompatActivity {
+    private Routine routine;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,10 +16,11 @@ public class ManageRoutineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_routine);
 
         Intent intent = getIntent();
-        if(intent.getStringExtra("newRoutine") != null) {
+        if(intent.hasExtra("newRoutine")) {
             Toast.makeText(this, "newRoutine", Toast.LENGTH_SHORT).show();
+            routine = new Routine();
         }
-        if(intent.getStringExtra("manageThisRoutine") != null){
+        if(intent.hasExtra("manageThisRoutine")){
             Toast.makeText(this, intent.getStringExtra("manageThisRoutine"), Toast.LENGTH_SHORT).show();
         }
     }

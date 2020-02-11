@@ -45,6 +45,14 @@ public class ShowExercisesActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRestart(){
+        super.onRestart();
+        finish();
+        Intent intent = new Intent(this, ShowExercisesActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_show_exercise, menu);
