@@ -61,7 +61,12 @@ public class DataInserter {
         if(!oldRoutineName.equals(newRoutineName)){
             dbManager.updateRoutine(oldRoutineName, newRoutineName);
         }
-
+        dbManager.deleteConcreteRoutineByRoutineName(newRoutineName);
+        ArrayList<Exercise> listExercises = newRoutine.getListExercise();
+        for(int i = 0; i < listExercises.size(); i++){
+            Exercise exercise = listExercises.get(i);
+            dbManager.insertConcreteRoutine(newRoutineName, exercise.getExerciseName(), i);
+        }
         dbManager.close();
     }
 }

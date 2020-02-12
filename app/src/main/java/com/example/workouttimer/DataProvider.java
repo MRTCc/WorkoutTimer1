@@ -34,6 +34,14 @@ public class DataProvider {
         return listRoutine;
     }
 
+    public Routine getFavoriteRoutine(){
+        String favoriteRoutineName = getFavoriteRoutineName();
+        Routine routine = new Routine();
+        routine.setRoutineName(favoriteRoutineName);
+        routine = getCompleteRoutine(routine);
+        return routine;
+    }
+
     public String getFavoriteRoutineName(){
         String favoriteRoutineName = "";
         dbManager.open("read");

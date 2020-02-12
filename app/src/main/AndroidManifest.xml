@@ -21,7 +21,7 @@
             android:label="Manage Routine" />
         <activity
             android:name=".ManagerWorkoutActivity"
-            android:label="Routines Manager" />
+            android:label="Workouts Manager" />
         <activity
             android:name=".PlayWorkoutActivity"
             android:label="Playing workout" />

@@ -37,7 +37,7 @@ public class ItemRoutineArrayAdapter extends ArrayAdapter<ItemRoutine> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        ItemRoutine item = getItem(position);
+        final ItemRoutine item = getItem(position);
         int itemViewType = getItemViewType(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
@@ -119,7 +119,7 @@ public class ItemRoutineArrayAdapter extends ArrayAdapter<ItemRoutine> {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, PlayWorkoutActivity.class);
-                    String message = txtItem.getText().toString();
+                    Routine message = item.getRoutine();
                     intent.putExtra("playThisRoutine", message);
                     context.startActivity(intent);
                     ((Activity) context).finish();

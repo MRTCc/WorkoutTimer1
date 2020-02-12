@@ -2,6 +2,7 @@ package com.example.workouttimer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,8 +11,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,11 +27,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ManageRoutineActivity extends AppCompatActivity {
     private final static int NEW_ROUTINE_FUNCTION = 0;
@@ -44,6 +51,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Exercise deletingExercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +121,6 @@ public class ManageRoutineActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Build an AlertDialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(ManageRoutineActivity.this);
-
                 final ArrayList<String> listItems = new ArrayList<String>();
                 final ArrayList<Exercise> listAllExercises = dataProvider.getAllExercises();
                 Iterator<Exercise> iterator = listAllExercises.iterator();
@@ -121,7 +128,6 @@ public class ManageRoutineActivity extends AppCompatActivity {
                     Exercise exercise = iterator.next();
                     listItems.add(exercise.getExerciseName());
                 }
-
                 final String[] items = new String[listItems.size()];
                 for(int i = 0; i< items.length; i++){
                     items[i] = listItems.get(i);
@@ -130,8 +136,6 @@ public class ManageRoutineActivity extends AppCompatActivity {
                 // Boolean array for initial selected items
                 final boolean[] checkedItems = new boolean[listItems.size()];
                 Arrays.fill(checkedItems, Boolean.FALSE);
-
-
                 // Set multiple choice items for alert dialog
                 builder.setMultiChoiceItems(items, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
@@ -249,7 +253,6 @@ public class ManageRoutineActivity extends AppCompatActivity {
                 intent.putExtra("playThisRoutine", message);
                 startActivity(intent);
                 finish();
-                //TODO : check to finish() the activity when you don't need them anymore
                 return(true);
             case R.id.menuHelpManageRoutine:
                 Toast.makeText(this, "INFO", Toast.LENGTH_SHORT).show();
@@ -258,9 +261,10 @@ public class ManageRoutineActivity extends AppCompatActivity {
         }
         return(super.onOptionsItemSelected(item));
     }
+
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START |
-            ItemTouchHelper.END, 0) {
+            ItemTouchHelper.END, ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView,
                               @NonNull RecyclerView.ViewHolder viewHolder,
@@ -269,14 +273,38 @@ public class ManageRoutineActivity extends AppCompatActivity {
             int toPosition = target.getAdapterPosition();
             Collections.swap(listExercises, fromPosition, toPosition);
             recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
-
-
             return false;
         }
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            final int position = viewHolder.getAdapterPosition();
+            if(direction == ItemTouchHelper.RIGHT){
+                deletingExercise = routine.getListExercise().get(position);
+                routine.getListExercise().remove(position);
+                recyclerAdapter.notifyItemRemoved(position);
+                Snackbar.make(recyclerView, deletingExercise.getExerciseName(), Snackbar.LENGTH_LONG)
+                        .setAction("Undo", new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                routine.getListExercise().add(position, deletingExercise);
+                                recyclerAdapter.notifyItemInserted(position);
+                            }
+                        }).show();
+            }
+        }
 
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+                                @NonNull RecyclerView.ViewHolder viewHolder, float dX,
+                                float dY, int actionState, boolean isCurrentlyActive) {
+            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                    .addSwipeRightBackgroundColor(ContextCompat.getColor(
+                            ManageRoutineActivity.this, R.color.colorAccent))
+                    .addSwipeRightActionIcon(R.drawable.ic_delete_black_24dp)
+                    .create()
+                    .decorate();
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
 }

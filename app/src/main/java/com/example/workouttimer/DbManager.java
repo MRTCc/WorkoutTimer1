@@ -84,15 +84,10 @@ public class DbManager {
                 " '" + exerciseName + "' ", null);
     }
 
-    public void deleteConcreteRoutine(String routineName, String exerciseName){
+    public void deleteConcreteRoutineByRoutineName(String routineName){
         if(routineName != null){
-            database.delete(dbHelper.CONCRETE_ROUTINES_TABLE, dbHelper.EXERCISE_NAME + " = " +
-                    " '" + exerciseName + "' ", null);
-        }
-
-        if(exerciseName != null){
-            database.delete(dbHelper.CONCRETE_ROUTINES_TABLE, dbHelper.ROUTINE_NAME + " = " +
-                    " '" + routineName + "' ", null);
+            database.delete(dbHelper.CONCRETE_ROUTINES_TABLE, dbHelper.ROUTINE_NAME +
+                    " = ? ", new String[]{routineName});
         }
     }
 
@@ -127,7 +122,7 @@ public class DbManager {
         database.update(dbHelper.EXERCISE_TABLE, contentValues, whereClause, whereArgs);
     }
 
-    public void updateConcreteRoutine(){
+    public void updateConcreteRoutine(String routineName, String[] listExerciseNames, int[] positions){
 
     }
 
