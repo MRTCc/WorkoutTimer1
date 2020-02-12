@@ -49,7 +49,7 @@ public class DataProvider {
     public Routine getCompleteRoutine(Routine routine){
         dbManager.open("read");
         Cursor cursor = dbManager.fetchExercisesFromConcreteRoutine(routine.getRoutineName());
-        if(cursor != null) {
+        if(cursor != null && (cursor.getCount() != 0)) {
             ArrayList<Exercise> listExercise = new ArrayList<Exercise>();
             do{
                 Exercise exercise = new Exercise();
