@@ -73,7 +73,6 @@ public class DbManager {
         database.insert(dbHelper.CONCRETE_ROUTINES_TABLE, null, contentValue);
     }
 
-
     /*----------- functions of deleting-------------------------*/
     public void deleteRoutine(String routineName){
         database.delete(dbHelper.ROUTINES_TABLE, dbHelper.ROUTINE_NAME + " = " +
@@ -112,7 +111,6 @@ public class DbManager {
     }
 
 
-
     public void updateExercise(String oldExerciseName, String newExerciseName, int setsToDo,
                                int repsToDo, int preparationTime, int workTime, int restTime,
                                int coolDownTime){
@@ -129,7 +127,9 @@ public class DbManager {
         database.update(dbHelper.EXERCISE_TABLE, contentValues, whereClause, whereArgs);
     }
 
+    public void updateConcreteRoutine(){
 
+    }
 
     /*---------- functions of SELECT -------------*/
     public Cursor fetchAllRoutines(){

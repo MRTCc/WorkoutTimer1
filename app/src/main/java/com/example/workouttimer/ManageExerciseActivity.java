@@ -23,6 +23,7 @@ import static java.lang.String.valueOf;
 public class ManageExerciseActivity extends AppCompatActivity {
     private final static int NEW_EXERCISE_FUNCTION = 0;
     private final static int MODIFY_EXERCISE_FUNCTION = 1;
+    private final static int NEW_AND_ADD_EXERCISE_FUNCTION = 2;
     private int activityState;
     private EditText eTxtExerciseName;
     private EditText eTxtPrepTime;
@@ -56,6 +57,12 @@ public class ManageExerciseActivity extends AppCompatActivity {
             exercise = new Exercise();
             entryExercise = new Exercise();
             activityState = NEW_EXERCISE_FUNCTION;
+            showExercise(exercise);
+        }
+        else if(intent.hasExtra("createAndAddExercise")){
+            activityState = NEW_AND_ADD_EXERCISE_FUNCTION;
+            exercise = new Exercise();
+            entryExercise = new Exercise();
             showExercise(exercise);
         }
         else if(intent.hasExtra("modifyThisExercise")){
@@ -362,8 +369,15 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 if(activityState == NEW_EXERCISE_FUNCTION){
                     dataInserter.saveNewExercise(exercise);
                 }
-                if(activityState == MODIFY_EXERCISE_FUNCTION){
+                else if(activityState == MODIFY_EXERCISE_FUNCTION){
                     dataInserter.updateExercise(exercise, entryExercise);
+                }
+                else if(activityState == NEW_AND_ADD_EXERCISE_FUNCTION){
+                    dataInserter.saveNewExercise(exercise);
+                    Intent intent = new Intent(this, ManageRoutineActivity.class);
+                    Exercise message = exercise;
+                    intent.putExtra("addThisExercise", message);
+                    startActivity(intent);
                 }
                 finish();
                 return(true);

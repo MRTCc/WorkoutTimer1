@@ -73,7 +73,7 @@ public class DataProvider {
         ArrayList<Exercise> listExercises = new ArrayList<Exercise>();
         dbManager.open("read");
         Cursor cursor = dbManager.fetchAllExercises();
-        if(cursor == null){
+        if(cursor == null || (cursor.getCount() == 0)){
             return null;
         }
          do{
@@ -89,6 +89,23 @@ public class DataProvider {
         } while(cursor.moveToNext());
         dbManager.close();
         return listExercises;
+    }
+
+    public Exercise getExercise(String exerciseName){
+        Exercise exercise = new Exercise();
+        dbManager.open("read");
+        Cursor cursor = dbManager.fetchExercise(exerciseName);
+        if(cursor != null && (cursor.getCount() != 0)){
+            exercise.setExerciseName(cursor.getString(cursor.getColumnIndex(dbUtils.EXERCISE_NAME)));
+            exercise.setSetsToDo(cursor.getInt(cursor.getColumnIndex(dbUtils.SETS_TO_DO)));
+            exercise.setRepsToDo(cursor.getInt(cursor.getColumnIndex(dbUtils.REPS_TO_DO)));
+            exercise.setPreparationTime(cursor.getInt(cursor.getColumnIndex(dbUtils.PREPARATION_TIME)));
+            exercise.setWorkTime(cursor.getInt(cursor.getColumnIndex(dbUtils.WORK_TIME)));
+            exercise.setRestTime(cursor.getInt(cursor.getColumnIndex(dbUtils.REST_TIME)));
+            exercise.setCoolDownTime(cursor.getInt(cursor.getColumnIndex(dbUtils.COOL_DOWN_TIME)));
+        }
+        dbManager.close();
+        return exercise;
     }
 
     public boolean isThereExercise(Exercise exercise){

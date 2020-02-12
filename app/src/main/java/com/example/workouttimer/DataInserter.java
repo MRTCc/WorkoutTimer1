@@ -40,7 +40,6 @@ public class DataInserter {
         dbManager.close();
     }
 
-    //TODO: da testare
     public void saveNewRoutine(Routine routine){
         String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         dbManager.open("write");
@@ -56,7 +55,12 @@ public class DataInserter {
     }
 
     public void updateRoutine(Routine newRoutine, Routine oldRoutine){
+        String oldRoutineName = oldRoutine.getRoutineName();
+        String newRoutineName = newRoutine.getRoutineName();
         dbManager.open("write");
+        if(!oldRoutineName.equals(newRoutineName)){
+            dbManager.updateRoutine(oldRoutineName, newRoutineName);
+        }
 
         dbManager.close();
     }

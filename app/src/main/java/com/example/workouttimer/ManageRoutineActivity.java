@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class ManageRoutineActivity extends AppCompatActivity {
@@ -41,6 +43,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
     private ImageButton btnAddExercise;
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
             Toast.makeText(this, "newRoutine", Toast.LENGTH_SHORT).show();
             routine = new Routine();
             entryRoutine = new Routine();
+            activityState = NEW_ROUTINE_FUNCTION;
         }
         if(intent.hasExtra("manageThisRoutine")){
             Toast.makeText(this, intent.getStringExtra("manageThisRoutine"), Toast.LENGTH_SHORT).show();
@@ -62,6 +66,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
             routine = dataProvider.getCompleteRoutine(routine);
             assert routine != null;
             entryRoutine = clone(routine);
+            activityState = MODIFY_ROUTINE_FUNCTION;
         }
         showRoutineName();
         eTxtRoutineName.addTextChangedListener(new TextWatcher() {
@@ -81,9 +86,11 @@ public class ManageRoutineActivity extends AppCompatActivity {
                 }
             }
         });
-
-
         listExercises = routine.getListExercise();
+        if(intent.hasExtra("addThisExercise")){
+            Exercise exercise = (Exercise) intent.getExtras().getSerializable("addThisExercise");
+            routine.getListExercise().add(exercise);
+        }
         recyclerView = findViewById(R.id.rvExercises);
         recyclerAdapter = new RecyclerAdapter(routine);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -93,98 +100,76 @@ public class ManageRoutineActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(dividerItemDecoration);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-
+        swipeRefreshLayout = findViewById(R.id.srLayoutManageRoutine);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                recyclerAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         btnAddExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Build an AlertDialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(ManageRoutineActivity.this);
 
-                // String array for alert dialog multi choice items
-                String[] colors = new String[]{
-                        "Red",
-                        "Green",
-                        "Blue",
-                        "Purple",
-                        "Olive"
-                };
+                final ArrayList<String> listItems = new ArrayList<String>();
+                final ArrayList<Exercise> listAllExercises = dataProvider.getAllExercises();
+                Iterator<Exercise> iterator = listAllExercises.iterator();
+                while(iterator.hasNext()){
+                    Exercise exercise = iterator.next();
+                    listItems.add(exercise.getExerciseName());
+                }
 
+                final String[] items = new String[listItems.size()];
+                for(int i = 0; i< items.length; i++){
+                    items[i] = listItems.get(i);
+                }
+                final List<String> listOfItems = Arrays.asList(items);
                 // Boolean array for initial selected items
-                final boolean[] checkedColors = new boolean[]{
-                        false, // Red
-                        true, // Green
-                        false, // Blue
-                        true, // Purple
-                        false // Olive
+                final boolean[] checkedItems = new boolean[listItems.size()];
+                Arrays.fill(checkedItems, Boolean.FALSE);
 
-                };
-
-                // Convert the color array to list
-                final List<String> colorsList = Arrays.asList(colors);
 
                 // Set multiple choice items for alert dialog
-                /*
-                    AlertDialog.Builder setMultiChoiceItems(CharSequence[] items, boolean[]
-                    checkedItems, DialogInterface.OnMultiChoiceClickListener listener)
-                        Set a list of items to be displayed in the dialog as the content,
-                        you will be notified of the selected item via the supplied listener.
-                 */
-                /*
-                    DialogInterface.OnMultiChoiceClickListener
-                    public abstract void onClick (DialogInterface dialog, int which, boolean isChecked)
-
-                        This method will be invoked when an item in the dialog is clicked.
-
-                        Parameters
-                        dialog The dialog where the selection was made.
-                        which The position of the item in the list that was clicked.
-                        isChecked True if the click checked the item, else false.
-                 */
-                builder.setMultiChoiceItems(colors, checkedColors, new DialogInterface.OnMultiChoiceClickListener() {
+                builder.setMultiChoiceItems(items, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-
-                        // Update the current focused item's checked status
-                        checkedColors[which] = isChecked;
-
-                        // Get the current focused item
-                        String currentItem = colorsList.get(which);
-
-                        // Notify the current action
+                        checkedItems[which] = isChecked;
+                        String currentItem = listItems.get(which);
                         Toast.makeText(getApplicationContext(),
                                 currentItem + " " + isChecked, Toast.LENGTH_SHORT).show();
                     }
                 });
-
                 // Specify the dialog is not cancelable
                 builder.setCancelable(false);
-
                 // Set a title for alert dialog
-                builder.setTitle("Your preferred colors?");
-
+                builder.setTitle("Choose which exercises to add");
                 // Set the positive/yes button click listener
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("ADD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // Do something when click positive button
-                        eTxtRoutineName.setText("Your preferred colors..... \n");
-                        for (int i = 0; i<checkedColors.length; i++){
-                            boolean checked = checkedColors[i];
+                        for (int i = 0; i<checkedItems.length; i++){
+                            boolean checked = checkedItems[i];
                             if (checked) {
-                                eTxtRoutineName.setText(eTxtRoutineName.getText() + colorsList.get(i) + "\n");
+                                Exercise exercise = dataProvider.getExercise(items[i]);
+                                routine.getListExercise().add(exercise);
                             }
                         }
+                        recyclerAdapter.notifyDataSetChanged();
                     }
                 });
-
                 // Set the negative/no button click listener
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("New", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // Do something when click the negative button
+                        Intent intent = new Intent(getApplicationContext(), ManageExerciseActivity.class);
+                        String message = "newExercise";
+                        intent.putExtra("newExercise", message);
+                        startActivity(intent);
                     }
                 });
-
                 // Set the neutral/cancel button click listener
                 builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -192,7 +177,6 @@ public class ManageRoutineActivity extends AppCompatActivity {
                         // Do something when click the neutral button
                     }
                 });
-
                 AlertDialog dialog = builder.create();
                 // Display the alert dialog on interface
                 dialog.show();
@@ -240,16 +224,13 @@ public class ManageRoutineActivity extends AppCompatActivity {
         final Dialog helpDialog = new Dialog(this);
         helpDialog.setContentView(R.layout.dialog_help_manage_routine);
         helpDialog.setTitle("Help");
-
         Button dialogButton = (Button) helpDialog.findViewById(R.id.btnExitDialogManageRoutine);
-
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 helpDialog.dismiss();
             }
         });
-
         switch(item.getItemId()) {
             case R.id.menuSaveRoutine:
                 Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
@@ -257,7 +238,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
                     dataInserter.saveNewRoutine(routine);
                 }
                 if(activityState == MODIFY_ROUTINE_FUNCTION){
-
+                    dataInserter.updateRoutine(routine, entryRoutine);
                 }
                 finish();
                 return(true);
@@ -277,7 +258,6 @@ public class ManageRoutineActivity extends AppCompatActivity {
         }
         return(super.onOptionsItemSelected(item));
     }
-
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START |
             ItemTouchHelper.END, 0) {
