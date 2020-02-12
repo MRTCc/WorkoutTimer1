@@ -3,6 +3,12 @@ package com.example.workouttimer;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Locale;
+
 public class DataInserter {
 
     private DbUtils dbUtils;
@@ -31,6 +37,27 @@ public class DataInserter {
         dbManager.updateExercise(oldExercise.getExerciseName(), newExercise.getExerciseName(),
                 newExercise.getSetsToDo(), newExercise.getRepsToDo(), newExercise.getPreparationTime(),
                 newExercise.getWorkTime(), newExercise.getRestTime(), newExercise.getCoolDownTime());
+        dbManager.close();
+    }
+
+    //TODO: da testare
+    public void saveNewRoutine(Routine routine){
+        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        dbManager.open("write");
+        String routineName = routine.getRoutineName();
+        dbManager.insertRoutine(routineName, date, routine.getnDone());
+        ArrayList<Exercise> listExercises = routine.getListExercise();
+        Iterator<Exercise> iterator = listExercises.iterator();
+        while(iterator.hasNext()){
+            Exercise exercise = iterator.next();
+            dbManager.insertConcreteRoutine(routineName, exercise.getExerciseName(), exercise.getPosition());
+        }
+        dbManager.close();
+    }
+
+    public void updateRoutine(Routine newRoutine, Routine oldRoutine){
+        dbManager.open("write");
+
         dbManager.close();
     }
 }

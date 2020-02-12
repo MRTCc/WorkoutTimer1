@@ -45,12 +45,13 @@ public class DataProvider {
         return favoriteRoutineName;
     }
 
-    //TODO: QUESTA FUNZIONE È DA RIFARE
+    //TODO: DA TESTARE
     public Routine getCompleteRoutine(Routine routine){
-        Cursor cursor = dbManager.fetchExercisesNameFromConcreteRoutine(routine.getRoutineName());
+        dbManager.open("read");
+        Cursor cursor = dbManager.fetchExercisesFromConcreteRoutine(routine.getRoutineName());
         if(cursor != null) {
             ArrayList<Exercise> listExercise = new ArrayList<Exercise>();
-            while(cursor.moveToNext()){
+            do{
                 Exercise exercise = new Exercise();
                 exercise.setExerciseName(cursor.getString(cursor.getColumnIndex(dbUtils.EXERCISE_NAME)));
                 exercise.setSetsToDo(cursor.getInt(cursor.getColumnIndex(dbUtils.SETS_TO_DO)));
@@ -61,7 +62,7 @@ public class DataProvider {
                 exercise.setCoolDownTime(cursor.getInt(cursor.getColumnIndex(dbUtils.COOL_DOWN_TIME)));
                 exercise.setPosition(cursor.getInt(cursor.getColumnIndex(dbUtils.POSITION)));
                 listExercise.add(exercise);
-            }
+            }while(cursor.moveToNext());
             routine.setListExercise(listExercise);
         }
         dbManager.close();
@@ -94,6 +95,18 @@ public class DataProvider {
         boolean isThere = false;
         dbManager.open("read");
         Cursor cursor = dbManager.fetchExercise(exercise.getExerciseName());
+        if(cursor.moveToFirst()){
+            isThere = true;
+        }
+        dbManager.close();
+        return isThere;
+    }
+
+    //TODO: DA TESTARE
+    public boolean isThereRoutine(Routine routine){
+        boolean isThere = false;
+        dbManager.open("read");
+        Cursor cursor = dbManager.fetchRoutine(routine.getRoutineName());
         if(cursor.moveToFirst()){
             isThere = true;
         }

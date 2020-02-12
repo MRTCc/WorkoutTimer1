@@ -65,10 +65,11 @@ public class DbManager {
         database.insert(dbHelper.FAVORITE_ROUTINE_TABLE, null, contentValue);
     }
 
-    public void insertConcreteRoutine(String routineName, String exerciseName){
+    public void insertConcreteRoutine(String routineName, String exerciseName, int position){
         ContentValues contentValue = new ContentValues();
         contentValue.put(dbHelper.ROUTINE_NAME, routineName);
         contentValue.put(dbHelper.EXERCISE_NAME, exerciseName);
+        contentValue.put(dbHelper.POSITION, position);
         database.insert(dbHelper.CONCRETE_ROUTINES_TABLE, null, contentValue);
     }
 
@@ -110,6 +111,8 @@ public class DbManager {
                 + " = " + " '" + oldRoutineName + "' ", null);
     }
 
+
+
     public void updateExercise(String oldExerciseName, String newExerciseName, int setsToDo,
                                int repsToDo, int preparationTime, int workTime, int restTime,
                                int coolDownTime){
@@ -140,6 +143,18 @@ public class DbManager {
         return cursor;
     }
 
+    public Cursor fetchRoutine(String routineName){
+        String[] columns = new String[] {dbHelper.ROUTINE_NAME};
+        String whereClause = dbHelper.ROUTINE_NAME + " = " + " ? ";
+        String[] whereArgs = new String[]{routineName};
+        Cursor cursor = database.query(dbHelper.ROUTINES_TABLE, columns,    whereClause,
+                whereArgs, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
     public Cursor fetchFavoriteRoutine(){
         String[] columns = new String[] {dbHelper.ROUTINE_NAME};
         Cursor cursor = database.query(dbHelper.FAVORITE_ROUTINE_TABLE, columns, null,
@@ -150,9 +165,9 @@ public class DbManager {
         return cursor;
     }
 
-    public Cursor fetchExercisesNameFromConcreteRoutine(String routineName){
+    public Cursor fetchExercisesFromConcreteRoutine(String routineName){
         //TODO: DA TESTARE
-        String query = "select " + dbHelper.EXERCISE_NAME + " , " + dbHelper.SETS_TO_DO + " , " +
+        String query = "select " + dbHelper.EXERCISE_TABLE + "." + dbHelper.EXERCISE_NAME + " , " + dbHelper.SETS_TO_DO + " , " +
                 dbHelper.REPS_TO_DO + " , " + dbHelper.PREPARATION_TIME + "," + dbHelper.WORK_TIME +
                 " , " + dbHelper.REST_TIME + " , " + dbHelper.COOL_DOWN_TIME + " , " +
                 dbHelper.POSITION + " from " + dbHelper.CONCRETE_ROUTINES_TABLE + " , " +

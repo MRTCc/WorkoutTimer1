@@ -27,7 +27,7 @@ public class Routine implements Serializable{
         nDone = 0;
         totTime = 0;
         numberOfExercises = 0;
-        listExercise = null;
+        listExercise = new ArrayList<Exercise>();
     }
 
     public void setRoutineName(String routineName) {

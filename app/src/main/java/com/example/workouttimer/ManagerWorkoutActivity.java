@@ -58,6 +58,14 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        finish();
+        Intent intent = new Intent(this, ManagerWorkoutActivity.class);
+        startActivity(intent);
+    }
+
     @SuppressLint("ResourceType")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
