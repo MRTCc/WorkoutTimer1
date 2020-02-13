@@ -28,8 +28,9 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     private TextView txtSetsToDo;
     private TextView txtRepsToDo;
     private boolean isClickable;
+    private boolean isPlaying;
     private DataProvider dataProvider;
-    private Routine routine;
+    private RoutineTick routineTick;
     ScheduledThreadPoolExecutor exec;
 
     @Override
@@ -57,21 +58,37 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         txtExName.setTextSize(30);
         txtPhaseCountDown.setTextSize(200);
         isClickable = true;
-
+        isPlaying = true;
+        routineTick = new RoutineTick();
         dataProvider = new DataProvider(this);
+        Routine routine;
         //set of routine that has to be played
         Intent intent = getIntent();
-        if(intent.hasExtra("com.example.workouttimer.MESSAGE")) {
+        if(intent.hasExtra("playFavoriteRoutine")) {
             routine = dataProvider.getFavoriteRoutine();
-            //Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
+            routineTick = new RoutineTick(routine);
+            Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
         }
         if(intent.hasExtra("playThisRoutine")){
             routine = dataProvider.getCompleteRoutine((Routine) intent.getExtras().getSerializable(
                     "playThisRoutine"));
             assert routine != null;
-            //Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
+            routineTick = new RoutineTick(routine);
+            Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
         }
+        render();
         execution();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        exec.shutdown();
     }
 
     public void execution(){
@@ -79,23 +96,44 @@ public class PlayWorkoutActivity extends AppCompatActivity {
             exec.shutdown();
         }
         if(exec == null){
+            try {
             exec = new ScheduledThreadPoolExecutor(1);
             exec.scheduleAtFixedRate(new Runnable() {
+                private Runnable update = new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("conto", "prova");
+                        if(isPlaying){
+                            tick();
+                            render();
+                        }
+                    }
+                };
+                @Override
                 public void run() {
-                    //Log.i("conto", "prova");
-                    tick();
-                    render();
+                    runOnUiThread(update);
                 }
             }, 0, 1, TimeUnit.SECONDS);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
     public void tick(){
-
+        routineTick.tick();
     }
 
     public void render(){
+        txtCountDown.setText(routineTick.getTotCountDown());
+        txtExName.setText(routineTick.getActualExName());
+        txtPhaseCountDown.setText(routineTick.getPhaseCountDown());
+        txtSetsToDo.setText(routineTick.getSetsToDo());
+        txtRepsToDo.setText(routineTick.getRepssToDo());
+    }
 
+    public void playPauseRoutine(View view){
+        isPlaying = !isPlaying;
     }
 
     public void lockButtons(View view) {

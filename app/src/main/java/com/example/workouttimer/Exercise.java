@@ -11,6 +11,7 @@ public class Exercise implements Serializable {
     int restTime;
     int coolDownTime;
     int position;
+
     public Exercise(String exerciseName, int setsToDo, int repsToDo, int preparationTime,
                     int workTime, int restTime, int coolDownTime){
         this.exerciseName = exerciseName;
@@ -31,6 +32,23 @@ public class Exercise implements Serializable {
         this.workTime = 0;
         this.restTime = 0;
         this.coolDownTime = 0;
+    }
+
+    public int getExerciseTime(){
+        int totTime = 0;
+        if(preparationTime >= 1){
+            totTime += preparationTime;
+        }
+        if(workTime >= 1){
+            totTime += (setsToDo * workTime);
+        }
+        if(restTime >= 1){
+            totTime += ((setsToDo - 1) * restTime);
+        }
+        if(coolDownTime >= 1){
+            totTime += coolDownTime;
+        }
+        return totTime;
     }
 
     public String getExerciseName() {

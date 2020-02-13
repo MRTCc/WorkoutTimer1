@@ -2,6 +2,7 @@ package com.example.workouttimer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Routine implements Serializable{
     String routineName;
@@ -10,7 +11,7 @@ public class Routine implements Serializable{
     int totTime;
     int numberOfExercises;
     ArrayList<Exercise> listExercise;
-
+/*
     public Routine(String routineName, String dateOfCreation, int nDone, int totTime, int numberOfExercises,
                    ArrayList<Exercise> listExercises){
         this.routineName = routineName;
@@ -20,6 +21,17 @@ public class Routine implements Serializable{
         this.numberOfExercises = numberOfExercises;
         this.listExercise = listExercises;
     }
+    */
+    public Routine(String routineName, String dateOfCreation, int nDone, int numberOfExercises,
+                   ArrayList<Exercise> listExercises){
+        this.routineName = routineName;
+        this.dateOfCreation = dateOfCreation;
+        this.nDone = nDone;
+        this.numberOfExercises = numberOfExercises;
+        this.listExercise = listExercises;
+        this.totTime = getRoutineTime();
+    }
+
 
     public Routine(){
         routineName = "New Routine";
@@ -28,6 +40,16 @@ public class Routine implements Serializable{
         totTime = 0;
         numberOfExercises = 0;
         listExercise = new ArrayList<Exercise>();
+    }
+
+    public int getRoutineTime(){
+        int totTime = 0;
+        Iterator<Exercise> iterator = listExercise.iterator();
+        while(iterator.hasNext()){
+            Exercise exercise = iterator.next();
+            totTime += exercise.getExerciseTime();
+        }
+        return totTime;
     }
 
     public void setRoutineName(String routineName) {

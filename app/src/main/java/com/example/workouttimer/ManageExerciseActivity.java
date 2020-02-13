@@ -57,13 +57,11 @@ public class ManageExerciseActivity extends AppCompatActivity {
             exercise = new Exercise();
             entryExercise = new Exercise();
             activityState = NEW_EXERCISE_FUNCTION;
-            showExercise(exercise);
         }
         else if(intent.hasExtra("createAndAddExercise")){
             activityState = NEW_AND_ADD_EXERCISE_FUNCTION;
             exercise = new Exercise();
             entryExercise = new Exercise();
-            showExercise(exercise);
         }
         else if(intent.hasExtra("modifyThisExercise")){
             Toast.makeText(this,intent.getStringExtra("modifyThisExercise"), Toast.LENGTH_SHORT).show();
@@ -71,14 +69,14 @@ public class ManageExerciseActivity extends AppCompatActivity {
             entryExercise = new Exercise();
             if(exercise != null){
                 clone(entryExercise, exercise);
-                showExercise(exercise);
             }
             activityState = MODIFY_EXERCISE_FUNCTION;
         }
         else{
             Toast.makeText(this,"something did'nt work", Toast.LENGTH_SHORT).show();
         }
-
+        assert exercise != null;
+        showExerciseFirstTime(exercise);
         eTxtPrepTime.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -220,14 +218,50 @@ public class ManageExerciseActivity extends AppCompatActivity {
         });
     }
 
-    private void showExercise(Exercise exercise){
+    private void showExerciseFirstTime(Exercise exercise){
         eTxtExerciseName.setText(exercise.getExerciseName());
-        eTxtPrepTime.setText(Integer.toString(exercise.getPreparationTime()));
-        eTxtWorkTime.setText(Integer.toString(exercise.getWorkTime()));
-        eTxtRestTime.setText(Integer.toString(exercise.getRestTime()));
-        eTxtCoolDownTime.setText(Integer.toString(exercise.getCoolDownTime()));
-        eTxtSetsToDo.setText(Integer.toString(exercise.getSetsToDo()));
-        eTxtRepsToDo.setText(Integer.toString(exercise.getRepsToDo()));
+        if(exercise.getPreparationTime() < 1){
+            exercise.setPreparationTime(1);
+            changeBtnActState(btnActPrepTime, eTxtPrepTime);
+        }
+        else{
+            eTxtPrepTime.setText(Integer.toString(exercise.getPreparationTime()));
+        }
+        if(exercise.getWorkTime() < 1){
+            exercise.setWorkTime(1);
+            changeBtnActState(btnActWorkTime, eTxtWorkTime);
+        }
+        else{
+            eTxtWorkTime.setText(Integer.toString(exercise.getWorkTime()));
+        }
+        if(exercise.getRestTime() < 1){
+            exercise.setRestTime(1);
+            changeBtnActState(btnActRestTime, eTxtRestTime);
+        }
+        else{
+            eTxtRestTime.setText(Integer.toString(exercise.getRestTime()));
+        }
+        if(exercise.getCoolDownTime() < 1){
+            exercise.setCoolDownTime(1);
+            changeBtnActState(btnActCoolDownTime, eTxtCoolDownTime);
+        }
+        else{
+            eTxtCoolDownTime.setText(Integer.toString(exercise.getCoolDownTime()));
+        }
+        if(exercise.getSetsToDo() < 1){
+            exercise.setSetsToDo(1);
+            changeBtnActState(btnActSetsToDo, eTxtSetsToDo);
+        }
+        else{
+            eTxtSetsToDo.setText(Integer.toString(exercise.getSetsToDo()));
+        }
+        if(exercise.getRepsToDo() < 1){
+            exercise.setRepsToDo(1);
+            changeBtnActState(btnActRepsToDo, eTxtRepsToDo);
+        }
+        else{
+            eTxtRepsToDo.setText(Integer.toString(exercise.getRepsToDo()));
+        }
     }
 
     private void clone(Exercise exerciseDestionation, Exercise exerciseToCopy) {
@@ -351,6 +385,27 @@ public class ManageExerciseActivity extends AppCompatActivity {
         return true;
     }
 
+    public void checkBtnState(){
+        if("enable".contentEquals(btnActPrepTime.getText())){
+            exercise.setPreparationTime(-1);
+        }
+        if("enable".contentEquals(btnActWorkTime.getText())){
+            exercise.setWorkTime(-1);
+        }
+        if("enable".contentEquals(btnActRestTime.getText())){
+            exercise.setRestTime(-1);
+        }
+        if("enable".contentEquals(btnActCoolDownTime.getText())){
+            exercise.setCoolDownTime(-1);
+        }
+        if("enable".contentEquals(btnActSetsToDo.getText())){
+            exercise.setSetsToDo(-1);
+        }
+        if("enable".contentEquals(btnActRepsToDo.getText())){
+            exercise.setRepsToDo(-1);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final Dialog helpDialog = new Dialog(this);
@@ -367,12 +422,15 @@ public class ManageExerciseActivity extends AppCompatActivity {
             case R.id.menuSaveExercise:
                 Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
                 if(activityState == NEW_EXERCISE_FUNCTION){
+                    checkBtnState();
                     dataInserter.saveNewExercise(exercise);
                 }
                 else if(activityState == MODIFY_EXERCISE_FUNCTION){
+                    checkBtnState();
                     dataInserter.updateExercise(exercise, entryExercise);
                 }
                 else if(activityState == NEW_AND_ADD_EXERCISE_FUNCTION){
+                    checkBtnState();
                     dataInserter.saveNewExercise(exercise);
                     Intent intent = new Intent(this, ManageRoutineActivity.class);
                     Exercise message = exercise;

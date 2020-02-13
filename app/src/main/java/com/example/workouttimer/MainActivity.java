@@ -11,7 +11,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
 
-    private final static String EXTRA_MESSAGE_PLAY = "com.example.workouttimer.MESSAGE";
+    private final static String EXTRA_MESSAGE_PLAY = "playFavoriteRoutine";
     private final static String EXTRA_MESSAGE_WORKOUT = "com.example.workouttimer.MESSAGE";
     private final static String EXTRA_MESSAGE_ABOUT = "com.example.workouttimer.MESSAGE";
     private final static String EXTRA_MESSAGE_EXERCISES = "com.example.workouttimer.MESSAGE";
