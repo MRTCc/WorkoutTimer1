@@ -25,4 +25,8 @@
     <string name="jokeSet">Don\'t joke me! You have to do at least on set!</string>
     <string name="disableStateBtn">---</string>
     <string name="joke">Joke</string>
+    <string name="prepTimeColor">green</string>
+    <string name="workTimeColor">red</string>
+    <string name="restTimeColor">yellow</string>
+    <string name="coolDownColor">blue</string>
 </resources>

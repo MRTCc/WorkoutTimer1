@@ -1,11 +1,9 @@
 package com.example.workouttimer;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.CompoundButtonCompat;
 import androidx.core.widget.TextViewCompat;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,16 +64,34 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent.hasExtra("playFavoriteRoutine")) {
             routine = dataProvider.getFavoriteRoutine();
-            routineTick = new RoutineTick(routine);
+            routineTick = new RoutineTick(routine, this);
             Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
         }
         if(intent.hasExtra("playThisRoutine")){
             routine = dataProvider.getCompleteRoutine((Routine) intent.getExtras().getSerializable(
                     "playThisRoutine"));
             assert routine != null;
-            routineTick = new RoutineTick(routine);
+            routineTick = new RoutineTick(routine, this);
             Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
         }
+
+        btnPrev.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getApplicationContext(), "prev ex", Toast.LENGTH_SHORT).show();
+                routineTick.tickPrevExercise();
+                return false;
+            }
+        });
+        btnNext.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getApplicationContext(), "next ex", Toast.LENGTH_SHORT).show();
+                routineTick.tickNextExercise();
+                return false;
+            }
+        });
+
         render();
         execution();
     }
@@ -125,15 +141,26 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     }
 
     public void render(){
-        txtCountDown.setText(routineTick.getTotCountDown());
-        txtExName.setText(routineTick.getActualExName());
-        txtPhaseCountDown.setText(routineTick.getPhaseCountDown());
-        txtSetsToDo.setText(routineTick.getSetsToDo());
-        txtRepsToDo.setText(routineTick.getRepssToDo());
+        txtCountDown.setText(routineTick.getFormatTotCountDown());
+        txtExName.setText(routineTick.getFormatCurrentExName());
+        txtPhaseCountDown.setText(routineTick.getFormatPhaseCountDown());
+        txtSetsToDo.setText(routineTick.getFormatSetsToDo());
+        txtRepsToDo.setText(routineTick.getFormatRepsToDo());
     }
 
     public void playPauseRoutine(View view){
         isPlaying = !isPlaying;
+        //TODO: play resume di exec, perchè così l'app, visivamente, sembra lagghi
+    }
+
+    public void tickPrevPhase(View view){
+        //Toast.makeText(this, "prev phase", Toast.LENGTH_SHORT).show();
+        routineTick.tickPrevPhase();
+    }
+
+    public void tickNextPhase(View view){
+        //Toast.makeText(this, "next phase", Toast.LENGTH_SHORT).show();
+        routineTick.tickNextPhase();
     }
 
     public void lockButtons(View view) {

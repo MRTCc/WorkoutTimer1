@@ -120,6 +120,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Build an AlertDialog
+                //TODO: don't show the exercises already present in the routine
                 AlertDialog.Builder builder = new AlertDialog.Builder(ManageRoutineActivity.this);
                 final ArrayList<String> listItems = new ArrayList<String>();
                 final ArrayList<Exercise> listAllExercises = dataProvider.getAllExercises();
@@ -187,16 +188,16 @@ public class ManageRoutineActivity extends AppCompatActivity {
             }
         });
     }
-
+/*
     @Override
-    public void onRestart(){
+    protected void onRestart() {
         super.onRestart();
         finish();
         Intent intent = new Intent(this, ManageRoutineActivity.class);
         intent.putExtra("manageThisRoutine", routine);
         startActivity(intent);
     }
-
+*/
     private void showRoutineName() {
         eTxtRoutineName.setText(routine.getRoutineName());
     }

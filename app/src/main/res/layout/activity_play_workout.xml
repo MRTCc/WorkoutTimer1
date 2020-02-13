@@ -135,8 +135,9 @@
                 android:layout_weight="50"
                 android:text="@string/prevBtnText"
                 android:textSize="20sp"
-
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:onClick="tickPrevPhase"
+                />
 
             <Button
                 android:id="@+id/btnNext"
@@ -145,7 +146,9 @@
                 android:layout_weight="50"
                 android:text="@string/nextBtnText"
                 android:textSize="20sp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:onClick="tickNextPhase"
+                />
         </TableRow>
 
     </TableLayout>
