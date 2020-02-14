@@ -197,19 +197,19 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     private void setBackgroundColor(String backgroundColor) {
         int color;
         if(getResources().getString(R.string.prepTimeColor).contentEquals(backgroundColor)){
-            color = getResources().getColor(R.color.greenlight);
+            color = getResources().getColor(R.color.SpringGreen);
         }
         else if(getResources().getString(R.string.workTimeColor).contentEquals(backgroundColor)){
-            color = getResources().getColor(R.color.red);
+            color = getResources().getColor(R.color.IndianRed);
         }
         else if(getResources().getString(R.string.restTimeColor).contentEquals(backgroundColor)){
-            color = getResources().getColor(R.color.orangelight);
+            color = getResources().getColor(R.color.Yellow);
         }
         else if(getResources().getString(R.string.coolDownColor).contentEquals(backgroundColor)){
-            color = getResources().getColor(R.color.bluelight);
+            color = getResources().getColor(R.color.CadetBlue);
         }
         else{
-            color = getResources().getColor(R.color.white);
+            color = getResources().getColor(R.color.White);
         }
         layout.setBackgroundColor(color);
         txtCountDown.setBackgroundColor(color);

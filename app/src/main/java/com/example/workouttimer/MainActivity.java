@@ -30,11 +30,14 @@ public class MainActivity extends AppCompatActivity {
             dbManager.open("write");
             dbManager.insertRoutine("new routine", "1-1-2020", 0);
             dbManager.insertFavoriteRoutine("new routine");
+            dbManager.insertExercise("new exercise", 4, 8, 50, 60, 70,20);
             dbManager.close();
             SharedPreferences.Editor editor = settings.edit(); // Open the editor for our settings
             editor.putBoolean("firstRun", false); // It is no longer the first run
             editor.apply(); // Save all changed settings
         }
+        //TODO : controllare cosa succede se il db è vuoto
+        //TODO: finestre di dialogo quando si lascia un'activity senza aver salvato
     }
 
     public void playWorkout(View view) {

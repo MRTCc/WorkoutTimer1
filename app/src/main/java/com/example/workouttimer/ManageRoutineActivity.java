@@ -310,7 +310,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
                                 float dY, int actionState, boolean isCurrentlyActive) {
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     .addSwipeRightBackgroundColor(ContextCompat.getColor(
-                            ManageRoutineActivity.this, R.color.colorAccent))
+                            ManageRoutineActivity.this, R.color.IndianRed))
                     .addSwipeRightActionIcon(R.drawable.ic_delete_black_24dp)
                     .create()
                     .decorate();

@@ -23,7 +23,7 @@
             android:autoSizeMaxTextSize="30sp"
             android:autoSizeMinTextSize="10sp"
             android:autoSizeTextType="uniform"
-            android:background="@color/white"
+            android:background="@color/White"
             android:layout_weight="50"
             />
 
@@ -38,7 +38,7 @@
             android:autoSizeMaxTextSize="30sp"
             android:autoSizeMinTextSize="10sp"
             android:autoSizeTextType="uniform"
-            android:background="@color/white"
+            android:background="@color/White"
             android:layout_weight="50"
             />
     </LinearLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="100"
+    >
+
+    <TextView
+        android:id="@+id/txtRoutineNameManagerWorkout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="TextView"
+        android:layout_weight="70"
+        />
+
+    <ImageButton
+        android:id="@+id/btnPlayRoutineManagerWorkout"
+        android:layout_weight="15"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@android:drawable/ic_media_play"
+        android:contentDescription="@string/todo"
+
+        />
+
+    <ImageButton
+        android:id="@+id/btnModifyRoutineManagerWorkout"
+        android:layout_weight="15"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@android:drawable/ic_menu_agenda"
+        android:contentDescription="@string/todo" />
+
+</LinearLayout>

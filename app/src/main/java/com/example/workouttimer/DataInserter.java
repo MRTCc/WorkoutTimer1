@@ -69,4 +69,16 @@ public class DataInserter {
         }
         dbManager.close();
     }
+
+    public void deleteRoutine(Routine routine){
+        dbManager.open("write");
+        dbManager.deleteRoutine(routine.getRoutineName());
+        dbManager.close();
+    }
+
+    public void deleteExercise(Exercise exercise){
+        dbManager.open("write");
+        dbManager.deleteExercise(exercise.getExerciseName());
+        dbManager.close();
+    }
 }
