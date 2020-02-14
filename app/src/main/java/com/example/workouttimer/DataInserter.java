@@ -1,6 +1,7 @@
 package com.example.workouttimer;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -72,7 +73,24 @@ public class DataInserter {
 
     public void deleteRoutine(Routine routine){
         dbManager.open("write");
-        dbManager.deleteRoutine(routine.getRoutineName());
+        String favoriteRoutineName = null;
+        String routineName = routine.getRoutineName();
+        Cursor cursor = dbManager.fetchFavoriteRoutine();
+        dbManager.deleteRoutine(routineName);
+        if(cursor != null) {
+            favoriteRoutineName = cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME));
+        }
+        assert favoriteRoutineName != null;
+        if(favoriteRoutineName.contentEquals(routineName)){
+            cursor = dbManager.fetchAllRoutines();
+            if(cursor != null) {
+                Routine routineTmp = new Routine();
+                routineTmp.setRoutineName(cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME)));
+                routineTmp.setDateOfCreation(cursor.getString(cursor.getColumnIndex(dbUtils.DATE_OF_CREATION)));
+                routineTmp.setnDone(cursor.getInt(cursor.getColumnIndex(dbUtils.N_DONE)));
+                dbManager.insertFavoriteRoutine(routineTmp.getRoutineName());
+            }
+        }
         dbManager.close();
     }
 
