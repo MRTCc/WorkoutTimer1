@@ -80,7 +80,7 @@ public class PlayWorkoutActivity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 Toast.makeText(getApplicationContext(), "prev ex", Toast.LENGTH_SHORT).show();
                 routineTick.tickPrevExercise();
-                return false;
+                return true;
             }
         });
         btnNext.setOnLongClickListener(new View.OnLongClickListener() {
@@ -88,12 +88,12 @@ public class PlayWorkoutActivity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 Toast.makeText(getApplicationContext(), "next ex", Toast.LENGTH_SHORT).show();
                 routineTick.tickNextExercise();
-                return false;
+                return true;
             }
         });
 
-        render();
-        execution();
+       // render();
+        //execution();
     }
 
     @Override
@@ -102,16 +102,26 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        render();
+        execution();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
-        exec.shutdown();
+        if(exec != null) {
+            exec.shutdown();
+        }
     }
 
     public void execution(){
-        if(exec != null){
+        if(exec != null || !isPlaying){
             exec.shutdown();
+            exec = null;
         }
-        if(exec == null){
+        if(exec == null && isPlaying){
             try {
             exec = new ScheduledThreadPoolExecutor(1);
             exec.scheduleAtFixedRate(new Runnable() {
@@ -119,10 +129,8 @@ public class PlayWorkoutActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.i("conto", "prova");
-                        if(isPlaying){
-                            tick();
-                            render();
-                        }
+                        render();
+                        tick();
                     }
                 };
                 @Override
@@ -150,17 +158,19 @@ public class PlayWorkoutActivity extends AppCompatActivity {
 
     public void playPauseRoutine(View view){
         isPlaying = !isPlaying;
-        //TODO: play resume di exec, perchè così l'app, visivamente, sembra lagghi
+        execution();
     }
 
     public void tickPrevPhase(View view){
         //Toast.makeText(this, "prev phase", Toast.LENGTH_SHORT).show();
         routineTick.tickPrevPhase();
+        onResume();
     }
 
     public void tickNextPhase(View view){
         //Toast.makeText(this, "next phase", Toast.LENGTH_SHORT).show();
         routineTick.tickNextPhase();
+        onResume();
     }
 
     public void lockButtons(View view) {

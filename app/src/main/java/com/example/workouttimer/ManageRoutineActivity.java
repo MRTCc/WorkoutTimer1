@@ -55,6 +55,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO : quando vado in manageExercise, modifico, salvo ed esco, tornando in manageRoutine l'esercizio non è aggiornato
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_routine);
         dataProvider = new DataProvider(this);

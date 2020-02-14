@@ -1,6 +1,7 @@
 package com.example.workouttimer;
 
 import android.content.Context;
+import android.widget.Toast;
 
 public class RoutineTick {
     private Context context;
@@ -39,12 +40,17 @@ public class RoutineTick {
     public void tick(){
         phaseCountDown--;
         totCountDown--;
-        if(phaseCountDown == 0){
+        if(phaseCountDown == 0 && setsToDo < 1){
+            //exercise finished
+            Toast.makeText(context, "exercise finished", Toast.LENGTH_SHORT).show();
+            exerciseState.tickNextExercise();
+        }
+        else if(phaseCountDown == 0){
             //phase finished
             exerciseState.tickNextPhase();
         }
         else if(totCountDown == 0){
-            //exercise finished
+            //routine finished
             exerciseState.tickNextExercise();
         }
     }

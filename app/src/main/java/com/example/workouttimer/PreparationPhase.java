@@ -10,30 +10,28 @@ public class PreparationPhase extends ExerciseState {
 
     @Override
     void initStateData(int callDirection) {
-        /*
-        routineTick.setTotCountDown(routineTick.getRoutine().getRoutineTime());
+        routineTick.setStateColor("green");
         int index = routineTick.getIndex();
-        routineTick.setIndex(index);
         Exercise exercise = routineTick.getRoutine().getListExercise().get(index);
-        routineTick.setPhaseCountDown(exercise.getPreparationTime());
-        routineTick.setSetsToDo(exercise.getSetsToDo());
-        routineTick.setRepsToDo(exercise.getRepsToDo());
-        */
+        int preparationTime = exercise.getPreparationTime();
+        int oldPhaseTime = routineTick.getPhaseCountDown();
+        int oldTotTime = routineTick.getTotCountDown();
         if(callDirection == CALL_IGNORE){
             //called by workPhase
-            Toast.makeText(routineTick.getContext(), "prepTime call_ignore", Toast.LENGTH_SHORT).show();
-            routineTick.setStateColor("green");
-            int index = routineTick.getIndex();
-            Exercise exercise = routineTick.getRoutine().getListExercise().get(index);
-            int preparationTime = exercise.getPreparationTime();
-            int oldPhaseTime = routineTick.getPhaseCountDown();
-            int oldTotTime = routineTick.getTotCountDown();
+            //Toast.makeText(routineTick.getContext(), "prepTime call_ignore", Toast.LENGTH_SHORT).show();
             routineTick.setPhaseCountDown(preparationTime);
             routineTick.setTotCountDown(oldTotTime + preparationTime + (exercise.getWorkTime() - oldPhaseTime));
         }
         else if(callDirection == CALL_FORWARD){
-            //user request to go to next exercise
-
+            //request to go to the next exercise
+            Toast.makeText(routineTick.getContext(), "prepTime call_forward", Toast.LENGTH_SHORT).show();
+            routineTick.setTotCountDown(oldTotTime - oldPhaseTime);
+            index++;
+            routineTick.setIndex(index);
+            Exercise exercise1 = routineTick.getRoutine().getListExercise().get(index);
+            int newPreparationTime = exercise1.getPreparationTime();
+            routineTick.setSetsToDo(exercise1.getSetsToDo());
+            routineTick.setPhaseCountDown(newPreparationTime);
         }
         else if(callDirection == CALL_BACKWARD){
             //user request to go to prev exercise
@@ -65,7 +63,14 @@ public class PreparationPhase extends ExerciseState {
 
     @Override
     void tickNextExercise() {
-
+        int index = routineTick.getIndex();
+        Routine routine = routineTick.getRoutine();
+        if(index >= (routine.getListExercise().size() - 1)){
+            Toast.makeText(routineTick.getContext(), "there are no next ex", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        tickNextPhase();
+        routineTick.getExerciseState().tickNextExercise();
     }
 
     @Override

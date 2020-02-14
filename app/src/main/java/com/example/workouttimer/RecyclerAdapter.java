@@ -36,7 +36,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Exercise exercise = listExercises.get(position);
-        //TODO: da testare se così funziona
         exercise.setPosition(position);
         holder.exerciseName.setText(exercise.getExerciseName());
         String showData = "S: " + exercise.getSetsToDo() + "    R: " + exercise.getRepsToDo() +
