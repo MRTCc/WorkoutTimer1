@@ -11,7 +11,7 @@ public class WorkPhase extends ExerciseState {
 
     @Override
     void initStateData(int callDirection) {
-        routineTick.setStateColor("green");
+        routineTick.setStateColor("red");
         int index = routineTick.getIndex();
         Exercise exercise = routineTick.getRoutine().getListExercise().get(index);
         int workTime = exercise.getWorkTime();
@@ -84,6 +84,13 @@ public class WorkPhase extends ExerciseState {
 
     @Override
     void tickPrevExercise() {
-
+        int index = routineTick.getIndex();
+        Routine routine = routineTick.getRoutine();
+        if(index == 0){
+            Toast.makeText(routineTick.getContext(), "there are no prev ex", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        tickPrevPhase();
+        routineTick.getExerciseState().tickPrevExercise();
     }
 }

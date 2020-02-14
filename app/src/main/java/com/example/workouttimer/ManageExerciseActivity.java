@@ -172,8 +172,11 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 if(s.length() != 0){
                     String txt = eTxtSetsToDo.getText().toString();
                     if(!("---".equals(txt))) {
-                        //TODO : when you save control that setsToDo are >= 1
                         Integer n = Integer.valueOf(eTxtSetsToDo.getText().toString());
+                        if(n < 1){
+                            Toast.makeText(getApplicationContext(),"you can't", Toast.LENGTH_SHORT).show();
+                            n = 1;
+                        }
                         exercise.setSetsToDo(n);
                     }
                 }

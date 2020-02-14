@@ -55,7 +55,6 @@ public class ManageRoutineActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO : quando vado in manageExercise, modifico, salvo ed esco, tornando in manageRoutine l'esercizio non è aggiornato
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_routine);
         dataProvider = new DataProvider(this);
@@ -121,14 +120,15 @@ public class ManageRoutineActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Build an AlertDialog
-                //TODO: don't show the exercises already present in the routine
                 AlertDialog.Builder builder = new AlertDialog.Builder(ManageRoutineActivity.this);
                 final ArrayList<String> listItems = new ArrayList<String>();
                 final ArrayList<Exercise> listAllExercises = dataProvider.getAllExercises();
                 Iterator<Exercise> iterator = listAllExercises.iterator();
                 while(iterator.hasNext()){
                     Exercise exercise = iterator.next();
-                    listItems.add(exercise.getExerciseName());
+                    if(!listExercises.contains(exercise)) {
+                        listItems.add(exercise.getExerciseName());
+                    }
                 }
                 final String[] items = new String[listItems.size()];
                 for(int i = 0; i< items.length; i++){
@@ -189,16 +189,24 @@ public class ManageRoutineActivity extends AppCompatActivity {
             }
         });
     }
-/*
+
     @Override
     protected void onRestart() {
         super.onRestart();
-        finish();
-        Intent intent = new Intent(this, ManageRoutineActivity.class);
-        intent.putExtra("manageThisRoutine", routine);
-        startActivity(intent);
+        //refresh of data
+        Iterator<Exercise> iterator = listExercises.iterator();
+        ArrayList<Exercise> newList = new ArrayList<>();
+        while(iterator.hasNext()){
+            Exercise exercise = iterator.next();
+            exercise = dataProvider.getExercise(exercise.getExerciseName());
+            newList.add(exercise);
+        }
+        listExercises.clear();
+        listExercises.addAll(newList);
+        recyclerAdapter.notifyDataSetChanged();
     }
-*/
+
+
     private void showRoutineName() {
         eTxtRoutineName.setText(routine.getRoutineName());
     }

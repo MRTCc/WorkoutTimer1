@@ -1,5 +1,7 @@
 package com.example.workouttimer;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 public class Exercise implements Serializable {
@@ -32,6 +34,17 @@ public class Exercise implements Serializable {
         this.workTime = 0;
         this.restTime = 0;
         this.coolDownTime = 0;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj == this)
+            return true;
+        if(!(obj instanceof Exercise))
+            return false;
+        Exercise exercise = (Exercise) obj;
+        return (exercise.getExerciseName().contentEquals(getExerciseName()));
+
     }
 
     public int getExerciseTime(){

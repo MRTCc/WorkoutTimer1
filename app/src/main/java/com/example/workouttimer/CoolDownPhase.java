@@ -48,8 +48,8 @@ public class CoolDownPhase extends ExerciseState {
         int index = routineTick.getIndex();
         Routine routine = routineTick.getRoutine();
         if(index >= (routine.getListExercise().size() - 1)){
-            Toast.makeText(routineTick.getContext(), "there are no next ex",
-                    Toast.LENGTH_SHORT).show();
+            routineTick.setTotCountDown(-1);
+            routineTick.setPhaseCountDown(-1);
             return;
         }
         ExerciseState exerciseState = new PreparationPhase(routineTick);
@@ -59,9 +59,13 @@ public class CoolDownPhase extends ExerciseState {
 
     @Override
     void tickPrevExercise() {
-        //TODO : test
-        ExerciseState exerciseState = new PreparationPhase(routineTick);
-        routineTick.setExerciseState(exerciseState);
-        routineTick.getExerciseState().initStateData(CALL_BACKWARD);
+        int index = routineTick.getIndex();
+        Routine routine = routineTick.getRoutine();
+        if(index == 0){
+            Toast.makeText(routineTick.getContext(), "there are no prev ex", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        tickPrevPhase();
+        routineTick.getExerciseState().tickPrevExercise();
     }
 }

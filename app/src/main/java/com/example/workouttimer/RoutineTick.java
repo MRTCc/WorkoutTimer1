@@ -1,6 +1,9 @@
 package com.example.workouttimer;
 
 import android.content.Context;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.widget.Toast;
 
 public class RoutineTick {
@@ -35,23 +38,25 @@ public class RoutineTick {
         repsToDo = exercise.getRepsToDo();
         stateColor = "green";
         exerciseState = new PreparationPhase(this);
+
+
     }
 
     public void tick(){
-        phaseCountDown--;
-        totCountDown--;
-        if(phaseCountDown == 0 && setsToDo < 1){
-            //exercise finished
-            Toast.makeText(context, "exercise finished", Toast.LENGTH_SHORT).show();
-            exerciseState.tickNextExercise();
+        if(phaseCountDown < 0){
+            //nothing, the system await the user command to go on
         }
-        else if(phaseCountDown == 0){
-            //phase finished
-            exerciseState.tickNextPhase();
-        }
-        else if(totCountDown == 0){
-            //routine finished
-            exerciseState.tickNextExercise();
+        else {
+            phaseCountDown--;
+            totCountDown--;
+            if (phaseCountDown == 0 && setsToDo < 1) {
+                //exercise finished
+                Toast.makeText(context, "exercise finished", Toast.LENGTH_SHORT).show();
+                exerciseState.tickNextExercise();
+            } else if (phaseCountDown == 0) {
+                //phase finished
+                exerciseState.tickNextPhase();
+            }
         }
     }
 
@@ -109,6 +114,9 @@ public class RoutineTick {
 
     public String getFormatTotCountDown() {
         Integer totCountDown = this.totCountDown;
+        if(totCountDown < 1){
+            return "---";
+        }
         return totCountDown.toString();
     }
 

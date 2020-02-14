@@ -23,7 +23,7 @@ public class PreparationPhase extends ExerciseState {
             routineTick.setTotCountDown(oldTotTime + preparationTime + (exercise.getWorkTime() - oldPhaseTime));
         }
         else if(callDirection == CALL_FORWARD){
-            //request to go to the next exercise
+            //request to go to next exercise
             Toast.makeText(routineTick.getContext(), "prepTime call_forward", Toast.LENGTH_SHORT).show();
             routineTick.setTotCountDown(oldTotTime - oldPhaseTime);
             index++;
@@ -34,7 +34,14 @@ public class PreparationPhase extends ExerciseState {
             routineTick.setPhaseCountDown(newPreparationTime);
         }
         else if(callDirection == CALL_BACKWARD){
-            //user request to go to prev exercise
+            //request to go to prev exercise
+            Toast.makeText(routineTick.getContext(), "prepTime call_backward", Toast.LENGTH_SHORT).show();
+            index--;
+            routineTick.setIndex(index);
+            exercise = routineTick.getRoutine().getListExercise().get(index);
+            routineTick.setPhaseCountDown(exercise.getPreparationTime());
+            routineTick.setSetsToDo(exercise.getSetsToDo());
+            routineTick.setTotCountDown(oldTotTime + exercise.getExerciseTime());
         }
         else{
             //something is wrong
@@ -75,6 +82,15 @@ public class PreparationPhase extends ExerciseState {
 
     @Override
     void tickPrevExercise() {
-
+        int index = routineTick.getIndex();
+        Routine routine = routineTick.getRoutine();
+        if(index == 0){
+            Toast.makeText(routineTick.getContext(), "there are no prev ex", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        tickPrevPhase();
+        ExerciseState exerciseState = new PreparationPhase(routineTick);
+        routineTick.setExerciseState(exerciseState);
+        routineTick.getExerciseState().initStateData(CALL_BACKWARD);
     }
 }

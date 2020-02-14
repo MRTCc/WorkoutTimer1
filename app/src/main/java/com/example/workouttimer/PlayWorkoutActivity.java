@@ -3,11 +3,16 @@ package com.example.workouttimer;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TextViewCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +30,13 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     private TextView txtPhaseCountDown;
     private TextView txtSetsToDo;
     private TextView txtRepsToDo;
+    private TableLayout layout;
     private boolean isClickable;
     private boolean isPlaying;
     private DataProvider dataProvider;
     private RoutineTick routineTick;
     ScheduledThreadPoolExecutor exec;
+    private Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +47,12 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         btnLock = findViewById(R.id.btnLock);
         btnPrev = findViewById(R.id.btnPrev);
         btnNext = findViewById(R.id.btnNext);
-
         txtCountDown = findViewById(R.id.txtCountDown);
         txtExName = findViewById(R.id.txtExName);
         txtPhaseCountDown = findViewById(R.id.txtPhaseCountDown);
         txtSetsToDo = findViewById(R.id.txtSetsToDo);
         txtRepsToDo = findViewById(R.id.txtRepsToDo);
+        layout = findViewById(R.id.tlAllView);
         //autosizing of the texts displayed
 
         TextViewCompat.setAutoSizeTextTypeWithDefaults(txtCountDown, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
@@ -91,9 +98,10 @@ public class PlayWorkoutActivity extends AppCompatActivity {
                 return true;
             }
         });
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-       // render();
-        //execution();
+
+
     }
 
     @Override
@@ -117,7 +125,7 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     }
 
     public void execution(){
-        if(exec != null || !isPlaying){
+        if((exec!= null && !isPlaying) || exec != null){
             exec.shutdown();
             exec = null;
         }
@@ -144,16 +152,71 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         }
     }
 
+    public void deviceVibration(boolean longVibration){
+        int millis;
+        if(longVibration){
+            millis = 1000;
+        }
+        else{
+            millis = 500;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            vibrator.vibrate(millis);
+        }
+    }
+
     public void tick(){
-        routineTick.tick();
+        if(routineTick.getTotCountDown() < 1){
+            //routine finished
+            Toast.makeText(this, "routine finished", Toast.LENGTH_SHORT).show();
+            exec.shutdown();
+            exec = null;
+            deviceVibration(true);
+        }
+        else {
+            if(routineTick.getPhaseCountDown() < 4 && routineTick.getPhaseCountDown() > 0){
+                deviceVibration(false);
+            }
+            routineTick.tick();
+        }
     }
 
     public void render(){
+        String backgroundColor = routineTick.getStateColor();
+        setBackgroundColor(backgroundColor);
         txtCountDown.setText(routineTick.getFormatTotCountDown());
         txtExName.setText(routineTick.getFormatCurrentExName());
         txtPhaseCountDown.setText(routineTick.getFormatPhaseCountDown());
         txtSetsToDo.setText(routineTick.getFormatSetsToDo());
         txtRepsToDo.setText(routineTick.getFormatRepsToDo());
+    }
+
+    private void setBackgroundColor(String backgroundColor) {
+        int color;
+        if(getResources().getString(R.string.prepTimeColor).contentEquals(backgroundColor)){
+            color = getResources().getColor(R.color.greenlight);
+        }
+        else if(getResources().getString(R.string.workTimeColor).contentEquals(backgroundColor)){
+            color = getResources().getColor(R.color.red);
+        }
+        else if(getResources().getString(R.string.restTimeColor).contentEquals(backgroundColor)){
+            color = getResources().getColor(R.color.orangelight);
+        }
+        else if(getResources().getString(R.string.coolDownColor).contentEquals(backgroundColor)){
+            color = getResources().getColor(R.color.bluelight);
+        }
+        else{
+            color = getResources().getColor(R.color.white);
+        }
+        layout.setBackgroundColor(color);
+        txtCountDown.setBackgroundColor(color);
+        txtExName.setBackgroundColor(color);
+        txtPhaseCountDown.setBackgroundColor(color);
+        txtSetsToDo.setBackgroundColor(color);
+        txtRepsToDo.setBackgroundColor(color);
     }
 
     public void playPauseRoutine(View view){

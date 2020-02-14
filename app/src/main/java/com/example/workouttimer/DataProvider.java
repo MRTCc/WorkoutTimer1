@@ -13,8 +13,6 @@ public class DataProvider {
 
     public DataProvider(Context context){
         dbManager = new DbManager(context);
-
-        //TODO: remember to close the connection to database
     }
 
     public ArrayList<Routine> getAllRoutines(){
@@ -53,7 +51,7 @@ public class DataProvider {
         return favoriteRoutineName;
     }
 
-    //TODO: DA TESTARE
+
     public Routine getCompleteRoutine(Routine routine){
         dbManager.open("read");
         Cursor cursor = dbManager.fetchExercisesFromConcreteRoutine(routine.getRoutineName());
@@ -127,7 +125,7 @@ public class DataProvider {
         return isThere;
     }
 
-    //TODO: DA TESTARE
+
     public boolean isThereRoutine(Routine routine){
         boolean isThere = false;
         dbManager.open("read");

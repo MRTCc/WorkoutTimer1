@@ -100,7 +100,6 @@ public class DbManager {
     public void updateRoutine(String oldRoutineName, String newRoutineName){
         ContentValues contentValues = new ContentValues();
         contentValues.put(dbHelper.ROUTINE_NAME, newRoutineName);
-        //TODO: verify if it is needed a control on the return value of update function
         database.update(dbHelper.ROUTINES_TABLE, contentValues, dbHelper.ROUTINE_NAME
                 + " = " + " '" + oldRoutineName + "' ", null);
     }
@@ -161,7 +160,6 @@ public class DbManager {
     }
 
     public Cursor fetchExercisesFromConcreteRoutine(String routineName){
-        //TODO: DA TESTARE
         String query = "select " + dbHelper.EXERCISE_TABLE + "." + dbHelper.EXERCISE_NAME + " , " + dbHelper.SETS_TO_DO + " , " +
                 dbHelper.REPS_TO_DO + " , " + dbHelper.PREPARATION_TIME + "," + dbHelper.WORK_TIME +
                 " , " + dbHelper.REST_TIME + " , " + dbHelper.COOL_DOWN_TIME + " , " +
