@@ -1,9 +1,11 @@
 package com.example.workouttimer;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TextViewCompat;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -66,41 +68,54 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         isPlaying = true;
         routineTick = new RoutineTick();
         dataProvider = new DataProvider(this);
-        Routine routine;
+        Routine routine = new Routine();
         //set of routine that has to be played
         Intent intent = getIntent();
         if(intent.hasExtra("playFavoriteRoutine")) {
             routine = dataProvider.getFavoriteRoutine();
-            routineTick = new RoutineTick(routine, this);
-            Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
         }
-        if(intent.hasExtra("playThisRoutine")){
+        else if(intent.hasExtra("playThisRoutine")){
             routine = dataProvider.getCompleteRoutine((Routine) intent.getExtras().getSerializable(
                     "playThisRoutine"));
             assert routine != null;
-            routineTick = new RoutineTick(routine, this);
-            Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
+           //Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
         }
-
-        btnPrev.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(getApplicationContext(), "prev ex", Toast.LENGTH_SHORT).show();
-                routineTick.tickPrevExercise();
-                return true;
-            }
-        });
-        btnNext.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(getApplicationContext(), "next ex", Toast.LENGTH_SHORT).show();
-                routineTick.tickNextExercise();
-                return true;
-            }
-        });
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-
+        //check if the routine is not empty
+        if(routine.getListExercise().size() < 1){
+            AlertDialog alertDialog = new AlertDialog.Builder(PlayWorkoutActivity.this).create();
+        alertDialog.setTitle("Empty routine");
+        alertDialog.setMessage("The routine you selected don't have exercises to be played");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+        }
+        else {
+            routineTick = new RoutineTick(routine, this);
+            btnPrev.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(getApplicationContext(), "prev ex", Toast.LENGTH_SHORT).show();
+                    routineTick.tickPrevExercise();
+                    return true;
+                }
+            });
+            btnNext.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(getApplicationContext(), "next ex", Toast.LENGTH_SHORT).show();
+                    routineTick.tickNextExercise();
+                    return true;
+                }
+            });
+            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        }
 
     }
 
@@ -112,8 +127,24 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        render();
-        execution();
+        if(routineTick.getRoutine().getListExercise().size() < 1){
+            AlertDialog alertDialog = new AlertDialog.Builder(PlayWorkoutActivity.this).create();
+            alertDialog.setTitle("Empty routine");
+            alertDialog.setMessage("The routine you selected don't have exercises to be played");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "CLOSE",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    });
+            alertDialog.setCancelable(false);
+            alertDialog.show();
+        }
+        else{
+            render();
+            execution();
+        }
     }
 
     @Override

@@ -4,14 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +39,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
     private Button btnActRepsToDo;
     private Exercise exercise;
     private Exercise entryExercise;
-    private DataInserter dataInserter;
+    private DataInsert dataInsert;
     private DataProvider dataProvider;
 
     @Override
@@ -49,7 +47,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_exercise);
         initGui();
-        dataInserter = new DataInserter(this);
+        dataInsert = new DataInsert(this);
         Intent intent = getIntent();
         if(intent.hasExtra("newExercise")){
             Toast.makeText(this,"newExercise", Toast.LENGTH_SHORT).show();
@@ -426,15 +424,15 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
                 if(activityState == NEW_EXERCISE_FUNCTION){
                     checkBtnState();
-                    dataInserter.saveNewExercise(exercise);
+                    dataInsert.saveNewExercise(exercise);
                 }
                 else if(activityState == MODIFY_EXERCISE_FUNCTION){
                     checkBtnState();
-                    dataInserter.updateExercise(exercise, entryExercise);
+                    dataInsert.updateExercise(exercise, entryExercise);
                 }
                 else if(activityState == NEW_AND_ADD_EXERCISE_FUNCTION){
                     checkBtnState();
-                    dataInserter.saveNewExercise(exercise);
+                    dataInsert.saveNewExercise(exercise);
                     Intent intent = new Intent(this, ManageRoutineActivity.class);
                     Exercise message = exercise;
                     intent.putExtra("addThisExercise", message);

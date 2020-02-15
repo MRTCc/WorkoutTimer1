@@ -10,13 +10,13 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 
-public class DataInserter {
+public class DataInsert {
 
     private DbUtils dbUtils;
     private DbManager dbManager;
     private Context context;
 
-    public DataInserter(Context context){
+    public DataInsert(Context context){
         this.context = context;
         this.dbManager = new DbManager(context);
     }
@@ -71,19 +71,25 @@ public class DataInserter {
         dbManager.close();
     }
 
+    public void updateFavoriteRoutine(String favoriteRoutineName){
+        dbManager.open("write");
+        dbManager.insertFavoriteRoutine(favoriteRoutineName);
+        dbManager.close();
+    }
+
     public void deleteRoutine(Routine routine){
         dbManager.open("write");
         String favoriteRoutineName = null;
         String routineName = routine.getRoutineName();
         Cursor cursor = dbManager.fetchFavoriteRoutine();
         dbManager.deleteRoutine(routineName);
-        if(cursor != null) {
+        if(cursor != null && (cursor.getCount() != 0)) {
             favoriteRoutineName = cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME));
         }
         assert favoriteRoutineName != null;
         if(favoriteRoutineName.contentEquals(routineName)){
             cursor = dbManager.fetchAllRoutines();
-            if(cursor != null) {
+            if(cursor != null && (cursor.getCount() != 0)) {
                 Routine routineTmp = new Routine();
                 routineTmp.setRoutineName(cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME)));
                 routineTmp.setDateOfCreation(cursor.getString(cursor.getColumnIndex(dbUtils.DATE_OF_CREATION)));

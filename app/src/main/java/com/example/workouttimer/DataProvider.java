@@ -19,15 +19,15 @@ public class DataProvider {
         ArrayList<Routine> listRoutine = new ArrayList<Routine>();
         dbManager.open("read");
         Cursor cursor = dbManager.fetchAllRoutines();
-        assert cursor != null;
-        do{
-            Routine routine = new Routine();
-            routine.setRoutineName(cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME)));
-            routine.setDateOfCreation(cursor.getString(cursor.getColumnIndex(dbUtils.DATE_OF_CREATION)));
-            routine.setnDone(cursor.getInt(cursor.getColumnIndex(dbUtils.N_DONE)));
-            listRoutine.add(routine);
-        }while(cursor.moveToNext());
-
+        if(cursor != null && (cursor.getCount() != 0)) {
+            do {
+                Routine routine = new Routine();
+                routine.setRoutineName(cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME)));
+                routine.setDateOfCreation(cursor.getString(cursor.getColumnIndex(dbUtils.DATE_OF_CREATION)));
+                routine.setnDone(cursor.getInt(cursor.getColumnIndex(dbUtils.N_DONE)));
+                listRoutine.add(routine);
+            } while (cursor.moveToNext());
+        }
         dbManager.close();
         return listRoutine;
     }
@@ -44,7 +44,7 @@ public class DataProvider {
         String favoriteRoutineName = "";
         dbManager.open("read");
         Cursor cursor = dbManager.fetchFavoriteRoutine();
-        if(cursor != null) {
+        if(cursor != null && (cursor.getCount() != 0)) {
             favoriteRoutineName = cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME));
         }
         dbManager.close();

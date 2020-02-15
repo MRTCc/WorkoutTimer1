@@ -31,7 +31,7 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerAdapterRoutines recyclerAdapter;
     private DataProvider dataProvider;
-    private DataInserter dataInserter;
+    private DataInsert dataInsert;
     private ArrayList<Routine> listRoutine;
     private String favoriteRoutineName;
     private Routine deletingRoutine;
@@ -42,12 +42,12 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manager_workout_1);
 
         dataProvider = new DataProvider(this);
-        dataInserter = new DataInserter(this);
+        dataInsert = new DataInsert(this);
         listRoutine = dataProvider.getAllRoutines();
         favoriteRoutineName = dataProvider.getFavoriteRoutineName();
         deletingRoutine = null;
         recyclerView = findViewById(R.id.rvRoutines);
-        recyclerAdapter = new RecyclerAdapterRoutines(listRoutine, favoriteRoutineName);
+        recyclerAdapter = new RecyclerAdapterRoutines(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recyclerAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
@@ -133,7 +133,7 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
                     public void run() {
                         Toast.makeText(getApplicationContext(), "delete", Toast.LENGTH_LONG).show();
                         if(deletingRoutine != null){
-                            dataInserter.deleteRoutine(deletingRoutine);
+                            dataInsert.deleteRoutine(deletingRoutine);
                         }
                     }
                 }, 5000);
@@ -152,4 +152,19 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
         }
     };
 
+    public void notifyNewFavoriteRoutine(int position){
+        recyclerAdapter.notifyItemChanged(position);
+    }
+
+    public String getFavoriteRoutineName() {
+        return favoriteRoutineName;
+    }
+
+    public ArrayList<Routine> getListRoutine() {
+        return listRoutine;
+    }
+
+    public void setFavoriteRoutineName(String favoriteRoutineName) {
+        this.favoriteRoutineName = favoriteRoutineName;
+    }
 }

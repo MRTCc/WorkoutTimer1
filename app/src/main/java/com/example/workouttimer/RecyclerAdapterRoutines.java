@@ -1,5 +1,6 @@
 package com.example.workouttimer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,13 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class RecyclerAdapterRoutines extends RecyclerView.Adapter<RecyclerAdapterRoutines.ViewHolder> {
-    ArrayList<Routine> listRoutine;
-    String favoriteRoutineName;
-    Context context;
+    private ArrayList<Routine> listRoutine;
+    private String favoriteRoutineName;
+    private Context context;
+    private ManagerWorkoutActivity managerWorkoutActivity;
 
-    public RecyclerAdapterRoutines(ArrayList<Routine> listRoutine, String favoriteRoutineName) {
-        this.listRoutine = listRoutine;
-        this.favoriteRoutineName = favoriteRoutineName;
+    public RecyclerAdapterRoutines(ManagerWorkoutActivity managerWorkoutActivity) {
+        this.managerWorkoutActivity = managerWorkoutActivity;
+        this.listRoutine = managerWorkoutActivity.getListRoutine();
+        this.favoriteRoutineName = managerWorkoutActivity.getFavoriteRoutineName();
     }
 
     @NonNull
@@ -34,13 +38,25 @@ public class RecyclerAdapterRoutines extends RecyclerView.Adapter<RecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final Routine routine = listRoutine.get(position);
-        String routineName = routine.getRoutineName();
+        final String routineName = routine.getRoutineName();
         holder.routineName.setText(routineName);
         if(routineName.contentEquals(favoriteRoutineName)){
             holder.routineName.setBackgroundColor(context.getResources().getColor(R.color.Bisque));
         }
+        holder.routineName.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(context, " new favorite routine", Toast.LENGTH_SHORT).show();
+                DataInsert dataInsert = new DataInsert(context);
+                dataInsert.updateFavoriteRoutine(routineName);
+                Intent intent = new Intent(context, ManagerWorkoutActivity.class);
+                context.startActivity(intent);
+                managerWorkoutActivity.finish();
+                return true;
+            }
+        });
         holder.playRoutine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

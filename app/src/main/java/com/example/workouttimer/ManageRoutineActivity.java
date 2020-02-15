@@ -11,7 +11,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -45,7 +44,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
     private ArrayList<Exercise> listExercises;
     private int activityState;
     private DataProvider dataProvider;
-    private DataInserter dataInserter;
+    private DataInsert dataInsert;
     private EditText eTxtRoutineName;
     private ImageButton btnAddExercise;
     private RecyclerView recyclerView;
@@ -58,7 +57,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_routine);
         dataProvider = new DataProvider(this);
-        dataInserter = new DataInserter(this);
+        dataInsert = new DataInsert(this);
         eTxtRoutineName = findViewById(R.id.eTxtRoutineName);
         btnAddExercise = findViewById(R.id.btnAddExercise);
         Intent intent = getIntent();
@@ -249,10 +248,10 @@ public class ManageRoutineActivity extends AppCompatActivity {
             case R.id.menuSaveRoutine:
                 Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
                 if(activityState == NEW_ROUTINE_FUNCTION){
-                    dataInserter.saveNewRoutine(routine);
+                    dataInsert.saveNewRoutine(routine);
                 }
                 if(activityState == MODIFY_ROUTINE_FUNCTION){
-                    dataInserter.updateRoutine(routine, entryRoutine);
+                    dataInsert.updateRoutine(routine, entryRoutine);
                 }
                 finish();
                 return(true);
