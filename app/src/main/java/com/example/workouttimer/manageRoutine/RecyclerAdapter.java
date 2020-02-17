@@ -18,7 +18,7 @@ import com.example.workouttimer.manageExercise.ManageExerciseActivity;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private Routine routine;
     private ArrayList<Exercise> listExercises;
     private Context context;
