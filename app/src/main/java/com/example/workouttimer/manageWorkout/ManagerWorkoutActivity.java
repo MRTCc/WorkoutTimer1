@@ -88,7 +88,7 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
         helpDialog.setContentView(R.layout.dialog_help_manager_workout);
         helpDialog.setTitle("Help");
 
-        Button dialogButton = (Button) helpDialog.findViewById(R.id.btnExitDialogManagerWorkout);
+        Button dialogButton = helpDialog.findViewById(R.id.btnExitDialogManagerWorkout);
 
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +100,7 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.menuNewRoutine:
                 Intent intent = new Intent(this, ManageRoutineActivity.class);
-                String message = "newRoutine";
-                intent.putExtra("newRoutine", message);
+                intent.putExtra(getResources().getString(R.string.new_routine), "");
                 startActivity(intent);
                 return(true);
             case R.id.menuHelpManagerRoutine:
@@ -114,7 +113,9 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,
             ItemTouchHelper.RIGHT) {
         @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+        public boolean onMove(@NonNull RecyclerView recyclerView,
+                              @NonNull RecyclerView.ViewHolder viewHolder,
+                              @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
 
@@ -146,8 +147,11 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+                                @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
+                                int actionState, boolean isCurrentlyActive) {
+            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState,
+                    isCurrentlyActive)
                     .addSwipeRightBackgroundColor(ContextCompat.getColor(
                             ManagerWorkoutActivity.this, R.color.IndianRed))
                     .addSwipeRightActionIcon(R.drawable.ic_delete_black_24dp)
@@ -163,9 +167,5 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
 
     public ArrayList<Routine> getListRoutine() {
         return listRoutine;
-    }
-
-    public void setFavoriteRoutineName(String favoriteRoutineName) {
-        this.favoriteRoutineName = favoriteRoutineName;
     }
 }

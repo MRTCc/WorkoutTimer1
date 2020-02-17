@@ -20,13 +20,13 @@ import com.example.workouttimer.playWorkoutPackage.PlayWorkoutActivity;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapterRoutines extends RecyclerView.Adapter<RecyclerAdapterRoutines.ViewHolder> {
+class RecyclerAdapterRoutines extends RecyclerView.Adapter<RecyclerAdapterRoutines.ViewHolder> {
     private ArrayList<Routine> listRoutine;
     private String favoriteRoutineName;
     private Context context;
     private ManagerWorkoutActivity managerWorkoutActivity;
 
-    public RecyclerAdapterRoutines(ManagerWorkoutActivity managerWorkoutActivity) {
+    RecyclerAdapterRoutines(ManagerWorkoutActivity managerWorkoutActivity) {
         this.managerWorkoutActivity = managerWorkoutActivity;
         this.listRoutine = managerWorkoutActivity.getListRoutine();
         this.favoriteRoutineName = managerWorkoutActivity.getFavoriteRoutineName();
@@ -89,7 +89,7 @@ public class RecyclerAdapterRoutines extends RecyclerView.Adapter<RecyclerAdapte
         ImageButton playRoutine, modifyRoutine;
         TextView routineName;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             playRoutine = itemView.findViewById(R.id.btnPlayRoutineManagerWorkout);
             modifyRoutine = itemView.findViewById(R.id.btnModifyRoutineManagerWorkout);

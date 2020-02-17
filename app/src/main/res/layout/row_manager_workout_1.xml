@@ -9,8 +9,13 @@
         android:id="@+id/txtRoutineNameManagerWorkout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:text="TextView"
+        android:text="prova"
+        android:textSize="20sp"
+        android:autoSizeMaxTextSize="40sp"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeTextType="uniform"
         android:layout_weight="70"
+        android:padding="10sp"
         />
 
     <ImageButton

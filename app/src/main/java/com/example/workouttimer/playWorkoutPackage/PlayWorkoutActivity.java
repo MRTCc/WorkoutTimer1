@@ -140,6 +140,7 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         isPlaying = false;
+        exec.shutdown();
         AlertDialog alertDialog =
                 new AlertDialog.Builder(PlayWorkoutActivity.this).create();
         alertDialog.setTitle("Are you sure?");

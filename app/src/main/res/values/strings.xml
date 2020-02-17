@@ -42,4 +42,5 @@
     <string name="motivation_message">You have completed the workout. Are you ready for the next one?</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="new_routine">newRoutine</string>
 </resources>
