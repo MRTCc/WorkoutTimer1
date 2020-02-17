@@ -51,7 +51,6 @@ public class DataProvider {
         return favoriteRoutineName;
     }
 
-
     public Routine getCompleteRoutine(Routine routine){
         dbManager.open("read");
         Cursor cursor = dbManager.fetchExercisesFromConcreteRoutine(routine.getRoutineName());
@@ -124,7 +123,6 @@ public class DataProvider {
         dbManager.close();
         return isThere;
     }
-
 
     public boolean isThereRoutine(Routine routine){
         boolean isThere = false;

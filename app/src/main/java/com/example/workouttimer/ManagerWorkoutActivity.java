@@ -60,11 +60,14 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
     @Override
     public void onRestart(){
         super.onRestart();
-        /*
-        finish();
-        Intent intent = new Intent(this, ManagerWorkoutActivity.class);
-        startActivity(intent);
-        */
+        listRoutine = dataProvider.getAllRoutines();
+        recyclerAdapter = new RecyclerAdapterRoutines(this);
+        recyclerView.setAdapter(recyclerAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -98,9 +101,6 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
                 return(true);
             case R.id.menuHelpManagerRoutine:
                 helpDialog.show();
-                return(true);
-            case R.id.menuDeleteManagerRoutine:
-                //TODO: implementing delete of routines functionality
                 return(true);
         }
         return(super.onOptionsItemSelected(item));
@@ -136,7 +136,7 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
                             dataInsert.deleteRoutine(deletingRoutine);
                         }
                     }
-                }, 5000);
+                }, 4000);
             }
         }
 
@@ -151,10 +151,6 @@ public class ManagerWorkoutActivity extends AppCompatActivity {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
-
-    public void notifyNewFavoriteRoutine(int position){
-        recyclerAdapter.notifyItemChanged(position);
-    }
 
     public String getFavoriteRoutineName() {
         return favoriteRoutineName;
