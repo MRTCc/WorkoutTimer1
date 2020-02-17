@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.workouttimer.entity.Exercise;
@@ -23,7 +22,6 @@ import com.example.workouttimer.manageRoutine.ManageRoutineActivity;
 import com.example.workouttimer.R;
 import com.example.workouttimer.dataAccess.DataInsert;
 import com.example.workouttimer.dataAccess.DataProvider;
-
 
 public class ManageExerciseActivity extends AppCompatActivity {
     private final static int NEW_EXERCISE_FUNCTION = 0;
@@ -37,7 +35,6 @@ public class ManageExerciseActivity extends AppCompatActivity {
     private EditText eTxtCoolDownTime;
     private EditText eTxtSetsToDo;
     private EditText eTxtRepsToDo;
-    private ImageButton btnCheckExName;
     private Button btnActPrepTime;
     private Button btnActWorkTime;
     private Button btnActRestTime;
@@ -47,7 +44,6 @@ public class ManageExerciseActivity extends AppCompatActivity {
     private Exercise exercise;
     private Exercise entryExercise;
     private DataInsert dataInsert;
-    private DataProvider dataProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +66,12 @@ public class ManageExerciseActivity extends AppCompatActivity {
         }
         else if(intent.hasExtra("modifyThisExercise")){
             Toast.makeText(this,intent.getStringExtra("modifyThisExercise"), Toast.LENGTH_SHORT).show();
-            exercise = (Exercise) intent.getExtras().getSerializable("modifyThisExercise");
-            entryExercise = new Exercise();
+            try {
+                exercise = (Exercise) intent.getExtras().getSerializable("modifyThisExercise");
+                entryExercise = new Exercise();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             if(exercise != null){
                 clone(entryExercise, exercise);
             }
@@ -96,7 +96,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 if(s.length() != 0){
                     String txt = eTxtPrepTime.getText().toString();
                     if(!("---".equals(txt))) {
-                        Integer prepTime = Integer.valueOf(eTxtPrepTime.getText().toString());
+                        int prepTime = Integer.parseInt(eTxtPrepTime.getText().toString());
                         exercise.setPreparationTime(prepTime);
                     }
                 }
@@ -117,7 +117,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 if(s.length() != 0){
                     String txt = eTxtWorkTime.getText().toString();
                     if(!("---".equals(txt))) {
-                        Integer time = Integer.valueOf(eTxtWorkTime.getText().toString());
+                        int time = Integer.parseInt(eTxtWorkTime.getText().toString());
                         exercise.setWorkTime(time);
                     }
                 }
@@ -157,7 +157,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 if(s.length() != 0){
                     String txt = eTxtCoolDownTime.getText().toString();
                     if(!("---".equals(txt))) {
-                        Integer time = Integer.valueOf(eTxtCoolDownTime.getText().toString());
+                        int time = Integer.valueOf(eTxtCoolDownTime.getText().toString());
                         exercise.setCoolDownTime(time);
                     }
                 }
@@ -177,7 +177,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 if(s.length() != 0){
                     String txt = eTxtSetsToDo.getText().toString();
                     if(!("---".equals(txt))) {
-                        Integer n = Integer.valueOf(eTxtSetsToDo.getText().toString());
+                        int n = Integer.valueOf(eTxtSetsToDo.getText().toString());
                         if(n < 1){
                             Toast.makeText(getApplicationContext(),"you can't", Toast.LENGTH_SHORT).show();
                             n = 1;
@@ -201,7 +201,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 if(s.length() != 0){
                     String txt = eTxtRepsToDo.getText().toString();
                     if(!("---".equals(txt))) {
-                        Integer n = Integer.valueOf(eTxtRepsToDo.getText().toString());
+                        int n = Integer.valueOf(eTxtRepsToDo.getText().toString());
                         exercise.setRepsToDo(n);
                     }
                 }
@@ -233,7 +233,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
             changeBtnActState(btnActPrepTime, eTxtPrepTime);
         }
         else{
-            eTxtPrepTime.setText(Integer.toString(exercise.getPreparationTime()));
+           eTxtPrepTime.setText(Integer.toString(exercise.getPreparationTime()));
         }
         if(exercise.getWorkTime() < 1){
             exercise.setWorkTime(1);
@@ -272,14 +272,14 @@ public class ManageExerciseActivity extends AppCompatActivity {
         }
     }
 
-    private void clone(Exercise exerciseDestionation, Exercise exerciseToCopy) {
-        exerciseDestionation.setExerciseName(exerciseToCopy.getExerciseName());
-        exerciseDestionation.setSetsToDo(exerciseToCopy.getSetsToDo());
-        exerciseDestionation.setRepsToDo(exerciseToCopy.getRepsToDo());
-        exerciseDestionation.setPreparationTime(exerciseToCopy.getPreparationTime());
-        exerciseDestionation.setWorkTime(exerciseToCopy.getWorkTime());
-        exerciseDestionation.setRestTime(exerciseToCopy.getRestTime());
-        exerciseDestionation.setCoolDownTime(exerciseToCopy.getCoolDownTime());
+    private void clone(Exercise exerciseDestination, Exercise exerciseToCopy) {
+        exerciseDestination.setExerciseName(exerciseToCopy.getExerciseName());
+        exerciseDestination.setSetsToDo(exerciseToCopy.getSetsToDo());
+        exerciseDestination.setRepsToDo(exerciseToCopy.getRepsToDo());
+        exerciseDestination.setPreparationTime(exerciseToCopy.getPreparationTime());
+        exerciseDestination.setWorkTime(exerciseToCopy.getWorkTime());
+        exerciseDestination.setRestTime(exerciseToCopy.getRestTime());
+        exerciseDestination.setCoolDownTime(exerciseToCopy.getCoolDownTime());
     }
 
     private void initGui(){
@@ -290,7 +290,6 @@ public class ManageExerciseActivity extends AppCompatActivity {
         eTxtCoolDownTime = findViewById(R.id.eTxtSetCoolDownTime);
         eTxtSetsToDo = findViewById(R.id.eTxtSetSetsToDo);
         eTxtRepsToDo = findViewById(R.id.eTxtSetRepsToDo);
-        btnCheckExName = findViewById(R.id.btnCheckExerciseName);
         btnActPrepTime = findViewById(R.id.btnActPrepTime);
         btnActWorkTime = findViewById(R.id.btnActWorkTime);
         btnActRestTime = findViewById(R.id.btnActRestTime);
@@ -348,7 +347,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
         jokeDialog.setContentView(R.layout.dialog_disable_sets);
         jokeDialog.setTitle(getString(R.string.joke));
         jokeDialog.show();
-        Button dialogButton = (Button) jokeDialog.findViewById(R.id.btnExitDialogJokeSet);
+        Button dialogButton = jokeDialog.findViewById(R.id.btnExitDialogJokeSet);
 
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -375,9 +374,8 @@ public class ManageExerciseActivity extends AppCompatActivity {
     }
 
     public void checkExerciseName(View view) {
-        String message = exercise.getExerciseName();
         //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        dataProvider = new DataProvider(this);
+        DataProvider dataProvider = new DataProvider(this);
         if(dataProvider.isThereExercise(exercise)){
             Toast.makeText(this, "there is another exercise", Toast.LENGTH_SHORT).show();
         }
@@ -419,7 +417,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
         final Dialog helpDialog = new Dialog(this);
         helpDialog.setContentView(R.layout.dialog_help_manage_exercise);
         helpDialog.setTitle("Help");
-        Button dialogButton = (Button) helpDialog.findViewById(R.id.btnExitDialogManageExercise);
+        Button dialogButton = helpDialog.findViewById(R.id.btnExitDialogManageExercise);
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

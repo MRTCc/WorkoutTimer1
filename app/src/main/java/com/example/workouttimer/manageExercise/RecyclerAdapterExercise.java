@@ -16,7 +16,7 @@ import com.example.workouttimer.R;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapterExercies extends RecyclerView.Adapter<RecyclerAdapterExercies.ViewHolder>{
+ class RecyclerAdapterExercise extends RecyclerView.Adapter<RecyclerAdapterExercise.ViewHolder>{
     private ArrayList<Exercise> listExercises;
     private Context context;
     private String setsToDoString;
@@ -24,7 +24,7 @@ public class RecyclerAdapterExercies extends RecyclerView.Adapter<RecyclerAdapte
     private String workTimeString;
     private String restTimeString;
 
-    public RecyclerAdapterExercies(ArrayList<Exercise> listExercises, Context context) {
+     RecyclerAdapterExercise(ArrayList<Exercise> listExercises, Context context) {
         this.listExercises = listExercises;
         this.context = context;
     }
@@ -99,7 +99,7 @@ public class RecyclerAdapterExercies extends RecyclerView.Adapter<RecyclerAdapte
         ImageButton modifyExercise;
         TextView exerciseName, exerciseData;
 
-        public ViewHolder(@NonNull View itemView) {
+         ViewHolder(@NonNull View itemView) {
             super(itemView);
             modifyExercise = itemView.findViewById(R.id.btnModifyExercise);
             exerciseName = itemView.findViewById(R.id.txtExerciseName);

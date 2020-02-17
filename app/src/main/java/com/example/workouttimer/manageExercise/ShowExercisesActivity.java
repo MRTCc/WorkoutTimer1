@@ -32,8 +32,7 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 public class ShowExercisesActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerAdapterExercies recyclerAdapter;
-    private DataProvider dataProvider;
+    private RecyclerAdapterExercise recyclerAdapter;
     private DataInsert dataInsert;
     private ArrayList<Exercise> listExercises;
     private Exercise deletingExercise;
@@ -43,11 +42,11 @@ public class ShowExercisesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_exercises);
 
-        dataProvider = new DataProvider(this);
+        DataProvider dataProvider = new DataProvider(this);
         dataInsert = new DataInsert(this);
         listExercises = dataProvider.getAllExercises();
         recyclerView = findViewById(R.id.rvShowExercises);
-        recyclerAdapter = new RecyclerAdapterExercies(listExercises, this);
+        recyclerAdapter = new RecyclerAdapterExercise(listExercises, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recyclerAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
@@ -78,7 +77,7 @@ public class ShowExercisesActivity extends AppCompatActivity {
         helpDialog.setContentView(R.layout.dialog_help_show_exercise);
         helpDialog.setTitle("Help");
 
-        Button dialogButton = (Button) helpDialog.findViewById(R.id.btnExitDialogShowExercise);
+        Button dialogButton = helpDialog.findViewById(R.id.btnExitDialogShowExercise);
 
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
