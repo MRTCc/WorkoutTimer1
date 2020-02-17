@@ -1,4 +1,4 @@
-package com.example.workouttimer;
+package com.example.workouttimer.manageRoutine;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.workouttimer.entity.Exercise;
+import com.example.workouttimer.R;
+import com.example.workouttimer.entity.Routine;
+import com.example.workouttimer.manageExercise.ManageExerciseActivity;
 
 import java.util.ArrayList;
 

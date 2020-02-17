@@ -1,6 +1,9 @@
-package com.example.workouttimer;
+package com.example.workouttimer.playWorkoutPackage;
 
 import android.widget.Toast;
+
+import com.example.workouttimer.entity.Exercise;
+import com.example.workouttimer.entity.Routine;
 
 public class RestPhase extends ExerciseState {
 

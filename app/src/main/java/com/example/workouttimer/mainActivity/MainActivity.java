@@ -1,4 +1,4 @@
-package com.example.workouttimer;
+package com.example.workouttimer.mainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.workouttimer.R;
+import com.example.workouttimer.dataAccess.DbManager;
+import com.example.workouttimer.manageExercise.ShowExercisesActivity;
+import com.example.workouttimer.manageWorkout.ManagerWorkoutActivity;
+import com.example.workouttimer.playWorkoutPackage.PlayWorkoutActivity;
 
 public class MainActivity extends AppCompatActivity {
     private final static String EXTRA_MESSAGE_PLAY = "playFavoriteRoutine";

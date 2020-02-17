@@ -10,12 +10,10 @@
     tools:layout_editor_absoluteY="1dp"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/listViewExercises"
-        android:layout_width="fill_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvShowExercises"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/White"
-        >
-    </ListView>
+        />
 
 </LinearLayout>

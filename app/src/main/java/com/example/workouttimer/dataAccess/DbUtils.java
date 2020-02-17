@@ -1,4 +1,4 @@
-package com.example.workouttimer;
+package com.example.workouttimer.dataAccess;
 
 public class DbUtils {
     //table Exercises

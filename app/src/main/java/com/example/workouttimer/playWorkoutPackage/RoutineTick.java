@@ -1,10 +1,10 @@
-package com.example.workouttimer;
+package com.example.workouttimer.playWorkoutPackage;
 
 import android.content.Context;
-import android.os.Build;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.widget.Toast;
+
+import com.example.workouttimer.entity.Exercise;
+import com.example.workouttimer.entity.Routine;
 
 public class RoutineTick {
     private Context context;

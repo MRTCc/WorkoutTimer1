@@ -1,5 +1,8 @@
 package com.example.workouttimer;
 
+import com.example.workouttimer.entity.Routine;
+import com.example.workouttimer.entity.Exercise;
+
 import org.junit.Test;
 
 import java.util.ArrayList;

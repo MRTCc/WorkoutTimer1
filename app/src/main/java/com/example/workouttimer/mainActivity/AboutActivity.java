@@ -1,8 +1,10 @@
-package com.example.workouttimer;
+package com.example.workouttimer.mainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.workouttimer.R;
 
 public class AboutActivity extends AppCompatActivity {
 

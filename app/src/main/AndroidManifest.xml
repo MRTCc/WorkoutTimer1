@@ -10,33 +10,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ManageExerciseActivity"
+        <activity android:name=".manageExercise.ManageExerciseActivity"
             android:label="Manage Exercise"
             android:screenOrientation="portrait"
             ></activity>
-        <activity android:name=".ShowExercisesActivity"
+        <activity android:name=".manageExercise.ShowExercisesActivity"
             android:label="Show Exercise"
             android:screenOrientation="portrait"
             />
-        <activity android:name=".AboutActivity"
+        <activity android:name=".mainActivity.AboutActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".ManageRoutineActivity"
+            android:name=".manageRoutine.ManageRoutineActivity"
             android:label="Manage Routine"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".ManagerWorkoutActivity"
+            android:name=".manageWorkout.ManagerWorkoutActivity"
             android:label="Workouts Manager"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".PlayWorkoutActivity"
+            android:name=".playWorkoutPackage.PlayWorkoutActivity"
             android:label="Playing workout"
             android:screenOrientation="portrait"
             />
-        <activity android:name=".MainActivity"
+        <activity android:name=".mainActivity.MainActivity"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

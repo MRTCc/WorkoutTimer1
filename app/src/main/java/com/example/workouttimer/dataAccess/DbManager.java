@@ -1,13 +1,10 @@
-package com.example.workouttimer;
+package com.example.workouttimer.dataAccess;
 
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.FontsContract;
-import android.util.Log;
 
 public class DbManager {
 

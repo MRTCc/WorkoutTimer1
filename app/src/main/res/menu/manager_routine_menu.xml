@@ -7,11 +7,7 @@
             android:title="newRoutine"
             android:icon="@android:drawable/ic_menu_add"
             app:showAsAction="ifRoom" />
-        <item
-            android:id="@+id/menuDeleteManagerRoutine"
-            android:title="help"
-            android:icon="@android:drawable/ic_menu_delete"
-            app:showAsAction="ifRoom" />
+
         <item
             android:id="@+id/menuHelpManagerRoutine"
             android:title="help"

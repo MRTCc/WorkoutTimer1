@@ -1,4 +1,4 @@
-package com.example.workouttimer;
+package com.example.workouttimer.playWorkoutPackage;
 
 abstract public class ExerciseState {
     protected RoutineTick routineTick;

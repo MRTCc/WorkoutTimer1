@@ -1,6 +1,5 @@
-package com.example.workouttimer;
+package com.example.workouttimer.manageWorkout;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,6 +11,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.workouttimer.manageRoutine.ManageRoutineActivity;
+import com.example.workouttimer.R;
+import com.example.workouttimer.dataAccess.DataInsert;
+import com.example.workouttimer.entity.Routine;
+import com.example.workouttimer.playWorkoutPackage.PlayWorkoutActivity;
 
 import java.util.ArrayList;
 

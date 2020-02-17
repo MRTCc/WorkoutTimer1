@@ -1,10 +1,12 @@
-package com.example.workouttimer;
+package com.example.workouttimer.dataAccess;
 
 import android.content.Context;
 import android.database.Cursor;
 
+import com.example.workouttimer.entity.Exercise;
+import com.example.workouttimer.entity.Routine;
+
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class DataProvider {
 

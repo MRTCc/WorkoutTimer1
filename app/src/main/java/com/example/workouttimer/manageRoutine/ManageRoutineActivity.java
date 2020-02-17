@@ -1,4 +1,4 @@
-package com.example.workouttimer;
+package com.example.workouttimer.manageRoutine;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +26,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.workouttimer.entity.Exercise;
+import com.example.workouttimer.R;
+import com.example.workouttimer.dataAccess.DataInsert;
+import com.example.workouttimer.dataAccess.DataProvider;
+import com.example.workouttimer.entity.Routine;
+import com.example.workouttimer.manageExercise.ManageExerciseActivity;
+import com.example.workouttimer.playWorkoutPackage.PlayWorkoutActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;

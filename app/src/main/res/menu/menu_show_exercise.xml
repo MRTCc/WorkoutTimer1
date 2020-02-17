@@ -8,11 +8,6 @@
         android:icon="@android:drawable/ic_menu_add"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menuDeleteShowExercise"
-        android:title="deleteExercise"
-        android:icon="@android:drawable/ic_menu_delete"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/menuHelpShowExercise"
         android:title="help"
         android:icon="@android:drawable/ic_dialog_info"

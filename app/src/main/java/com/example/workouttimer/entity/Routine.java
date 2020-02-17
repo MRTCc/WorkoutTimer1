@@ -1,4 +1,6 @@
-package com.example.workouttimer;
+package com.example.workouttimer.entity;
+
+import com.example.workouttimer.entity.Exercise;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,17 +13,7 @@ public class Routine implements Serializable{
     int totTime;
     int numberOfExercises;
     ArrayList<Exercise> listExercise;
-/*
-    public Routine(String routineName, String dateOfCreation, int nDone, int totTime, int numberOfExercises,
-                   ArrayList<Exercise> listExercises){
-        this.routineName = routineName;
-        this.dateOfCreation = dateOfCreation;
-        this.totTime = totTime;
-        this.nDone = nDone;
-        this.numberOfExercises = numberOfExercises;
-        this.listExercise = listExercises;
-    }
-    */
+
     public Routine(String routineName, String dateOfCreation, int nDone, int numberOfExercises,
                    ArrayList<Exercise> listExercises){
         this.routineName = routineName;
@@ -31,7 +23,6 @@ public class Routine implements Serializable{
         this.listExercise = listExercises;
         this.totTime = getRoutineTime();
     }
-
 
     public Routine(){
         routineName = "New Routine";

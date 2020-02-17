@@ -1,4 +1,4 @@
-package com.example.workouttimer;
+package com.example.workouttimer.playWorkoutPackage;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,10 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.workouttimer.dataAccess.DataProvider;
+import com.example.workouttimer.R;
+import com.example.workouttimer.entity.Routine;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;

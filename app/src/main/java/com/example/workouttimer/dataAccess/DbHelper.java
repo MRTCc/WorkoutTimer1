@@ -1,4 +1,4 @@
-package com.example.workouttimer;
+package com.example.workouttimer.dataAccess;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
