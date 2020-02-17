@@ -4,15 +4,14 @@ import com.example.workouttimer.entity.Exercise;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Routine implements Serializable{
-    String routineName;
-    String dateOfCreation;
-    int nDone;
-    int totTime;
-    int numberOfExercises;
-    ArrayList<Exercise> listExercise;
+    private String routineName;
+    private String dateOfCreation;
+    private int nDone;
+    private int totTime;
+    private int numberOfExercises;
+    private ArrayList<Exercise> listExercise;
 
     public Routine(String routineName, String dateOfCreation, int nDone, int numberOfExercises,
                    ArrayList<Exercise> listExercises){
@@ -35,9 +34,7 @@ public class Routine implements Serializable{
 
     public int getRoutineTime(){
         int totTime = 0;
-        Iterator<Exercise> iterator = listExercise.iterator();
-        while(iterator.hasNext()){
-            Exercise exercise = iterator.next();
+        for (Exercise exercise : listExercise) {
             totTime += exercise.getExerciseTime();
         }
         return totTime;

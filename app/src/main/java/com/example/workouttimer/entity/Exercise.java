@@ -5,14 +5,14 @@ import androidx.annotation.Nullable;
 import java.io.Serializable;
 
 public class Exercise implements Serializable {
-    String exerciseName;
-    int setsToDo;
-    int repsToDo;
-    int preparationTime;
-    int workTime;
-    int restTime;
-    int coolDownTime;
-    int position;
+    private String exerciseName;
+    private int setsToDo;
+    private int repsToDo;
+    private int preparationTime;
+    private int workTime;
+    private int restTime;
+    private int coolDownTime;
+    private int position;
 
     public Exercise(String exerciseName, int setsToDo, int repsToDo, int preparationTime,
                     int workTime, int restTime, int coolDownTime){
