@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 public class PlayWorkoutActivity extends AppCompatActivity {
 
     private Button btnPlay;
-    private Button btnLock;
     private Button btnPrev;
     private Button btnNext;
     private TextView txtCountDown;
@@ -39,7 +38,6 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     private TableLayout layout;
     private boolean isClickable;
     private boolean isPlaying;
-    private DataProvider dataProvider;
     private RoutineTick routineTick;
     ScheduledThreadPoolExecutor exec;
     private Vibrator vibrator;
@@ -50,7 +48,6 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play_workout);
 
         btnPlay = findViewById(R.id.btnPlay);
-        btnLock = findViewById(R.id.btnLock);
         btnPrev = findViewById(R.id.btnPrev);
         btnNext = findViewById(R.id.btnNext);
         txtCountDown = findViewById(R.id.txtCountDown);
@@ -59,11 +56,9 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         txtSetsToDo = findViewById(R.id.txtSetsToDo);
         txtRepsToDo = findViewById(R.id.txtRepsToDo);
         layout = findViewById(R.id.tlAllView);
-        //autosizing of the texts displayed
 
+        //auto sizing of the texts displayed
         TextViewCompat.setAutoSizeTextTypeWithDefaults(txtCountDown, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-        //TextViewCompat.setAutoSizeTextTypeWithDefaults(txtExName, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-        //TextViewCompat.setAutoSizeTextTypeWithDefaults(txtPhaseCountDown, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         TextViewCompat.setAutoSizeTextTypeWithDefaults(txtSetsToDo, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         TextViewCompat.setAutoSizeTextTypeWithDefaults(txtRepsToDo, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         txtExName.setTextSize(30);
@@ -71,41 +66,35 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         isClickable = true;
         isPlaying = true;
         routineTick = new RoutineTick();
-        dataProvider = new DataProvider(this);
+        DataProvider dataProvider = new DataProvider(this);
         Routine routine = new Routine();
         //set of routine that has to be played
         Intent intent = getIntent();
-        if(intent.hasExtra("playFavoriteRoutine")) {
+        if(intent.hasExtra(getResources().getString(R.string.play_favorite_routine))) {
             routine = dataProvider.getFavoriteRoutine();
             //Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
         }
-        else if(intent.hasExtra("playThisRoutine")){
-            routine = dataProvider.getCompleteRoutine((Routine) intent.getExtras().getSerializable(
-                    "playThisRoutine"));
-            assert routine != null;
+        else if(intent.hasExtra(getResources().getString(R.string.play_this_routine))){
+            try {
+                Routine tmp = (Routine) intent.getExtras().getSerializable(getResources().getString(R.string.play_this_routine));
+                routine = dataProvider.getCompleteRoutine(tmp);
+                assert routine != null;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
            //Toast.makeText(this, routine.getRoutineName(), Toast.LENGTH_SHORT).show();
         }
         //check if the routine is not empty
         if(routine.getListExercise().size() < 1){
-            AlertDialog alertDialog = new AlertDialog.Builder(PlayWorkoutActivity.this).create();
-        alertDialog.setTitle("Empty routine");
-        alertDialog.setMessage("The routine you selected don't have exercises to be played");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        finish();
-                    }
-                });
-        alertDialog.setCancelable(false);
-        alertDialog.show();
+            emptyRoutineDialog();
         }
         else {
             routineTick = new RoutineTick(routine, this);
             btnPrev.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    Toast.makeText(getApplicationContext(), "prev ex", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.prev_ex),
+                            Toast.LENGTH_SHORT).show();
                     routineTick.tickPrevExercise();
                     return true;
                 }
@@ -113,14 +102,14 @@ public class PlayWorkoutActivity extends AppCompatActivity {
             btnNext.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    Toast.makeText(getApplicationContext(), "next ex", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.next_ex),
+                            Toast.LENGTH_SHORT).show();
                     routineTick.tickNextExercise();
                     return true;
                 }
             });
             vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         }
-
     }
 
     @Override
@@ -132,18 +121,7 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(routineTick.getRoutine().getListExercise().size() < 1){
-            AlertDialog alertDialog = new AlertDialog.Builder(PlayWorkoutActivity.this).create();
-            alertDialog.setTitle("Empty routine");
-            alertDialog.setMessage("The routine you selected don't have exercises to be played");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "CLOSE",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            finish();
-                        }
-                    });
-            alertDialog.setCancelable(false);
-            alertDialog.show();
+            emptyRoutineDialog();
         }
         else{
             render();
@@ -159,19 +137,59 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         }
     }
 
-    public void execution(){
-        if((exec!= null && !isPlaying) || exec != null){
+    @Override
+    public void onBackPressed() {
+        isPlaying = false;
+        AlertDialog alertDialog =
+                new AlertDialog.Builder(PlayWorkoutActivity.this).create();
+        alertDialog.setTitle("Are you sure?");
+        alertDialog.setMessage("Do you really want to stop the workout and exit the activity?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "NO",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+    }
+
+    public void emptyRoutineDialog(){
+        AlertDialog alertDialog = new AlertDialog.Builder(PlayWorkoutActivity.this).create();
+        alertDialog.setTitle(getResources().getString(R.string.empty_routine));
+        alertDialog.setMessage(getResources().getString(R.string.empty_routine_message));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getString(R.string.ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+    }
+
+    private void execution(){
+        if(exec != null){
             exec.shutdown();
             exec = null;
         }
-        if(exec == null && isPlaying){
+        if(isPlaying){
             try {
             exec = new ScheduledThreadPoolExecutor(1);
             exec.scheduleAtFixedRate(new Runnable() {
                 private Runnable update = new Runnable() {
                     @Override
                     public void run() {
-                        Log.i("conto", "prova");
+                        //Log.i("conto", "prova");
                         render();
                         tick();
                     }
@@ -187,7 +205,7 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         }
     }
 
-    public void deviceVibration(boolean longVibration){
+    private void deviceVibration(boolean longVibration){
         int millis;
         if(longVibration){
             millis = 1000;
@@ -203,13 +221,15 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         }
     }
 
-    public void tick(){
+    private void tick(){
         if(routineTick.getTotCountDown() < 1){
             //routine finished
-            Toast.makeText(this, "routine finished", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.routine_finished),
+                    Toast.LENGTH_SHORT).show();
             exec.shutdown();
             exec = null;
             deviceVibration(true);
+            finishDialog();
         }
         else {
             if(routineTick.getPhaseCountDown() < 4 && routineTick.getPhaseCountDown() > 0){
@@ -219,7 +239,7 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         }
     }
 
-    public void render(){
+    private void render(){
         String backgroundColor = routineTick.getStateColor();
         setBackgroundColor(backgroundColor);
         txtCountDown.setText(routineTick.getFormatTotCountDown());
@@ -229,13 +249,37 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         txtRepsToDo.setText(routineTick.getFormatRepsToDo());
     }
 
+    private void finishDialog(){
+        AlertDialog alertDialog =
+                new AlertDialog.Builder(PlayWorkoutActivity.this).create();
+        alertDialog.setTitle(getString(R.string.motivation));
+        alertDialog.setMessage(getResources().getString(R.string.motivation_message));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getString(R.string.yes),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.no),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        alertDialog.setCancelable(true);
+        alertDialog.show();
+    }
+
     private void setBackgroundColor(String backgroundColor) {
         int color;
         if(getResources().getString(R.string.prepTimeColor).contentEquals(backgroundColor)){
             color = getResources().getColor(R.color.SpringGreen);
         }
         else if(getResources().getString(R.string.workTimeColor).contentEquals(backgroundColor)){
-            color = getResources().getColor(R.color.IndianRed);
+            color = getResources().getColor(R.color.OrangeRed);
         }
         else if(getResources().getString(R.string.restTimeColor).contentEquals(backgroundColor)){
             color = getResources().getColor(R.color.Yellow);
@@ -248,7 +292,6 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         }
         layout.setBackgroundColor(color);
         txtCountDown.setBackgroundColor(color);
-        txtExName.setBackgroundColor(color);
         txtPhaseCountDown.setBackgroundColor(color);
         txtSetsToDo.setBackgroundColor(color);
         txtRepsToDo.setBackgroundColor(color);
@@ -273,9 +316,8 @@ public class PlayWorkoutActivity extends AppCompatActivity {
 
     public void lockButtons(View view) {
         isClickable = !isClickable;
-        btnPlay.setClickable(isClickable);
-        btnPrev.setClickable(isClickable);
-        btnNext.setClickable(isClickable);
+        btnPlay.setEnabled(isClickable);
+        btnPrev.setEnabled(isClickable);
+        btnNext.setEnabled(isClickable);
     }
-
 }

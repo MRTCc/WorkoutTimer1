@@ -17,17 +17,11 @@ public class RoutineTick {
     private String stateColor;
     private ExerciseState exerciseState;
 
-    public RoutineTick(){
+    RoutineTick(){
         routine = new Routine();
     }
 
-    public RoutineTick(Routine routine) {
-        this.routine = routine;
-        exerciseState = new PreparationPhase(this);
-        exerciseState.initStateData(ExerciseState.CALL_IGNORE);
-    }
-
-    public RoutineTick(Routine routine, Context context) {
+    RoutineTick(Routine routine, Context context) {
         this.routine = routine;
         this.context = context;
         index = 0;
@@ -42,16 +36,13 @@ public class RoutineTick {
 
     }
 
-    public void tick(){
-        if(phaseCountDown < 0){
-            //nothing, the system await the user command to go on
-        }
-        else {
+     void tick(){
+        if(phaseCountDown >= 0){
             phaseCountDown--;
             totCountDown--;
             if (phaseCountDown == 0 && setsToDo < 1) {
                 //exercise finished
-                Toast.makeText(context, "exercise finished", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "exercise finished", Toast.LENGTH_SHORT).show();
                 exerciseState.tickNextExercise();
             } else if (phaseCountDown == 0) {
                 //phase finished
@@ -60,19 +51,19 @@ public class RoutineTick {
         }
     }
 
-    public void tickNextPhase(){
+     void tickNextPhase(){
         exerciseState.tickNextPhase();
     }
 
-    public void tickPrevPhase(){
+     void tickPrevPhase(){
         exerciseState.tickPrevPhase();
     }
 
-    public void tickNextExercise(){
+     void tickNextExercise(){
         exerciseState.tickNextExercise();
     }
 
-    public void tickPrevExercise(){
+     void tickPrevExercise(){
         exerciseState.tickPrevExercise();
     }
 
@@ -80,19 +71,19 @@ public class RoutineTick {
         return routine;
     }
 
-    public int getIndex() {
+     int getIndex() {
         return index;
     }
 
-    public ExerciseState getExerciseState() {
+     ExerciseState getExerciseState() {
         return exerciseState;
     }
 
-    public int getTotCountDown() {
+     int getTotCountDown() {
         return totCountDown;
     }
 
-    public int getPhaseCountDown() {
+     int getPhaseCountDown() {
         return phaseCountDown;
     }
 
@@ -100,19 +91,15 @@ public class RoutineTick {
         return setsToDo;
     }
 
-    public int getRepsToDo() {
-        return repsToDo;
-    }
-
     public Context getContext() {
         return context;
     }
 
-    public String getStateColor() {
+     String getStateColor() {
         return stateColor;
     }
 
-    public String getFormatTotCountDown() {
+     String getFormatTotCountDown() {
         Integer totCountDown = this.totCountDown;
         if(totCountDown < 1){
             return "---";
@@ -120,11 +107,11 @@ public class RoutineTick {
         return totCountDown.toString();
     }
 
-    public String getFormatCurrentExName(){
+     String getFormatCurrentExName(){
         return routine.getListExercise().get(index).getExerciseName();
     }
 
-    public String getFormatPhaseCountDown() {
+     String getFormatPhaseCountDown() {
         Integer phaseCountDown = this.phaseCountDown;
         if(phaseCountDown < 1){
             return "---";
@@ -134,7 +121,7 @@ public class RoutineTick {
         }
     }
 
-    public String getFormatSetsToDo() {
+     String getFormatSetsToDo() {
         Integer setsToDo= this.setsToDo;
         if(setsToDo < 1){
             return "---";
@@ -144,7 +131,7 @@ public class RoutineTick {
         }
     }
 
-    public String getFormatRepsToDo() {
+     String getFormatRepsToDo() {
         Integer repsToDo= this.repsToDo;
         if(repsToDo < 1){
             return "---";
@@ -154,35 +141,31 @@ public class RoutineTick {
         }
     }
 
-    public void setExerciseState(ExerciseState exerciseState) {
+     void setExerciseState(ExerciseState exerciseState) {
         this.exerciseState = exerciseState;
     }
 
-    public void setRoutine(Routine routine) {
+     void setRoutine(Routine routine) {
         this.routine = routine;
     }
 
-    public void setTotCountDown(int totCountDown) {
+     void setTotCountDown(int totCountDown) {
         this.totCountDown = totCountDown;
     }
 
-    public void setIndex(int index) {
+     void setIndex(int index) {
         this.index = index;
     }
 
-    public void setPhaseCountDown(int phaseCountDown) {
+     void setPhaseCountDown(int phaseCountDown) {
         this.phaseCountDown = phaseCountDown;
     }
 
-    public void setSetsToDo(int setsToDo) {
+     void setSetsToDo(int setsToDo) {
         this.setsToDo = setsToDo;
     }
 
-    public void setRepsToDo(int repsToDo) {
-        this.repsToDo = repsToDo;
-    }
-
-    public void setStateColor(String stateColor) {
+     void setStateColor(String stateColor) {
         this.stateColor = stateColor;
     }
 }

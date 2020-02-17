@@ -5,9 +5,9 @@ import android.widget.Toast;
 import com.example.workouttimer.entity.Exercise;
 import com.example.workouttimer.entity.Routine;
 
-public class PreparationPhase extends ExerciseState {
+class PreparationPhase extends ExerciseState {
 
-    public PreparationPhase(RoutineTick routineTick) {
+    PreparationPhase(RoutineTick routineTick) {
         super(routineTick);
     }
 
@@ -47,7 +47,7 @@ public class PreparationPhase extends ExerciseState {
             routineTick.setTotCountDown(oldTotTime + exercise.getExerciseTime());
         }
         else{
-            //something is wrong
+            throw new RuntimeException("Invalid CALL_DIRECTION");
         }
 
     }
@@ -86,7 +86,6 @@ public class PreparationPhase extends ExerciseState {
     @Override
     void tickPrevExercise() {
         int index = routineTick.getIndex();
-        Routine routine = routineTick.getRoutine();
         if(index == 0){
             Toast.makeText(routineTick.getContext(), "there are no prev ex", Toast.LENGTH_SHORT).show();
             return;

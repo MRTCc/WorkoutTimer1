@@ -1,8 +1,10 @@
 package com.example.workouttimer.manageExercise;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,7 +24,6 @@ import com.example.workouttimer.R;
 import com.example.workouttimer.dataAccess.DataInsert;
 import com.example.workouttimer.dataAccess.DataProvider;
 
-import static java.lang.String.valueOf;
 
 public class ManageExerciseActivity extends AppCompatActivity {
     private final static int NEW_EXERCISE_FUNCTION = 0;
@@ -451,5 +452,29 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 return(true);
         }
         return(super.onOptionsItemSelected(item));
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog =
+                new AlertDialog.Builder(ManageExerciseActivity.this).create();
+        alertDialog.setTitle("Are you sure?");
+        alertDialog.setMessage(getResources().getString(R.string.do_you_exit));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "NO",
+                new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.setCancelable(false);
+        alertDialog.show();
     }
 }

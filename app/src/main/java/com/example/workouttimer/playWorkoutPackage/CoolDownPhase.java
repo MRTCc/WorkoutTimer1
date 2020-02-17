@@ -5,9 +5,9 @@ import android.widget.Toast;
 import com.example.workouttimer.entity.Exercise;
 import com.example.workouttimer.entity.Routine;
 
-public class CoolDownPhase extends ExerciseState {
+class CoolDownPhase extends ExerciseState {
 
-    public CoolDownPhase(RoutineTick routineTick) {
+    CoolDownPhase(RoutineTick routineTick) {
         super(routineTick); }
 
     @Override
@@ -27,7 +27,7 @@ public class CoolDownPhase extends ExerciseState {
             routineTick.setTotCountDown(oldTotTime - oldPhaseTime);
         }
         else{
-            //something is wrong
+            throwException();
         }
     }
 
@@ -63,7 +63,6 @@ public class CoolDownPhase extends ExerciseState {
     @Override
     void tickPrevExercise() {
         int index = routineTick.getIndex();
-        Routine routine = routineTick.getRoutine();
         if(index == 0){
             Toast.makeText(routineTick.getContext(), "there are no prev ex", Toast.LENGTH_SHORT).show();
             return;

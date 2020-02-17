@@ -323,4 +323,28 @@ public class ManageRoutineActivity extends AppCompatActivity {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        androidx.appcompat.app.AlertDialog alertDialog =
+                new androidx.appcompat.app.AlertDialog.Builder(ManageRoutineActivity.this).create();
+        alertDialog.setTitle("Are you sure?");
+        alertDialog.setMessage(getResources().getString(R.string.do_you_exit));
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, "YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "NO",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+    }
 }

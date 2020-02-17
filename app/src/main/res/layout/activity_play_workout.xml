@@ -18,6 +18,29 @@
             android:weightSum="100"
             >
 
+
+            <TextView
+                android:id="@+id/txtExName"
+                android:background="@color/WhiteSmoke"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:text="Renatore con manubrio"
+                android:autoSizeMaxTextSize="30sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                app:autoSizeStepGranularity="1sp"
+                />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:weightSum="100">
+
             <Button
                 android:id="@+id/btnPlay"
                 android:layout_width="0dp"
@@ -38,6 +61,7 @@
                 android:autoSizeMaxTextSize="30sp"
                 android:autoSizeMinTextSize="10sp"
                 android:autoSizeTextType="uniform"
+                android:gravity="center"
                 app:autoSizeStepGranularity="1sp"
                 />
 
@@ -50,26 +74,6 @@
                 android:textSize="20sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:onClick="lockButtons"
-                />
-        </TableRow>
-
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:weightSum="100">
-
-            <TextView
-                android:id="@+id/txtExName"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="100"
-                android:text="Renatore con manubrio"
-                android:autoSizeMaxTextSize="30sp"
-                android:autoSizeMinTextSize="10sp"
-                android:autoSizeTextType="uniform"
-                app:autoSizeStepGranularity="1sp"
                 />
         </TableRow>
 
@@ -89,6 +93,7 @@
                 android:autoSizeMinTextSize="10sp"
                 android:autoSizeTextType="uniform"
                 android:text="100"
+                android:gravity="center"
                 app:autoSizeStepGranularity="1sp"
                 />
         </TableRow>
@@ -109,6 +114,7 @@
                 android:autoSizeMinTextSize="10sp"
                 android:autoSizeTextType="uniform"
                 app:autoSizeStepGranularity="1sp"
+                android:gravity="center"
                 android:text="20/20" />
 
             <TextView
@@ -120,6 +126,7 @@
                 android:autoSizeMinTextSize="10sp"
                 android:autoSizeTextType="uniform"
                 app:autoSizeStepGranularity="1sp"
+                android:gravity="center"
                 android:text="100" />
         </TableRow>
 

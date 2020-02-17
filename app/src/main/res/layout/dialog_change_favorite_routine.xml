@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="80"
-        android:text="@string/dialog_boby_change_favorite_routine"
+        android:text="@string/dialog_body_change_favorite_routine"
         android:autoSizeMaxTextSize="30sp"
         android:autoSizeMinTextSize="10sp"
         android:autoSizeTextType="uniform"

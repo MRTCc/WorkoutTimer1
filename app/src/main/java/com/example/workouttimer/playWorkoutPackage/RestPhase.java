@@ -5,9 +5,9 @@ import android.widget.Toast;
 import com.example.workouttimer.entity.Exercise;
 import com.example.workouttimer.entity.Routine;
 
-public class RestPhase extends ExerciseState {
+class RestPhase extends ExerciseState {
 
-    public RestPhase(RoutineTick routineTick) {
+    RestPhase(RoutineTick routineTick) {
         super(routineTick);
     }
 
@@ -33,7 +33,7 @@ public class RestPhase extends ExerciseState {
             routineTick.setTotCountDown(oldTotTime + restTime + (workTime - oldPhaseTime));
         }
         else{
-            //something is wrong
+            throwException();
         }
     }
 
@@ -68,7 +68,6 @@ public class RestPhase extends ExerciseState {
     @Override
     void tickPrevExercise() {
         int index = routineTick.getIndex();
-        Routine routine = routineTick.getRoutine();
         if(index == 0){
             Toast.makeText(routineTick.getContext(), "there are no prev ex", Toast.LENGTH_SHORT).show();
             return;
