@@ -19,11 +19,11 @@ import com.example.workouttimer.manageExercise.ManageExerciseActivity;
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    Routine routine;
-    ArrayList<Exercise> listExercises;
-    Context context;
+    private Routine routine;
+    private ArrayList<Exercise> listExercises;
+    private Context context;
 
-    public RecyclerAdapter(Routine routine) {
+     RecyclerAdapter(Routine routine) {
         this.routine = routine;
         listExercises = routine.getListExercise();
     }
@@ -51,8 +51,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ManageExerciseActivity.class);
-                Exercise message = exercise;
-                intent.putExtra("modifyThisExercise", message);
+                intent.putExtra("modifyThisExercise", exercise);
                 context.startActivity(intent);
             }
         });
@@ -67,7 +66,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         ImageButton imageButton;
         TextView exerciseName, exerciseData;
 
-        public ViewHolder(@NonNull View itemView) {
+         ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageButton = itemView.findViewById(R.id.btnModifyExercise);
             exerciseName = itemView.findViewById(R.id.txtExerciseNameManageRoutine);
