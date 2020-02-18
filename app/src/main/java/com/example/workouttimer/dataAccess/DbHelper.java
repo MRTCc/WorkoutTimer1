@@ -4,19 +4,19 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DbHelper extends SQLiteOpenHelper {
+ class DbHelper extends SQLiteOpenHelper {
     private final static String DB_NAME = "WORKOUTTIMER_DATABASE";
     private final static int DB_VERSION = 1;
 
     //table Exercises
-    protected final static String EXERCISE_TABLE = "Exercises";
-    protected final static String EXERCISE_NAME = "exerciseName";
-    protected final static String SETS_TO_DO = "setsToDo";
-    protected final static String REPS_TO_DO = "sepsToDo";
-    protected final static String PREPARATION_TIME = "preparationTime";
-    protected final static String WORK_TIME = "workTime";
-    protected final static String REST_TIME  = "restTime";
-    protected final static String COOL_DOWN_TIME = "coolDownTime";
+     final static String EXERCISE_TABLE = "Exercises";
+     final static String EXERCISE_NAME = "exerciseName";
+     final static String SETS_TO_DO = "setsToDo";
+     final static String REPS_TO_DO = "sepsToDo";
+     final static String PREPARATION_TIME = "preparationTime";
+     final static String WORK_TIME = "workTime";
+     final static String REST_TIME  = "restTime";
+     final static String COOL_DOWN_TIME = "coolDownTime";
     private final static String CONSTRAINT_SETS = "check (setsToDo >= 1)";
 
     private final static String CREATE_TABLE_EXERCISES = "CREATE TABLE " + EXERCISE_TABLE + "(" +
@@ -25,18 +25,18 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     //table Routines
-    protected final static String ROUTINES_TABLE = "Routines";
-    protected final static String ROUTINE_NAME  = "routineName";
-    protected final static String DATE_OF_CREATION = "dataOfCreation";
-    protected final static String N_DONE = "nDone";
+     final static String ROUTINES_TABLE = "Routines";
+     final static String ROUTINE_NAME  = "routineName";
+     final static String DATE_OF_CREATION = "dataOfCreation";
+     final static String N_DONE = "nDone";
 
     private final static String CREATE_TABLE_ROUTINES = "create table " + ROUTINES_TABLE + "(" +
             ROUTINE_NAME + " text primary key, " + DATE_OF_CREATION + " date, " + N_DONE + " int );";
 
 
     //table ConcreteRoutines
-    protected final static String CONCRETE_ROUTINES_TABLE = "ConcreteRoutines";
-    protected final static String POSITION = "position";
+     final static String CONCRETE_ROUTINES_TABLE = "ConcreteRoutines";
+     final static String POSITION = "position";
     private final static String CONSTRAINT_1_CONCRETE_ROUTINES = "primary key(RoutineName, ExerciseName)";
     private final static String CONSTRAINT_2_CONCRETE_ROUTINES = "foreign key(RoutineName) references Routines on delete cascade";
     private final static String CONSTRAINT_3_CONCRETE_ROUTINES = "foreign key(ExerciseName) references Exercises on delete cascade";
@@ -51,7 +51,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     //table FavoriteRoutine
-    protected final static String FAVORITE_ROUTINE_TABLE = "FavoriteRoutine";
+     final static String FAVORITE_ROUTINE_TABLE = "FavoriteRoutine";
     private final static String CONSTRAINT_1_FAVORITE_ROUTINE = "foreign key(RoutineName) references Routines on delete cascade";
     private final static String CONSTRAINT_2_FAVORITE_ROUTINE = "foreign key(RoutineName) references Routines on update cascade";
 
@@ -60,7 +60,7 @@ public class DbHelper extends SQLiteOpenHelper {
             ROUTINE_NAME + " text primary key, " + CONSTRAINT_1_FAVORITE_ROUTINE + " , " +
             CONSTRAINT_2_FAVORITE_ROUTINE + " ); ";
 
-    public DbHelper(Context context) {
+     DbHelper(Context context) {
             super(context, DB_NAME,null, DB_VERSION);
     }
 

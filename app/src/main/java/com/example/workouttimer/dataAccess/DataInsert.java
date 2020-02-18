@@ -104,17 +104,17 @@ public class DataInsert {
             Cursor cursor = dbManager.fetchFavoriteRoutine();
             dbManager.deleteRoutine(routineName);
             if (cursor != null && (cursor.getCount() != 0)) {
-                favoriteRoutineName = cursor.getString(cursor.getColumnIndex(DbUtils.ROUTINE_NAME));
+                favoriteRoutineName = cursor.getString(cursor.getColumnIndex(DbHelper.ROUTINE_NAME));
             }
             assert favoriteRoutineName != null;
             if (favoriteRoutineName.contentEquals(routineName)) {
                 cursor = dbManager.fetchAllRoutines();
                 if (cursor != null && (cursor.getCount() != 0)) {
                     Routine routineTmp = new Routine();
-                    routineTmp.setRoutineName(cursor.getString(cursor.getColumnIndex(DbUtils.ROUTINE_NAME)));
+                    routineTmp.setRoutineName(cursor.getString(cursor.getColumnIndex(DbHelper.ROUTINE_NAME)));
                     routineTmp.setDateOfCreation(cursor.getString(cursor.getColumnIndex(
-                            DbUtils.DATE_OF_CREATION)));
-                    routineTmp.setnDone(cursor.getInt(cursor.getColumnIndex(DbUtils.N_DONE)));
+                            DbHelper.DATE_OF_CREATION)));
+                    routineTmp.setnDone(cursor.getInt(cursor.getColumnIndex(DbHelper.N_DONE)));
                     dbManager.insertFavoriteRoutine(routineTmp.getRoutineName());
                 }
             }
