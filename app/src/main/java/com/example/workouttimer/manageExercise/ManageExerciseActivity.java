@@ -44,6 +44,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
     private Exercise exercise;
     private Exercise entryExercise;
     private DataInsert dataInsert;
+    private DataProvider dataProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class ManageExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_exercise);
         initGui();
         dataInsert = new DataInsert(this);
+        dataProvider = new DataProvider(this);
         Intent intent = getIntent();
         if(intent.hasExtra("newExercise")){
             Toast.makeText(this,"newExercise", Toast.LENGTH_SHORT).show();
@@ -429,11 +431,19 @@ public class ManageExerciseActivity extends AppCompatActivity {
                 Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
                 if(activityState == NEW_EXERCISE_FUNCTION){
                     checkBtnState();
-                    dataInsert.saveNewExercise(exercise);
+                    if(!dataProvider.isThereExercise(exercise)) {
+                        dataInsert.saveNewExercise(exercise);
+                        finish();
+                    }
+                    else{
+                        Toast.makeText(this, "there is another exercise",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else if(activityState == MODIFY_EXERCISE_FUNCTION){
                     checkBtnState();
                     dataInsert.updateExercise(exercise, entryExercise);
+                    finish();
                 }
                 else if(activityState == NEW_AND_ADD_EXERCISE_FUNCTION){
                     checkBtnState();
@@ -442,8 +452,8 @@ public class ManageExerciseActivity extends AppCompatActivity {
                     Exercise message = exercise;
                     intent.putExtra("addThisExercise", message);
                     startActivity(intent);
+                    finish();
                 }
-                finish();
                 return(true);
             case R.id.menuHelpManageExercise:
                 helpDialog.show();

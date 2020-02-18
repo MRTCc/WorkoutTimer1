@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.workouttimer.R;
-import com.example.workouttimer.dataAccess.DbManager;
+import com.example.workouttimer.dataAccess.DataInsert;
 import com.example.workouttimer.manageExercise.ShowExercisesActivity;
 import com.example.workouttimer.manageWorkout.ManagerWorkoutActivity;
 import com.example.workouttimer.playWorkoutPackage.PlayWorkoutActivity;
@@ -32,18 +32,13 @@ public class MainActivity extends AppCompatActivity {
         boolean firstRun = settings.getBoolean("firstRun", true); // Is it first run? If not specified, use "true"
         if (firstRun) {
             Log.w("activity", "first time");
-            DbManager dbManager = new DbManager(this);
-            dbManager.open("write");
-            dbManager.insertRoutine("new routine", "1-1-2020", 0);
-            dbManager.insertFavoriteRoutine("new routine");
-            dbManager.insertExercise("new exercise", 4, 8, 50, 60, 70,20);
-            dbManager.close();
+            DataInsert dataInsert = new DataInsert(this);
+            dataInsert.firstInsertion();
             SharedPreferences.Editor editor = settings.edit(); // Open the editor for our settings
             editor.putBoolean("firstRun", false); // It is no longer the first run
             editor.apply(); // Save all changed settings
         }
         //TODO : controllare cosa succede se il db è vuoto
-        //TODO: finestre di dialogo quando si lascia un'activity senza aver salvato
     }
 
     public void playWorkout(View view) {
@@ -64,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         helpDialog.setContentView(R.layout.dialog_main_help);
         helpDialog.setTitle("Help");
 
-        Button dialogButton = (Button) helpDialog.findViewById(R.id.btnExitDialog);
+        Button dialogButton = helpDialog.findViewById(R.id.btnExitDialog);
 
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,6 +2,7 @@ package com.example.workouttimer.dataAccess;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 
 import com.example.workouttimer.entity.Exercise;
 import com.example.workouttimer.entity.Routine;
@@ -9,8 +10,6 @@ import com.example.workouttimer.entity.Routine;
 import java.util.ArrayList;
 
 public class DataProvider {
-
-    private DbUtils dbUtils;
     private DbManager dbManager;
 
     public DataProvider(Context context){
@@ -18,19 +17,23 @@ public class DataProvider {
     }
 
     public ArrayList<Routine> getAllRoutines(){
-        ArrayList<Routine> listRoutine = new ArrayList<Routine>();
-        dbManager.open("read");
-        Cursor cursor = dbManager.fetchAllRoutines();
-        if(cursor != null && (cursor.getCount() != 0)) {
-            do {
-                Routine routine = new Routine();
-                routine.setRoutineName(cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME)));
-                routine.setDateOfCreation(cursor.getString(cursor.getColumnIndex(dbUtils.DATE_OF_CREATION)));
-                routine.setnDone(cursor.getInt(cursor.getColumnIndex(dbUtils.N_DONE)));
-                listRoutine.add(routine);
-            } while (cursor.moveToNext());
+        ArrayList<Routine> listRoutine = new ArrayList<>();
+        try {
+            dbManager.open("read");
+            Cursor cursor = dbManager.fetchAllRoutines();
+            if (cursor != null && (cursor.getCount() != 0)) {
+                do {
+                    Routine routine = new Routine();
+                    routine.setRoutineName(cursor.getString(cursor.getColumnIndex(DbUtils.ROUTINE_NAME)));
+                    routine.setDateOfCreation(cursor.getString(cursor.getColumnIndex(DbUtils.DATE_OF_CREATION)));
+                    routine.setnDone(cursor.getInt(cursor.getColumnIndex(DbUtils.N_DONE)));
+                    listRoutine.add(routine);
+                } while (cursor.moveToNext());
+            }
+            dbManager.close();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
-        dbManager.close();
         return listRoutine;
     }
 
@@ -44,96 +47,105 @@ public class DataProvider {
 
     public String getFavoriteRoutineName(){
         String favoriteRoutineName = "";
-        dbManager.open("read");
-        Cursor cursor = dbManager.fetchFavoriteRoutine();
-        if(cursor != null && (cursor.getCount() != 0)) {
-            favoriteRoutineName = cursor.getString(cursor.getColumnIndex(dbUtils.ROUTINE_NAME));
+        try {
+            dbManager.open("read");
+            Cursor cursor = dbManager.fetchFavoriteRoutine();
+            if (cursor != null && (cursor.getCount() != 0)) {
+                favoriteRoutineName = cursor.getString(cursor.getColumnIndex(DbUtils.ROUTINE_NAME));
+            }
+            dbManager.close();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
-        dbManager.close();
         return favoriteRoutineName;
     }
 
     public Routine getCompleteRoutine(Routine routine){
-        dbManager.open("read");
-        Cursor cursor = dbManager.fetchExercisesFromConcreteRoutine(routine.getRoutineName());
-        if(cursor != null && (cursor.getCount() != 0)) {
-            ArrayList<Exercise> listExercise = new ArrayList<Exercise>();
-            do{
-                Exercise exercise = new Exercise();
-                exercise.setExerciseName(cursor.getString(cursor.getColumnIndex(dbUtils.EXERCISE_NAME)));
-                exercise.setSetsToDo(cursor.getInt(cursor.getColumnIndex(dbUtils.SETS_TO_DO)));
-                exercise.setRepsToDo(cursor.getInt(cursor.getColumnIndex(dbUtils.REPS_TO_DO)));
-                exercise.setPreparationTime(cursor.getInt(cursor.getColumnIndex(dbUtils.PREPARATION_TIME)));
-                exercise.setWorkTime(cursor.getInt(cursor.getColumnIndex(dbUtils.WORK_TIME)));
-                exercise.setRestTime(cursor.getInt(cursor.getColumnIndex(dbUtils.REST_TIME)));
-                exercise.setCoolDownTime(cursor.getInt(cursor.getColumnIndex(dbUtils.COOL_DOWN_TIME)));
-                exercise.setPosition(cursor.getInt(cursor.getColumnIndex(dbUtils.POSITION)));
-                listExercise.add(exercise);
-            }while(cursor.moveToNext());
-            routine.setListExercise(listExercise);
+        try {
+            dbManager.open("read");
+            Cursor cursor = dbManager.fetchExercisesFromConcreteRoutine(routine.getRoutineName());
+            if (cursor != null && (cursor.getCount() != 0)) {
+                ArrayList<Exercise> listExercise = new ArrayList<>();
+                do {
+                    Exercise exercise = new Exercise();
+                    exercise.setExerciseName(cursor.getString(cursor.getColumnIndex(DbUtils.EXERCISE_NAME)));
+                    exercise.setSetsToDo(cursor.getInt(cursor.getColumnIndex(DbUtils.SETS_TO_DO)));
+                    exercise.setRepsToDo(cursor.getInt(cursor.getColumnIndex(DbUtils.REPS_TO_DO)));
+                    exercise.setPreparationTime(cursor.getInt(cursor.getColumnIndex(DbUtils.PREPARATION_TIME)));
+                    exercise.setWorkTime(cursor.getInt(cursor.getColumnIndex(DbUtils.WORK_TIME)));
+                    exercise.setRestTime(cursor.getInt(cursor.getColumnIndex(DbUtils.REST_TIME)));
+                    exercise.setCoolDownTime(cursor.getInt(cursor.getColumnIndex(DbUtils.COOL_DOWN_TIME)));
+                    exercise.setPosition(cursor.getInt(cursor.getColumnIndex(DbUtils.POSITION)));
+                    listExercise.add(exercise);
+                } while (cursor.moveToNext());
+                routine.setListExercise(listExercise);
+            }
+            dbManager.close();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
-        dbManager.close();
         return routine;
     }
 
     public ArrayList<Exercise> getAllExercises(){
-        ArrayList<Exercise> listExercises = new ArrayList<Exercise>();
-        dbManager.open("read");
-        Cursor cursor = dbManager.fetchAllExercises();
-        if(cursor == null || (cursor.getCount() == 0)){
-            return null;
+        ArrayList<Exercise> listExercises = new ArrayList<>();
+        try {
+            dbManager.open("read");
+            Cursor cursor = dbManager.fetchAllExercises();
+            if (cursor == null || (cursor.getCount() == 0)) {
+                return null;
+            }
+            do {
+                Exercise exercise = new Exercise();
+                exercise.setExerciseName(cursor.getString(cursor.getColumnIndex(DbUtils.EXERCISE_NAME)));
+                exercise.setSetsToDo(cursor.getInt(cursor.getColumnIndex(DbUtils.SETS_TO_DO)));
+                exercise.setRepsToDo(cursor.getInt(cursor.getColumnIndex(DbUtils.REPS_TO_DO)));
+                exercise.setPreparationTime(cursor.getInt(cursor.getColumnIndex(DbUtils.PREPARATION_TIME)));
+                exercise.setWorkTime(cursor.getInt(cursor.getColumnIndex(DbUtils.WORK_TIME)));
+                exercise.setRestTime(cursor.getInt(cursor.getColumnIndex(DbUtils.REST_TIME)));
+                exercise.setCoolDownTime(cursor.getInt(cursor.getColumnIndex(DbUtils.COOL_DOWN_TIME)));
+                listExercises.add(exercise);
+            } while (cursor.moveToNext());
+            dbManager.close();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
-         do{
-            Exercise exercise = new Exercise();
-            exercise.setExerciseName(cursor.getString(cursor.getColumnIndex(dbUtils.EXERCISE_NAME)));
-            exercise.setSetsToDo(cursor.getInt(cursor.getColumnIndex(dbUtils.SETS_TO_DO)));
-            exercise.setRepsToDo(cursor.getInt(cursor.getColumnIndex(dbUtils.REPS_TO_DO)));
-            exercise.setPreparationTime(cursor.getInt(cursor.getColumnIndex(dbUtils.PREPARATION_TIME)));
-            exercise.setWorkTime(cursor.getInt(cursor.getColumnIndex(dbUtils.WORK_TIME)));
-            exercise.setRestTime(cursor.getInt(cursor.getColumnIndex(dbUtils.REST_TIME)));
-            exercise.setCoolDownTime(cursor.getInt(cursor.getColumnIndex(dbUtils.COOL_DOWN_TIME)));
-            listExercises.add(exercise);
-        } while(cursor.moveToNext());
-        dbManager.close();
         return listExercises;
     }
 
     public Exercise getExercise(String exerciseName){
         Exercise exercise = new Exercise();
-        dbManager.open("read");
-        Cursor cursor = dbManager.fetchExercise(exerciseName);
-        if(cursor != null && (cursor.getCount() != 0)){
-            exercise.setExerciseName(cursor.getString(cursor.getColumnIndex(dbUtils.EXERCISE_NAME)));
-            exercise.setSetsToDo(cursor.getInt(cursor.getColumnIndex(dbUtils.SETS_TO_DO)));
-            exercise.setRepsToDo(cursor.getInt(cursor.getColumnIndex(dbUtils.REPS_TO_DO)));
-            exercise.setPreparationTime(cursor.getInt(cursor.getColumnIndex(dbUtils.PREPARATION_TIME)));
-            exercise.setWorkTime(cursor.getInt(cursor.getColumnIndex(dbUtils.WORK_TIME)));
-            exercise.setRestTime(cursor.getInt(cursor.getColumnIndex(dbUtils.REST_TIME)));
-            exercise.setCoolDownTime(cursor.getInt(cursor.getColumnIndex(dbUtils.COOL_DOWN_TIME)));
+        try {
+            dbManager.open("read");
+            Cursor cursor = dbManager.fetchExercise(exerciseName);
+            if (cursor != null && (cursor.getCount() != 0)) {
+                exercise.setExerciseName(cursor.getString(cursor.getColumnIndex(DbUtils.EXERCISE_NAME)));
+                exercise.setSetsToDo(cursor.getInt(cursor.getColumnIndex(DbUtils.SETS_TO_DO)));
+                exercise.setRepsToDo(cursor.getInt(cursor.getColumnIndex(DbUtils.REPS_TO_DO)));
+                exercise.setPreparationTime(cursor.getInt(cursor.getColumnIndex(DbUtils.PREPARATION_TIME)));
+                exercise.setWorkTime(cursor.getInt(cursor.getColumnIndex(DbUtils.WORK_TIME)));
+                exercise.setRestTime(cursor.getInt(cursor.getColumnIndex(DbUtils.REST_TIME)));
+                exercise.setCoolDownTime(cursor.getInt(cursor.getColumnIndex(DbUtils.COOL_DOWN_TIME)));
+            }
+            dbManager.close();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
-        dbManager.close();
         return exercise;
     }
 
     public boolean isThereExercise(Exercise exercise){
         boolean isThere = false;
-        dbManager.open("read");
-        Cursor cursor = dbManager.fetchExercise(exercise.getExerciseName());
-        if(cursor.moveToFirst()){
-            isThere = true;
+        try {
+            dbManager.open("read");
+            Cursor cursor = dbManager.fetchExercise(exercise.getExerciseName());
+            if (cursor.moveToFirst()) {
+                isThere = true;
+            }
+            dbManager.close();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
-        dbManager.close();
-        return isThere;
-    }
-
-    public boolean isThereRoutine(Routine routine){
-        boolean isThere = false;
-        dbManager.open("read");
-        Cursor cursor = dbManager.fetchRoutine(routine.getRoutineName());
-        if(cursor.moveToFirst()){
-            isThere = true;
-        }
-        dbManager.close();
         return isThere;
     }
 }
