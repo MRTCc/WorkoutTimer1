@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean("firstRun", false); // It is no longer the first run
             editor.apply(); // Save all changed settings
         }
-        //TODO : controllare cosa succede se il db è vuoto
     }
 
     public void playWorkout(View view) {

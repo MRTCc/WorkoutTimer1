@@ -7,14 +7,59 @@
     >
 
     <TextView
-        android:id="@+id/txtHelpBody"
+        android:id="@+id/txtHelpBody1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="80"
         android:text="@string/dialog_help_main"
-
+        android:layout_gravity="center"
+        android:padding="10sp"
         />
-
+    <TextView
+        android:id="@+id/txtHelpBody2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="80"
+        android:text="@string/dialog_help_main_1"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        />
+    <TextView
+        android:id="@+id/txtHelpBody3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="80"
+        android:text="@string/dialog_help_main_2"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        />
+    <TextView
+        android:id="@+id/txtHelpBody4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="80"
+        android:text="@string/dialog_help_main_3"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        />
+    <TextView
+        android:id="@+id/txtHelpBody5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="80"
+        android:text="@string/dialog_help_main_4"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        />
+    <TextView
+        android:id="@+id/txtHelpBody6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="80"
+        android:text="@string/dialog_help_main_5"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        />
     <Button
         android:id="@+id/btnExitDialog"
         android:layout_width="match_parent"

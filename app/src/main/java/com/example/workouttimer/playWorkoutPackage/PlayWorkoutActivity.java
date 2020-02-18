@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TextViewCompat;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,9 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -21,6 +25,7 @@ import android.widget.Toast;
 import com.example.workouttimer.dataAccess.DataProvider;
 import com.example.workouttimer.R;
 import com.example.workouttimer.entity.Routine;
+import com.example.workouttimer.manageRoutine.ManageRoutineActivity;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -320,5 +325,34 @@ public class PlayWorkoutActivity extends AppCompatActivity {
         btnPlay.setEnabled(isClickable);
         btnPrev.setEnabled(isClickable);
         btnNext.setEnabled(isClickable);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_play_workout, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final Dialog helpDialog = new Dialog(this);
+        helpDialog.setContentView(R.layout.dialog_play_workout);
+        helpDialog.setTitle("Help");
+        Button dialogButton = helpDialog.findViewById(R.id.btnExitDialogPlayWorkout);
+
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpDialog.dismiss();
+            }
+        });
+
+        switch(item.getItemId()) {
+            case R.id.menuHelpPlayWorkout:
+                helpDialog.show();
+                return(true);
+        }
+        return(super.onOptionsItemSelected(item));
     }
 }

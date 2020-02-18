@@ -4,35 +4,36 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txtHelpBodyShowExercise"
+        android:id="@+id/txtHelpBodyPlayWorkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dialog_body_help_show_exercise"
+        android:text="@string/dialog_body_help_play_workout"
         android:layout_gravity="center"
         android:padding="10sp"
         />
 
     <TextView
-        android:id="@+id/txtHelpBodyShowExercise1"
+        android:id="@+id/txtHelpBodyPlayWorkout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dialog_body_help_show_exercise1"
+        android:text="@string/dialog_body_help_play_workout_1"
         android:layout_gravity="center"
         android:padding="10sp"
         />
 
     <TextView
-        android:id="@+id/txtHelpBodyShowExercise2"
+        android:id="@+id/txtHelpBodyPlayWorkout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dialog_body_help_show_exercise2"
+        android:text="@string/dialog_body_help_play_workout_2"
         android:layout_gravity="center"
         android:padding="10sp"
         />
 
     <Button
-        android:id="@+id/btnExitDialogShowExercise"
+        android:id="@+id/btnExitDialogPlayWorkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnExitDialog" />
+
 </LinearLayout>

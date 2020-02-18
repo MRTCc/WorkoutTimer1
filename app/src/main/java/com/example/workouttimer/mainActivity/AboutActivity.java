@@ -3,6 +3,8 @@ package com.example.workouttimer.mainActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Layout;
+import android.widget.TextView;
 
 import com.example.workouttimer.R;
 

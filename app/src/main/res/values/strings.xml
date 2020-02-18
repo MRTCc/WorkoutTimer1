@@ -12,9 +12,70 @@
     <string name="dialog_body_change_favorite_routine">You are trying to change your favorite routine. Are you sure?</string>
     <string name="confirm">confirm</string>
     <string name="go_back">go back</string>
-    <string name="dialog_body_help_manager_workout">Help information</string>
+    <string name="dialog_body_help_manager_workout">Here, you can manage all your routines:</string>
+    <string name="dialog_body_help_manager_workout1">you
+    can create a new one (button near the information one)</string>
+    <string name="dialog_body_help_manager_workout2">you can modify already present routines
+    (button at the right of the screen)</string>
+    <string name="dialog_body_help_manager_workout3">you can play a routine (button play)</string>
+    <string name="dialog_body_help_manager_workout4">you can delete a
+    routine (swipe on the routine name from left to right).</string>
+    <string name="dialog_body_help_manager_workout5">The record highlighted is your current favorite
+    routine. You can change it: if you press and hold on the name of a routine, that routine
+    will be the new favorite routine.</string>
     <string name="btnExitDialog">OK</string>
-    <string name="dialog_help_main">many help information</string>
+    <string name="dialog_help_main">Welcome! This app will be an helpful tool for your workouts.
+    You can create your exercises and group them in routines, then you can play routines through the
+    timer and manage your time during workout. </string>
+    <string name="dialog_help_main_1"> If you press \"Play workout\", it will start your favorite
+        routine. </string>
+    <string name="dialog_help_main_2">If you press \"Manager workout\", it will start the routines explorer and you will
+    see all your routines. </string>
+    <string name="dialog_help_main_3">If you \"Show exercises\", it will start the exercises explorer that shows
+        all exercises created. </string>
+    <string name="dialog_help_main_4">Press \"About\" to discover more information about the developer of this app. </string>
+    <string name="dialog_help_main_5">In every activity you can find more specific information.</string>
+    <string name="dialog_body_help_play_workout">This is the timer that play the routine. If you have
+    pressed \"Play workout\" in the main activity, here it is played your favorite routine. In the other
+    cases you have pressed a play button somewhere in the application to play a specific routine.</string>
+    <string name="dialog_body_help_play_workout_1">Here, with a simple touch you can play/pause
+        the timer, skip to previous/next phase of the exercise. Instead, if you want to skip to
+        previous/next exercise of the routine, you have to touch and hold the buttons \"prev\" and
+        \"next\". The lock button disables the other buttons of the gui (so the timer never stop
+        for an accidental touch)</string>
+    <string name="dialog_body_help_play_workout_2">At the top, it is displayed the exercise\'s name
+        and under it the total countdown of the entire routine, in seconds. In the center, it is
+        displayed the countdown of the current exercise phase, in seconds. At the left-bottom, it is
+        displayed the number of sets to do for the current exercise. At the right-bottom, it is
+        displayed the number of repetitions to do for the current exercise.</string>
+    <string name="dialog_body_manage_routine">Here, you can manage a routine. In the bar menu, from
+    to right, the buttons perform: save changes, play the selected routine.</string>
+    <string name="dialog_body_manage_routine1">Under the menu you have the routine name and you can
+    modify the name itself, but remember: every routine must have an UNIQUE name. Next to the
+    routine name, there is the \"add\" button: you can add exercises to your routine. If you want
+        to delete an exercise from the routine, swipe on the exercise name from left to right.</string>
+    <string name="dialog_body_manage_routine2">In every row, you can see some information about every
+        exercise (name, sets to do, repetitions to do, work time, rest time). You can manage and
+    modify the single exercise touching the respective button on the right of the screen.</string>
+    <string name="dialog_body_manage_routine3">The visual order of the exercises will be the playing
+    order for the timer. You can change the order: press and hold on the name of an exercise and
+    drag and drop where you want.</string>
+    <string name="dialog_body_help_show_exercise">Here you can manage all your exercises.</string>
+    <string name="dialog_body_help_show_exercise1">In the menu there is the \"new exercise\" button.
+    The buttons at the right permit you to modify the selected exercise. If you want
+        to delete an exercise from the all app (and all routines), swipe on the exercise name from
+        left to right.</string>
+    <string name="dialog_body_help_show_exercise2">For every exercise you can see name, sets to do,
+        repetitions to do, work time, rest time. </string>
+    <string name="dialog_body_help_manage_exercise">Here, you can set all the parameters of an exercise:
+    name (remember that name must be UNIQUE), preparation time, work time, rest time, cool down time,
+    sets to do and repetitions to do.</string>
+    <string name="dialog_body_help_manage_exercise1">The structure of an exercise is:
+        preparationTime (WorkTime Rest)*(setsToDo - 1) WorkTime CoolDownTime</string>
+    <string name="dialog_body_help_manage_exercise2">In every respective field you can set the duration
+    of every phase, sets to do and reps to do. If the button on the left displays \"disable\", then
+    the timer will do the corresponding count down, otherwise the timer won\'t do the count down, but
+    it will await your command (on \"next\" button\), to go on.</string>
     <string name="newRoutineTitle">newRoutine</string>
     <string name="deleteRoutineTitle">deleteRoutine</string>
     <string name="helpMenuTitle">helpMenuTitle</string>
@@ -43,4 +104,9 @@
     <string name="yes">YES</string>
     <string name="no">NO</string>
     <string name="new_routine">newRoutine</string>
+    <string name="txt_about_activity">I am Francesco Martucci, attending computer engineering course
+        at Modena University. This app is the result of my work that I have to discuss at the
+        examination of the course "OOP and Java Language". For developing I used Android Studio.
+        The entire project is available at the following link (on Github):</string>
+    <string name="repository_link">https://github.com/MRTCc/WorkoutTimer.git</string>
 </resources>

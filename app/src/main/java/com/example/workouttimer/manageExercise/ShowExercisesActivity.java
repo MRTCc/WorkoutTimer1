@@ -1,6 +1,7 @@
 package com.example.workouttimer.manageExercise;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import com.example.workouttimer.entity.Exercise;
 import com.example.workouttimer.R;
 import com.example.workouttimer.dataAccess.DataInsert;
 import com.example.workouttimer.dataAccess.DataProvider;
+import com.example.workouttimer.manageWorkout.ManagerWorkoutActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -45,15 +48,32 @@ public class ShowExercisesActivity extends AppCompatActivity {
         DataProvider dataProvider = new DataProvider(this);
         dataInsert = new DataInsert(this);
         listExercises = dataProvider.getAllExercises();
-        recyclerView = findViewById(R.id.rvShowExercises);
-        recyclerAdapter = new RecyclerAdapterExercise(listExercises, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(recyclerAdapter);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        if(listExercises == null || listExercises.size() < 1){
+            AlertDialog alertDialog =
+                    new AlertDialog.Builder(ShowExercisesActivity.this).create();
+            alertDialog.setTitle("Ops");
+            alertDialog.setMessage("There are no exercises to be shown!");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "CLOSE",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    });
+            alertDialog.setCancelable(true);
+            alertDialog.show();
+        }
+        else {
+            recyclerView = findViewById(R.id.rvShowExercises);
+            recyclerAdapter = new RecyclerAdapterExercise(listExercises, this);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(recyclerAdapter);
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
+                    DividerItemDecoration.VERTICAL);
+            recyclerView.addItemDecoration(dividerItemDecoration);
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+            itemTouchHelper.attachToRecyclerView(recyclerView);
+        }
     }
 
     @Override

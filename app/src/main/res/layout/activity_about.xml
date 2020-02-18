@@ -7,11 +7,30 @@
     tools:context=".mainActivity.AboutActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Many information"
-        android:textSize="100sp"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtLink"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:text="@string/txt_about_activity"
+        />
+
+    <TextView
+        android:id="@+id/txtLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/repository_link"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAbout"
+        android:autoLink="web"
+        android:gravity="center"
+
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

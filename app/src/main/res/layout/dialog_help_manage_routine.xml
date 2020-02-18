@@ -7,8 +7,34 @@
         android:id="@+id/txtHelpBodyManageRoutine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dialog_body_help_manager_workout" />
-
+        android:text="@string/dialog_body_manage_routine"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        />
+    <TextView
+        android:id="@+id/txtHelpBodyManageRoutine1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_body_manage_routine1"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        />
+    <TextView
+        android:id="@+id/txtHelpBodyManageRoutine2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_body_manage_routine2"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        />
+    <TextView
+        android:id="@+id/txtHelpBodyManageRoutine3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_body_manage_routine3"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        />
 
     <Button
         android:id="@+id/btnExitDialogManageRoutine"
