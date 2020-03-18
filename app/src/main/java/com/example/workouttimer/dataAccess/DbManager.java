@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 class DbManager {
 
@@ -67,7 +68,8 @@ class DbManager {
         contentValue.put(DbHelper.ROUTINE_NAME, routineName);
         contentValue.put(DbHelper.EXERCISE_NAME, exerciseName);
         contentValue.put(DbHelper.POSITION, position);
-        database.insert(DbHelper.CONCRETE_ROUTINES_TABLE, null, contentValue);
+        long debugValue = database.insert(DbHelper.CONCRETE_ROUTINES_TABLE, null, contentValue);
+        Log.d("DbInsertion", Long.toString(debugValue));
     }
 
     /*----------- functions of deleting-------------------------*/

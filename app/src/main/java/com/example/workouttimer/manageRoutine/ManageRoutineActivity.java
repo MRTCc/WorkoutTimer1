@@ -35,6 +35,8 @@ import com.example.workouttimer.manageExercise.ManageExerciseActivity;
 import com.example.workouttimer.playWorkoutPackage.PlayWorkoutActivity;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -60,20 +62,24 @@ public class ManageRoutineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //ui and data initialization
         setContentView(R.layout.activity_manage_routine);
         dataProvider = new DataProvider(this);
         dataInsert = new DataInsert(this);
         eTxtRoutineName = findViewById(R.id.eTxtRoutineName);
         ImageButton btnAddExercise = findViewById(R.id.btnAddExercise);
+
+        //intent fetch
         Intent intent = getIntent();
         if(intent.hasExtra("newRoutine")) {
-            Toast.makeText(this, "newRoutine", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "newRoutine", Toast.LENGTH_SHORT).show();
             routine = new Routine();
             entryRoutine = new Routine();
             activityState = NEW_ROUTINE_FUNCTION;
         }
         if(intent.hasExtra("manageThisRoutine")){
-            Toast.makeText(this, intent.getStringExtra("manageThisRoutine"), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, intent.getStringExtra("manageThisRoutine"), Toast.LENGTH_SHORT).show();
             try {
                 routine = (Routine) intent.getExtras().getSerializable("manageThisRoutine");
                 routine = dataProvider.getCompleteRoutine(routine);
@@ -220,19 +226,16 @@ public class ManageRoutineActivity extends AppCompatActivity {
         eTxtRoutineName.setText(routine.getRoutineName());
     }
 
-    private Routine clone(Routine routine) {
+    private Routine clone(@NotNull Routine routine) {
         Routine cloneRoutine = new Routine();
         cloneRoutine.setRoutineName(routine.getRoutineName());
         cloneRoutine.setDateOfCreation(routine.getDateOfCreation());
         cloneRoutine.setnDone(routine.getnDone());
         cloneRoutine.setTotTime(routine.getTotTime());
         cloneRoutine.setNumberOfExercises(routine.getNumberOfExercises());
-        cloneRoutine.setListExercise(routine.getListExercise());
+        ArrayList<Exercise> newListExercise = new ArrayList<>(routine.getListExercise());
+        cloneRoutine.setListExercise(newListExercise);
         return cloneRoutine;
-    }
-
-    public void addExercise(View view) {
-
     }
 
     @Override
@@ -256,7 +259,7 @@ public class ManageRoutineActivity extends AppCompatActivity {
         });
         switch(item.getItemId()) {
             case R.id.menuSaveRoutine:
-                Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
                 if(activityState == NEW_ROUTINE_FUNCTION){
                     dataInsert.saveNewRoutine(routine);
                 }

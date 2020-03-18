@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="30"
             android:src="@android:drawable/ic_menu_add"
-            android:onClick="addExercise"
             />
     </LinearLayout>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

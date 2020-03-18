@@ -44,7 +44,7 @@ import android.database.sqlite.SQLiteOpenHelper;
     private final static String CONSTRAINT_5_CONCRETE_ROUTINES = "foreign key(ExerciseName) references Exercises on update cascade";
 
     private final static String CREATE_TABLE_CONCRETE_ROUTINES = "create table " + CONCRETE_ROUTINES_TABLE + "(" +
-            ROUTINE_NAME + " text, " + EXERCISE_NAME + " text, " + POSITION + " int unique, " +
+            ROUTINE_NAME + " text, " + EXERCISE_NAME + " text, " + POSITION + " int, " +
             CONSTRAINT_1_CONCRETE_ROUTINES + " , " +
             CONSTRAINT_2_CONCRETE_ROUTINES + " , " + CONSTRAINT_3_CONCRETE_ROUTINES + " , " +
             CONSTRAINT_4_CONCRETE_ROUTINES + " , " + CONSTRAINT_5_CONCRETE_ROUTINES + " ); ";
