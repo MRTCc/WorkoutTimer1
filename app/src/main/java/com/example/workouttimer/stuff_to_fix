@@ -1,0 +1,12 @@
+priorità 1 --> alta
+priorità 3 --> bassa
+
+17 e 18/3/2020:
+1. Lo schermo non dovrebbe andare in stand by   *** FIXED
+2. Salvataggio non corretto delle routine   *** FIXED
+3. (New feature) dovrebbe andare anche in background    (priorità 3) non sembra fattibile con
+    ScheduledThreadPoolExecutor... dovrei cambiare pesantemente PlayWorkoutActivity)
+4. Prev exercise non ha un comportamento sempre corretto:quando si vuole passare da WorkPhase alle
+    alla precedente RestPhase non funziona bene     *** FIXED
+5. Arresto anomalo di playworkout quando si vuol uscire con tasto back(del sistema android)*** FIXED
+6. quando repsToDo è disattivata bisogna mostrare R:--- e non R:-1 ***  FIXED

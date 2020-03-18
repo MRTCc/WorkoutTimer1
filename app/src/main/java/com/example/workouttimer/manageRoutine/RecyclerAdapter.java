@@ -22,6 +22,10 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private Routine routine;
     private ArrayList<Exercise> listExercises;
     private Context context;
+    private String setsToDoString;
+    private String repsToDoString;
+    private String workTimeString;
+    private String restTimeString;
 
      RecyclerAdapter(Routine routine) {
         this.routine = routine;
@@ -43,10 +47,10 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
         final Exercise exercise = listExercises.get(position);
         exercise.setPosition(position);
         holder.exerciseName.setText(exercise.getExerciseName());
-        String showData = "S: " + exercise.getSetsToDo() + "    R: " + exercise.getRepsToDo() +
-                "    W: " + exercise.getWorkTime() + "    RT: " + exercise.getRestTime();
-        holder.exerciseData.setText(showData);
-
+        setDataToShow(exercise);
+        String dataString = "S: " + setsToDoString + "    R: " + repsToDoString +
+                "    W: " + workTimeString + "    RT: " + restTimeString;
+        holder.exerciseData.setText(dataString);
         holder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +59,39 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
                 context.startActivity(intent);
             }
         });
+    }
+
+    private void setDataToShow(Exercise exercise){
+        if(exercise == null)
+            return;
+        int setsToDo = exercise.getSetsToDo();
+        int repsToDo = exercise.getRepsToDo();
+        int workTime = exercise.getWorkTime();
+        int restTime = exercise.getRestTime();
+        if(setsToDo < 1){
+            setsToDoString = "---";
+        }
+        else{
+            setsToDoString = Integer.toString(setsToDo);
+        }
+        if(repsToDo < 1){
+            repsToDoString = "---";
+        }
+        else{
+            repsToDoString = Integer.toString(repsToDo);
+        }
+        if(workTime < 1){
+            workTimeString = "---";
+        }
+        else{
+            workTimeString = Integer.toString(workTime);
+        }
+        if(restTime < 1){
+            restTimeString = "---";
+        }
+        else{
+            restTimeString = Integer.toString(restTime);
+        }
     }
 
     @Override

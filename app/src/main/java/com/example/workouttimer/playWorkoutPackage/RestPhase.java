@@ -29,6 +29,7 @@ class RestPhase extends ExerciseState {
         }
         else if(callDirection == CALL_BACKWARD){
             //Toast.makeText(routineTick.getContext(), "restTime call_backward", Toast.LENGTH_SHORT).show();
+            routineTick.setPhaseCountDown(restTime);
             routineTick.setSetsToDo(setsToDo + 1);
             routineTick.setTotCountDown(oldTotTime + restTime + (workTime - oldPhaseTime));
         }

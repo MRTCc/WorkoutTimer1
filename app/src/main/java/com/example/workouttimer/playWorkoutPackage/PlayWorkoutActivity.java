@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_workout);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         btnPlay = findViewById(R.id.btnPlay);
         btnPrev = findViewById(R.id.btnPrev);
@@ -120,6 +122,7 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        execution();
     }
 
     @Override
@@ -145,7 +148,9 @@ public class PlayWorkoutActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         isPlaying = false;
-        exec.shutdown();
+        if(exec != null) {
+            exec.shutdown();
+        }
         AlertDialog alertDialog =
                 new AlertDialog.Builder(PlayWorkoutActivity.this).create();
         alertDialog.setTitle("Are you sure?");
